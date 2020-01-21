@@ -1,0 +1,13 @@
+/node_modules
+/public/hot
+/public/storage
+/public/photos
+/public/jquery.jqplot.1.0.8r1250
+/storage/*.key
+/vendor
+.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
