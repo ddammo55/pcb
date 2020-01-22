@@ -349,6 +349,8 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
     //보드내역별 검색
     public function boardSearchList(Request $request)
     {
+
+              
        $NOW_YMD = (\Config::get('my_carbon.NOW_YMD'));
        $NOW_Y = (\Config::get('my_carbon.NOW_Y'));
        $NOW_M = (\Config::get('my_carbon.NOW_M'));
@@ -378,8 +380,20 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
          $products_count = count($products);
 
          //dd($products_count);
-
+         //export($board_names);
+         
+        
         return view('main.board_search_list', compact('board_names', 'board_name_search','start_date', 'end_date', 'products', 'products_count'));
+    }
+
+   //excel 추출
+    public function export($board_name_search)
+    {
+        //dd($board_name_search);
+        //$this->board_name_search = $board_name_search;
+        return Excel::download(new BoardsearchExport(2020,$board_name_search), 'qwer.xlsx');
+       // dd($board_name_search);
+       //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
 
     //출하내역 검색 리스트
@@ -416,14 +430,14 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
         return view('main.shipment_search_list', compact('projects', 'shipment_name_choice','start_date', 'end_date', 'products','products_count'));
     }
 
-    //excel
-    public function export()
-    {
-        return Excel::download(new BoardsearchExport(), 'qwer.xlsx');
-    }
+    // //excel
+    // public function export()
+    // {
+    //     return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
+    // }
 
     //블레이드
-    public function export_view()
+    public function export_view(Request $request)
     {
         return Excel::download(new BoardsearchExportView(), 'view.xlsx');
     }

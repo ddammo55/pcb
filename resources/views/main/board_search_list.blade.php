@@ -4,7 +4,7 @@
 
 <h1>보드명 검색 {{ $products_count }}</h1>
 
- <div> <a href="{{ route('toto') }}" class="ui teal button">Export</a></div>
+ <div> <a href="/bobo/{{ $board_name_search }}" class="ui teal button">Export</a></div>
 
 <div class="ui four column grid">
 	<div class="row">
