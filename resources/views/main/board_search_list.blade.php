@@ -4,9 +4,9 @@
 
 <h1>보드명 검색 {{ $products_count }}</h1>
 
- <div> <a href="/bobo/{{ $board_name_search }}" class="ui teal button">Export</a></div>
 
-<div class="ui four column grid">
+
+<div class="ui five column grid">
 	<div class="row">
 		<div class="column">
 			<form class="ui form" method="get" action="boardSearchList">
@@ -50,7 +50,11 @@
 				<button class="ui teal button" type="submit">검색</button>
 			</div>
 
-		</form>
+        </form>
+
+        <div class="column">
+            <div > <a href="/bobo/{{ $board_name_search }}/{{$start_date}}/{{$end_date}}" class="ui teal button">엑셀파일 다운로드</a></div>
+        </div>
 
 	</div>
 </div>
@@ -60,8 +64,6 @@
 <div class="ui divider"></div>
 
 @include('main.table', $products)
-
-
 
 
 @endsection

@@ -13,15 +13,18 @@ class BoardsearchExport implements FromQuery
     */
        use Exportable;
 
-    public function __construct(int $year, string $board_name_search)
+    public function __construct(string $board_name_search, string $start_date, string $end_date)
     {
      //dd($year,$boardname);
-      $this->year = $year;
+      //$this->year = $year;
       $this->boardname = $board_name_search;
-    }   
+      $this->start_date = $start_date;
+      $this->end_date = $end_date;
+    }
 
     public function query()
     {
-        return Product::query()->whereYear('created_at', $this->year)->where('board_name', $this->boardname);
+       // return Product::query()->whereYear('created_at', $this->year)->where('board_name', $this->boardname);
+       return Product::query()->where('board_name', $this->boardname)->where('product_date', '>=', $this->start_date)->where('product_date', '<=', $this->end_date);
     }
 }

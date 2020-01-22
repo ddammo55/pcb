@@ -85,11 +85,9 @@ Route::get('/boardSearchList','SpcsController@boardSearchList'); // 보드내역
 Route::get('/shipmentSearchList','SpcsController@shipmentSearchList')->middleware('lv2'); // 보드내역 별 검색
 
 #excel export
-Route::get('/bobo/{board_name_search?}','SpcsController@export')->middleware('lv2')->name('bobo'); //
+Route::get('/bobo/{board_name_search?}/{start_date?}/{end_date?}','SpcsController@export')->middleware('lv2')->name('bobo'); //
 
-
-
-Route::get('/toto','SpcsController@export_view')->middleware('lv2')->name('toto'); //
+//Route::get('/toto','SpcsController@export_view')->middleware('lv2')->name('toto'); //
 
 
 #|--------------------------------------------------------------------------

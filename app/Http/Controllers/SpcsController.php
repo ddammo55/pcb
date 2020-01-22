@@ -387,11 +387,11 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
     }
 
    //excel 추출
-    public function export($board_name_search)
+    public function export($board_name_search, $start_date, $end_date)
     {
-        //dd($board_name_search);
+        //dd($board_name_search.'/'.$start_date.'/'.$end_date);
         //$this->board_name_search = $board_name_search;
-        return Excel::download(new BoardsearchExport(2020,$board_name_search), 'qwer.xlsx');
+        return Excel::download(new BoardsearchExport($board_name_search, $start_date, $start_date), 'qwer.xlsx');
        // dd($board_name_search);
        //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
