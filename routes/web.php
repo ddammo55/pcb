@@ -82,11 +82,13 @@ Route::get('/serialNameSearch','ShipmentsController@serialNameSearch');  // mast
 Route::get('/monthProductList','SpcsController@monthProductList')->middleware('lv2');  // 월 생산수량
 Route::get('/monthProductListSel','SpcsController@monthProductListSel')->middleware('lv2'); //월 생산 보드 클릭 보여줄 리스트
 Route::get('/boardSearchList','SpcsController@boardSearchList'); // 보드내역 별 검색
-Route::get('/shipmentSearchList','SpcsController@shipmentSearchList')->middleware('lv2'); // 보드내역 별 검색
+Route::get('/shipmentSearchList','SpcsController@shipmentSearchList')->middleware('lv2'); // 출하내역 별 검색
 
 #excel export
 Route::get('/bobo/{board_name_search?}/{start_date?}/{end_date?}','SpcsController@export')->middleware('lv2')->name('bobo'); //
 
+
+Route::get('/toto/{shipment_name_choice?}/{start_date?}/{end_date?}','SpcsController@exportShipment')->middleware('lv2')->name('toto'); //
 //Route::get('/toto','SpcsController@export_view')->middleware('lv2')->name('toto'); //
 
 

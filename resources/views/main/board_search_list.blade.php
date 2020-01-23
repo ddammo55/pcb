@@ -63,7 +63,7 @@
 
 <div class="ui divider"></div>
 
-@include('main.table', $products)
+@include('main.board_search_list_table', $products)
 
 
 @endsection

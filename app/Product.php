@@ -66,4 +66,9 @@ class Product extends Model
 	{
 		return 'main.search';
 	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

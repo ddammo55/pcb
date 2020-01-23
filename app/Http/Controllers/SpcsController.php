@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BoardsearchExport;
-use App\Exports\BoardsearchExportView;
+use App\Exports\ShipmentSearchExport;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Project;
@@ -391,7 +391,8 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
     {
         //dd($board_name_search.'/'.$start_date.'/'.$end_date);
         //$this->board_name_search = $board_name_search;
-        return Excel::download(new BoardsearchExport($board_name_search, $start_date, $start_date), 'qwer.xlsx');
+        return Excel::download(new BoardsearchExport($board_name_search, $start_date, $end_date), 
+            $board_name_search.'_'.$start_date.'~'.$end_date.'.xlsx');
        // dd($board_name_search);
        //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
@@ -423,11 +424,23 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
         //조건으로 pba 가져오기
        // $products = \App\Product::latest()->paginate(30);
 
-         $products = \App\Product::where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+         $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
 
          $products_count = count($products);
 
         return view('main.shipment_search_list', compact('projects', 'shipment_name_choice','start_date', 'end_date', 'products','products_count'));
+    }
+
+       //excel 추출
+    public function exportShipment($shipment_name_choice, $start_date, $end_date)
+    {
+        //dd($shipment_name_choice.'/'.$start_date.'/'.$end_date);
+        //$this->board_name_search = $board_name_search;
+        return Excel::download(new ShipmentSearchExport($shipment_name_choice, $start_date, $end_date), 
+            $shipment_name_choice.'_'.$start_date.'~'.$end_date.'.xlsx');
+
+            // dd($board_name_search);
+       //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
 
     // //excel
