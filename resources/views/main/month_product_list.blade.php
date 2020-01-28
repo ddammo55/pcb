@@ -13,14 +13,14 @@
     @for($j=1;$j<=12; $j++)
 
     <form action="/monthProductList" method="GET">
-      <button class="ui secondary button month_button">{{$yearSelects[0]['y']}}년{{$j}}월 </button>
+      <button class="ui secondary button month_button">{{$j}}월 </button>
       <input type="hidden" name="month" value="{{ $j }}">
     </form>
     @endfor
   </div>
 
   <div class="five wide column">
-   
+
 
 
   </div>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="ui divider">
- 
+
 </div>
 
 @foreach($month_products_sum as $month_sum)
@@ -66,7 +66,7 @@
                           <input type="hidden" name="product_date" value="{{ $month_product->product_date }}" >
                          <button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $month_product->board_name }}</button>
                         </form>
-                        
+
                       </td>
                       <td data-label="Name">{{ $month_product->sum }}</td>
                       <td data-label="Name">{{ $month_product->product_date }}</td>
@@ -80,5 +80,5 @@
 
             </div>
     </div>
-		
+
 @endsection('content')

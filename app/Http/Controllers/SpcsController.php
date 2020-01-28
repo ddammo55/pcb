@@ -14,8 +14,8 @@ class SpcsController extends Controller
 {
     # 현재시간를 불러옴 : \Carbon\Carbon::now();
 
-	# $val = '2015-10-11 11:22:33';
-	# $dt = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
+    # $val = '2015-10-11 11:22:33';
+    # $dt = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
 
     public function __construct()
     {
@@ -30,39 +30,39 @@ class SpcsController extends Controller
         //dd(\Config::get('my_carbon.NOW_S'));
         //(\Config::get('my_carbon.FINAL_DAY'));
         //dd($fff);
-    	//현재년월일
-    	$val = \Carbon\Carbon::now();
-    	//dd($val);
-    	//현재 년월일
-    	//$nowDate = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
+        //현재년월일
+        $val = \Carbon\Carbon::now();
+        //dd($val);
+        //현재 년월일
+        //$nowDate = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
 
         //현재 월의 마지막 날
         $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
 
-    	//현재 년월일
-    	$hanNowDate = $val->format('Y년 m월 d일');
+        //현재 년월일
+        $hanNowDate = $val->format('Y년 m월 d일');
 
-    	//현재 년
-    	$nowYear = $val->format('Y');
+        //현재 년
+        $nowYear = $val->format('Y');
 
-    	//현재 월
-    	$nowMonth = $val->format('m');
+        //현재 월
+        $nowMonth = $val->format('m');
 
-    	// 년 생산수량
-        $year_count = \App\Product::where('product_date', '>=', $nowYear.'-01-01')->where('product_date', '<=' , $nowYear.'-12-31')->count();
+        // 년 생산수량
+        $year_count = \App\Product::where('product_date', '>=', $nowYear . '-01-01')->where('product_date', '<=', $nowYear . '-12-31')->count();
 
         // 월 생산수량
-        $month_count = \App\Product::where('product_date', '>=', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<=' , $nowYear.'-'.$nowMonth.'-'.$myCarbonFinalDay)->count();
+        $month_count = \App\Product::where('product_date', '>=', $nowYear . '-' . $nowMonth . '-01')->where('product_date', '<=', $nowYear . '-' . $nowMonth . '-' . $myCarbonFinalDay)->count();
 
 
         //현재까지 pba데이터 수량
         $productCount = \App\Product::where('quantity', 1)->count();
 
         //pba 한도견본 수량
-        $pbaCount = \App\Pba::where('division' , 'PBA')->count();
+        $pbaCount = \App\Pba::where('division', 'PBA')->count();
 
         //assy 한도견본 수량
-        $assyCount = \App\Pba::where('division' , 'ASSY')->count();
+        $assyCount = \App\Pba::where('division', 'ASSY')->count();
 
         //aoi 불량수량
 
@@ -70,8 +70,8 @@ class SpcsController extends Controller
         //aoi 부품수량
 
 
-    	// 월별 통계적 관리 불러오기
-    	$spc_month = \DB::select("
+        // 월별 통계적 관리 불러오기
+        $spc_month = \DB::select("
 
         SELECT
         ta.pro_month,
@@ -106,7 +106,7 @@ class SpcsController extends Controller
         ");
 
         // 년별 통계적 관리 불러오기
-    	$spc_year = \DB::select("
+        $spc_year = \DB::select("
 
         SELECT
         ta.pro_month,
@@ -179,68 +179,71 @@ class SpcsController extends Controller
             ");
 
 
-// 생산수량 어레이-------------------
+        // 생산수량 어레이-------------------
 
-// 타입은 array $spc_month
-//dd($month_works);
-$result_array = array(); //$result_array = array배열();    배열공란을 만들어준다.
+        // 타입은 array $spc_month
+        //dd($month_works);
+        $result_array = array(); //$result_array = array배열();    배열공란을 만들어준다.
 
-foreach ($spc_month as $mon) {
-    array_push($result_array,$mon->production);
-}
+        foreach ($spc_month as $mon) {
+            array_push($result_array, $mon->production);
+        }
 
-$join_arr1=join("|",$result_array);   // 2414|1250|2648|633|2085|1247|828
+        $join_arr1 = join("|", $result_array);   // 2414|1250|2648|633|2085|1247|828
 
 
-// 공수 어레이-------------------
-$result_array_works = array(); //배열공란을 만들어준다.
+        // 공수 어레이-------------------
+        $result_array_works = array(); //배열공란을 만들어준다.
 
-foreach ($month_works as $month_work) {
-    array_push($result_array_works,
-        $month_work->smt,
-        $month_work->dip,
-        $month_work->aoi,
-        $month_work->wave,
-        #$month_work->cutting,
-        $month_work->touchup,
-        $month_work->coting,
-        $month_work->ass,
-        $month_work->packing,
-        $month_work->ready,
-        $month_work->ect1,
-        $month_work->ect2);
-}
+        foreach ($month_works as $month_work) {
+            array_push(
+                $result_array_works,
+                $month_work->smt,
+                $month_work->dip,
+                $month_work->aoi,
+                $month_work->wave,
+                #$month_work->cutting,
+                $month_work->touchup,
+                $month_work->coting,
+                $month_work->ass,
+                $month_work->packing,
+                $month_work->ready,
+                $month_work->ect1,
+                $month_work->ect2
+            );
+        }
 
-$join_arr_work=join(",",$result_array_works);
-//dd($join_arr_work);
+        $join_arr_work = join(",", $result_array_works);
+        //dd($join_arr_work);
 
-// 월별 공수 합계-------------------
-$month_work_sum = \DB::select("
+        // 월별 공수 합계-------------------
+        $month_work_sum = \DB::select("
     SELECT
     SUM(smt+dip+wave+aoi+cutting+touchup+coting+ass+packing+ready+ect1+ect2) AS total
     FROM works where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
     ");
-$month_work_sum = $month_work_sum;
-$month_work_sum = ($month_work_sum[0]);
+        $month_work_sum = $month_work_sum;
+        $month_work_sum = ($month_work_sum[0]);
 
-// 월 어레이------------------------
-$result_array_month = array(); //$result_array = array배열();    배열공란을 만들어준다.
+        // 월 어레이------------------------
+        $result_array_month = array(); //$result_array = array배열();    배열공란을 만들어준다.
 
-foreach ($spc_month as $mon) {
-    array_push($result_array_month,$mon->pro_month);
-}
+        foreach ($spc_month as $mon) {
+            array_push($result_array_month, $mon->pro_month);
+        }
 
-$join_arr2=join("|",$result_array_month);   // 1|2|3|4|5|6|7
+        $join_arr2 = join("|", $result_array_month);   // 1|2|3|4|5|6|7
 
-//var_dump($join_arr2);
+        //var_dump($join_arr2);
 
-// ----------------------------
+        // ----------------------------
 
 
 
-return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMonth', 'hanNowDate', 'spc_month', 'spc_year' , 'productCount', 'pbaCount', 'assyCount','join_arr1', 'join_arr2', 'month_ppm', 'join_arr_work', 'month_work_sum'));
+        return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMonth', 'hanNowDate', 'spc_month', 'spc_year', 'productCount', 'pbaCount', 'assyCount', 'join_arr1', 'join_arr2', 'month_ppm', 'join_arr_work', 'month_work_sum'));
     }
 
+    //월별생산수량
     public function monthProductList()
     {
         $choice = (request('month'));
@@ -260,7 +263,7 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
         //현재 08월
         $nowMonth = $val->format('m');
         //dd($nowMonth);
-         //$month_products = \App\Product::where('product_date', '>', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<' , $nowYear.'-'.$nowMonth.'-31')->get();
+        //$month_products = \App\Product::where('product_date', '>', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<' , $nowYear.'-'.$nowMonth.'-31')->get();
 
         //현재 월의 마지막 날
         $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
@@ -271,86 +274,84 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
 
 
         //2월이면
-        if($choice == 2){
+        if ($choice == 2) {
 
-           $month_products = \DB::select("
+            $month_products = \DB::select("
 
                SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-28' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
                ");
 
-           $month_products_sum = \DB::select("
+            $month_products_sum = \DB::select("
                SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-28'
                ");
 
-         //보드 종류
-           $month_count = count($month_products);
+            //보드 종류
+            $month_count = count($month_products);
 
-//dd($month_products);
-        }else{
+            //dd($month_products);
+        } else {
 
 
 
-        if(isset($choice)){
+            if (isset($choice)) {
 
-         $month_products = \DB::select("
+                $month_products = \DB::select("
 
          SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-$myCarbonFinalDay' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
          ");
 
-         $month_products_sum = \DB::select("
+                $month_products_sum = \DB::select("
          SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-$myCarbonFinalDay'
          ");
 
-         //보드 종류
-         $month_count = count($month_products);
+                //보드 종류
+                $month_count = count($month_products);
+            } else {
 
-
-
-        }else{
-
-         $month_products = \DB::select("
+                $month_products = \DB::select("
 
          SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$nowMonth-01' and product_date<='$nowYear-$nowMonth-$myCarbonFinalDay' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
          ");
 
-         $month_products_sum = \DB::select("
+                $month_products_sum = \DB::select("
          SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$nowMonth-01' AND product_date<='$nowYear-$nowMonth-$myCarbonFinalDay'
          ");
 
-        
-         //보드 종류
-         $month_count = count($month_products);
+
+                //보드 종류
+                $month_count = count($month_products);
+            }
+
+            //dd($month_products_sum);
+
         }
-
-        //dd($month_products_sum);
-
-       }
 
         //년도만 뽑기
         $yearSelects = Product::selectRaw('YEAR(product_date) as y')->groupBy(\DB::raw('YEAR(product_date)'))->get();
         //dd($month_products);
-         //dd($month_products_sum);
+        //dd($month_products_sum);
         $yearSelects = $yearSelects->toArray();
         $ss = count($yearSelects);
         //$yearSelects = $yearSelects->transform();
         //dd($yearSelects);
-         //dd($month_products);
+        //dd($month_products);
         //dd($yearSelects);
-        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects','ss'));
+        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects', 'ss'));
     }
 
 
-    public function monthProductListSel(){
+    public function monthProductListSel()
+    {
         $board_name = request('board_name');
         $product_date = request('product_date');
 
-       $results = \App\Product::where('board_name',$board_name)->where('product_date', '>=', $product_date)->where('product_date', '<=', $product_date)->orderBy('board_name','desc')->get();
+        $results = \App\Product::where('board_name', $board_name)->where('product_date', '>=', $product_date)->where('product_date', '<=', $product_date)->orderBy('board_name', 'desc')->get();
 
-       //보드수량
-       $results_count = count($results);
-       //dd($results);
+        //보드수량
+        $results_count = count($results);
+        //dd($results);
 
-        return view('main.month_product_list_board',compact('board_name','product_date', 'results', 'results_count'));
+        return view('main.month_product_list_board', compact('board_name', 'product_date', 'results', 'results_count'));
     }
 
 
@@ -358,51 +359,53 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
     public function boardSearchList(Request $request)
     {
 
-              
-       $NOW_YMD = (\Config::get('my_carbon.NOW_YMD'));
-       $NOW_Y = (\Config::get('my_carbon.NOW_Y'));
-       $NOW_M = (\Config::get('my_carbon.NOW_M'));
-       $NOW_D = (\Config::get('my_carbon.NOW_D'));
-       $D1 = '01';
+
+        $NOW_YMD = (\Config::get('my_carbon.NOW_YMD'));
+        $NOW_Y = (\Config::get('my_carbon.NOW_Y'));
+        $NOW_M = (\Config::get('my_carbon.NOW_M'));
+        $NOW_D = (\Config::get('my_carbon.NOW_D'));
+        $D1 = '01';
         //현재 월의 마지막 날
-       $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
+        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
 
 
         //선택된 보드명
         $board_name_search = request('board_name_choice');
 
         //선택된 시작날짜
-        $start_date = request('start_date',$NOW_Y.'-'.$NOW_M.'-'.$D1);
+        $start_date = request('start_date', $NOW_Y . '-' . $NOW_M . '-' . $D1);
 
         //선택된 마지막날짜
-        $end_date = request('end_date',$NOW_Y.'-'.$NOW_M.'-'.$myCarbonFinalDay);
+        $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
 
         //보드명 가져오기
         $board_names = \App\Boardname::all();
 
         //조건으로 pba 가져오기
-       // $products = \App\Product::latest()->paginate(30);
+        // $products = \App\Product::latest()->paginate(30);
 
-         $products = \App\Product::where('board_name', $board_name_search)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+        $products = \App\Product::where('board_name', $board_name_search)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
 
-         $products_count = count($products);
+        $products_count = count($products);
 
-         //dd($products_count);
-         //export($board_names);
-         
-        
-        return view('main.board_search_list', compact('board_names', 'board_name_search','start_date', 'end_date', 'products', 'products_count'));
+        //dd($products_count);
+        //export($board_names);
+
+
+        return view('main.board_search_list', compact('board_names', 'board_name_search', 'start_date', 'end_date', 'products', 'products_count'));
     }
 
-   //excel 추출
+    //excel 추출
     public function export($board_name_search, $start_date, $end_date)
     {
         //dd($board_name_search.'/'.$start_date.'/'.$end_date);
         //$this->board_name_search = $board_name_search;
-        return Excel::download(new BoardsearchExport($board_name_search, $start_date, $end_date), 
-            $board_name_search.'_'.$start_date.'~'.$end_date.'.xlsx');
-       // dd($board_name_search);
-       //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
+        return Excel::download(
+            new BoardsearchExport($board_name_search, $start_date, $end_date),
+            $board_name_search . '_' . $start_date . '~' . $end_date . '.xlsx'
+        );
+        // dd($board_name_search);
+        //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
 
     //출하내역 검색 리스트
@@ -421,38 +424,40 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
         $shipment_name_choice = request('shipment_name_choice');
 
         //선택된 시작날짜
-        $start_date = request('start_date',$NOW_Y.'-'.$NOW_M.'-'.$D1);
+        $start_date = request('start_date', $NOW_Y . '-' . $NOW_M . '-' . $D1);
 
         //선택된 마지막날짜
-        $end_date = request('end_date',$NOW_Y.'-'.$NOW_M.'-'.$myCarbonFinalDay);
+        $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
 
         //프로젝트 가져오기
         $projects = \App\Project::all();
 
-       if($shipment_name_choice == null){
+        if ($shipment_name_choice == null) {
             $shipment_name_choice = "프로젝트명";
-       }
+        }
         //조건으로 pba 가져오기
-       // $products = \App\Product::latest()->paginate(30);
+        // $products = \App\Product::latest()->paginate(30);
 
-         $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+        $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
 
 
-         $products_count = count($products);
+        $products_count = count($products);
 
-        return view('main.shipment_search_list', compact('projects', 'shipment_name_choice','start_date', 'end_date', 'products','products_count'));
+        return view('main.shipment_search_list', compact('projects', 'shipment_name_choice', 'start_date', 'end_date', 'products', 'products_count'));
     }
 
-       //excel 추출
+    //excel 추출
     public function exportShipment($shipment_name_choice, $start_date, $end_date)
     {
         //dd($shipment_name_choice.'/'.$start_date.'/'.$end_date);
         //$this->board_name_search = $board_name_search;
-        return Excel::download(new ShipmentSearchExport($shipment_name_choice, $start_date, $end_date), 
-            $shipment_name_choice.'_'.$start_date.'~'.$end_date.'.xlsx');
+        return Excel::download(
+            new ShipmentSearchExport($shipment_name_choice, $start_date, $end_date),
+            $shipment_name_choice . '_' . $start_date . '~' . $end_date . '.xlsx'
+        );
 
-            // dd($board_name_search);
-       //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
+        // dd($board_name_search);
+        //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
 
     // //excel
@@ -466,6 +471,4 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
     {
         return Excel::download(new BoardsearchExportView(), 'view.xlsx');
     }
-
-
 }
