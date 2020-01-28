@@ -9,7 +9,7 @@
 
 <div class="ui grid">
 
-  <div class="eleven wide column">
+  <div class="ten wide column">
     @for($j=1;$j<=12; $j++)
 
     <form action="/monthProductList" method="GET">
@@ -19,10 +19,35 @@
     @endfor
   </div>
 
-  <div class="five wide column">
+  <div class="six wide column" style="background-color:gray">
+{{---------------------------------}}
+        <div class="row">
+            <form class="ui form" action="/monthProductList" method="GET">
+                @csrf
 
+                    <div class="column">
 
+                        <div>
+                            <div class="ui input">firstdate<input type="date" name="start_date" value="{{$start_date}}"></div>
 
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+                        <div>
+                            <div class="ui input">rastdate<input type="date" name="end_date" value="{{$end_date}}"></div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <button class="ui teal button" type="submit">검색</button>
+                        <input type="hidden" value="date_choice">
+                    </div>
+
+            </form>
+        </div>
+{{---------------------------------}}
   </div>
 
 </div>

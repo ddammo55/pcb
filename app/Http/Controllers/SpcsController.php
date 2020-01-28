@@ -246,6 +246,26 @@ class SpcsController extends Controller
     //월별생산수량
     public function monthProductList()
     {
+
+        $NOW_YMD = (\Config::get('my_carbon.NOW_YMD'));
+        $NOW_Y = (\Config::get('my_carbon.NOW_Y'));
+        $NOW_M = (\Config::get('my_carbon.NOW_M'));
+        $NOW_D = (\Config::get('my_carbon.NOW_D'));
+        $D1 = '01';
+        //현재 월의 마지막 날
+        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
+
+        //선택된 시작날짜
+        $start_date = request('start_date', $NOW_Y . '-' . $NOW_M . '-' . $D1);
+
+        //선택된 마지막날짜
+        $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
+        dd(request()->all());
+
+        if(request('date_choice')){
+            dd("있다");
+        }
+
         $choice = (request('month'));
         //현재년월일
         $val = \Carbon\Carbon::now();
@@ -336,7 +356,7 @@ class SpcsController extends Controller
         //dd($yearSelects);
         //dd($month_products);
         //dd($yearSelects);
-        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects', 'ss'));
+        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects', 'ss','start_date','end_date'));
     }
 
 
