@@ -7,19 +7,29 @@
   }
 </style>
 
-<div >
-@for($j=1;$j<=12; $j++)
+<div class="ui grid">
 
-<form action="/monthProductList" method="GET">
-      <button class="ui secondary button month_button">{{$j}}월 </button>
+  <div class="eleven wide column">
+    @for($j=1;$j<=12; $j++)
+
+    <form action="/monthProductList" method="GET">
+      <button class="ui secondary button month_button">{{$yearSelects[0]['y']}}년{{$j}}월 </button>
       <input type="hidden" name="month" value="{{ $j }}">
-</form>
-@endfor
+    </form>
+    @endfor
+  </div>
+
+  <div class="five wide column">
+   
+
+
+  </div>
 
 </div>
-<br/>
-<br/>
-<div class="ui divider"></div>
+
+<div class="ui divider">
+ 
+</div>
 
 @foreach($month_products_sum as $month_sum)
 

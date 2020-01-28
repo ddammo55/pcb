@@ -317,6 +317,7 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
          SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$nowMonth-01' AND product_date<='$nowYear-$nowMonth-$myCarbonFinalDay'
          ");
 
+        
          //보드 종류
          $month_count = count($month_products);
         }
@@ -325,10 +326,17 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
 
        }
 
-
+        //년도만 뽑기
+        $yearSelects = Product::selectRaw('YEAR(product_date) as y')->groupBy(\DB::raw('YEAR(product_date)'))->get();
+        //dd($month_products);
+         //dd($month_products_sum);
+        $yearSelects = $yearSelects->toArray();
+        $ss = count($yearSelects);
+        //$yearSelects = $yearSelects->transform();
+        //dd($yearSelects);
          //dd($month_products);
-
-        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum'));
+        //dd($yearSelects);
+        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects','ss'));
     }
 
 
@@ -421,10 +429,14 @@ return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMo
         //프로젝트 가져오기
         $projects = \App\Project::all();
 
+       if($shipment_name_choice == null){
+            $shipment_name_choice = "프로젝트명";
+       }
         //조건으로 pba 가져오기
        // $products = \App\Product::latest()->paginate(30);
 
          $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+
 
          $products_count = count($products);
 

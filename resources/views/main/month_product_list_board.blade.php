@@ -29,8 +29,21 @@
                   	@foreach($results as $result )
                     <tr>
                       <td data-label="Name">{{ $i++ }}</td>
-                      <td data-label="Name">{{ $result->serial_name }}</td>
-                      <td data-label="Name">{{ $result->board_name }}</td>
+
+                      <td data-label="Name">
+                        <form action="/serialNameSearch" method="GET">
+                          <input type="hidden" name="serial_name" value="{{ $result->serial_name }}">
+                          <button button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $result->serial_name }}</button>
+                        </form>
+                      </td>
+
+                      <td data-label="Name">
+                        <form action="/pbas/" method="GET">
+                          <input type="hidden" name="board_name" value="{{ $result->board_name }}" >
+                          <button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $result->board_name }}</button>
+                        </form>
+                      </td>
+                      
                       <td data-label="Name">{{ $result->product_date }}</td>
                       <td data-label="Name">{{ $result->shipment }}</td>
                       <td data-label="Name">{{ $result->shipment_daily }}</td>
