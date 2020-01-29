@@ -19,52 +19,55 @@
     @endfor
   </div>
 
-  <div class="six wide column" style="background-color:gray">
-{{---------------------------------}}
-        <div class="row">
-            <form class="ui form" action="/monthProductList" method="GET">
-                @csrf
+    <div class="six wide column">
 
-                    <div class="column">
+        <form class="ui form" action="/monthProductList" method="GET">
+        @csrf
 
-                        <div>
-                            <div class="ui input">firstdate<input type="date" name="start_date" value="{{$start_date}}"></div>
+                <div class="ui input"><input type="date" name="start_date" value="{{$start_date}}"></div>
 
-                        </div>
+                <div class="ui input"><input type="date" name="end_date" value="{{$end_date}}"></div>
 
-                    </div>
 
-                    <div class="column">
-                        <div>
-                            <div class="ui input">rastdate<input type="date" name="end_date" value="{{$end_date}}"></div>
-                        </div>
-                    </div>
 
-                    <div class="field">
-                        <button class="ui teal button" type="submit" value="date_choice">검색</button>
-                        <input type="hidden" value="date_choice">
-                    </div>
+                    <input type="hidden" name="date_choice" value="date_choice">
+                    {{--  <input type="submit" type="button" value="검색">  --}}
+                    <button class="ui teal button" type="submit" value="date_choice">검색</button>
 
-            </form>
-        </div>
-{{---------------------------------}}
-  </div>
+
+
+    </form>
+    </div>
+
+
+
 
 </div>
+
+
+
+
+
+
+
+
 
 <div class="ui divider">
 
 </div>
-{{$start_date}}{{$end_date}}
+
 @foreach($month_products_sum as $month_sum)
 
 
 
 @if(isset($choice))
     <h1>{{ $choice }}월 생산수량 / {{ $month_count }} 종 / {{ $month_sum->products_sum}} 장</h1>
+@elseif(isset($date_choice))
+        <h1>{{$start_date}}~{{$end_date}} 생산수량 / {{ $month_count }} 종 / {{ $month_sum->products_sum}} 장</h1>
 @else
 		<h1>{{ $nowMonth }}월 생산수량 / {{ $month_count }} 종 / {{ $month_sum->products_sum}}장</h1>
 @endif
+
 @endforeach
 		<?php
 		$i=1;

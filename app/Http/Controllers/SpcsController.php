@@ -262,11 +262,8 @@ class SpcsController extends Controller
         $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
         //dd(request()->all());
 
-        if(isset(request($start_date))){
-            dd("있다");
-        }else{
-            dd("없다");
-        }
+
+
 
         $choice = (request('month'));
         //현재년월일
@@ -287,78 +284,76 @@ class SpcsController extends Controller
         //dd($nowMonth);
         //$month_products = \App\Product::where('product_date', '>', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<' , $nowYear.'-'.$nowMonth.'-31')->get();
 
-        //현재 월의 마지막 날
-        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
-        //$FINAL_DAY = date("t", mktime(0, 0, 0,  $nowMonth, 1,  $nowYear));
-        //dd($myCarbonFinalDay );
+        //선택 월의 마지막 날
+        $FINAL_DAY = date("t", mktime(0, 0, 0,  $choice, 1, $nowYear));
 
-        //dd($FINAL_DAY);
+        $date_choice = request('date_choice');
 
-
-        //2월이면
-        if ($choice == 2) {
+        if(request('date_choice')){
 
             $month_products = \DB::select("
 
-               SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-28' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
-               ");
+            SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$start_date' and product_date<='$end_date' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
+            ");
+
+               $month_products_sum = \DB::select("
+            SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$start_date' AND product_date<='$end_date'
+            ");
+
+            $month_count = count($month_products);
+        }else{
+
+
+
+
+        //월 선택이 있으면 해당월을 보여주고 월 선택이 없으면 현재월을 보여준다.
+        if (isset($choice)) {
+
+            $month_products = \DB::select("
+
+         SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-$FINAL_DAY' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
+         ");
 
             $month_products_sum = \DB::select("
-               SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-28'
-               ");
+         SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-$FINAL_DAY'
+         ");
 
             //보드 종류
             $month_count = count($month_products);
-
-            //dd($month_products);
         } else {
 
+            $month_products = \DB::select("
 
-
-            if (isset($choice)) {
-
-                $month_products = \DB::select("
-
-         SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-$myCarbonFinalDay' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
+         SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$nowMonth-01' and product_date<='$nowYear-$nowMonth-$FINAL_DAY' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
          ");
 
-                $month_products_sum = \DB::select("
-         SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-$myCarbonFinalDay'
-         ");
-
-                //보드 종류
-                $month_count = count($month_products);
-            } else {
-
-                $month_products = \DB::select("
-
-         SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$nowMonth-01' and product_date<='$nowYear-$nowMonth-$myCarbonFinalDay' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
-         ");
-
-                $month_products_sum = \DB::select("
-         SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$nowMonth-01' AND product_date<='$nowYear-$nowMonth-$myCarbonFinalDay'
+            $month_products_sum = \DB::select("
+         SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$nowMonth-01' AND product_date<='$nowYear-$nowMonth-$FINAL_DAY'
          ");
 
 
-                //보드 종류
-                $month_count = count($month_products);
-            }
-
-            //dd($month_products_sum);
-
+            //보드 종류
+            $month_count = count($month_products);
         }
 
+    }
+
+        //dd($month_products_sum);
+
+        // }
+
         //년도만 뽑기
-        $yearSelects = Product::selectRaw('YEAR(product_date) as y')->groupBy(\DB::raw('YEAR(product_date)'))->get();
+        //$yearSelects = Product::selectRaw('YEAR(product_date) as y')->groupBy(\DB::raw('YEAR(product_date)'))->get();
+
         //dd($month_products);
         //dd($month_products_sum);
-        $yearSelects = $yearSelects->toArray();
-        $ss = count($yearSelects);
+        //$yearSelects = $yearSelects->toArray();
+        //$ss = count($yearSelects);
         //$yearSelects = $yearSelects->transform();
         //dd($yearSelects);
         //dd($month_products);
         //dd($yearSelects);
-        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'yearSelects', 'ss','start_date','end_date'));
+        return view('main.month_product_list', compact('month_products', 'nowMonth', 'choice', 'month_count', 'month_products_sum', 'start_date', 'end_date', 'date_choice'));
     }
 
 
@@ -417,7 +412,7 @@ class SpcsController extends Controller
         return view('main.board_search_list', compact('board_names', 'board_name_search', 'start_date', 'end_date', 'products', 'products_count'));
     }
 
-    //excel 추출
+    //보드명excel 추출
     public function export($board_name_search, $start_date, $end_date)
     {
         //dd($board_name_search.'/'.$start_date.'/'.$end_date);
@@ -468,7 +463,7 @@ class SpcsController extends Controller
         return view('main.shipment_search_list', compact('projects', 'shipment_name_choice', 'start_date', 'end_date', 'products', 'products_count'));
     }
 
-    //excel 추출
+    //출하내역excel 추출
     public function exportShipment($shipment_name_choice, $start_date, $end_date)
     {
         //dd($shipment_name_choice.'/'.$start_date.'/'.$end_date);
@@ -482,15 +477,4 @@ class SpcsController extends Controller
         //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
 
-    // //excel
-    // public function export()
-    // {
-    //     return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
-    // }
-
-    //블레이드
-    public function export_view(Request $request)
-    {
-        return Excel::download(new BoardsearchExportView(), 'view.xlsx');
-    }
 }

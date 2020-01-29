@@ -34,7 +34,7 @@
        <div class="field">
         <button class="ui teal button" type="submit">시리얼번호 작성</button>
       </div>
-    </form>  
+    </form>
 
     <div class="ui divider"></div>
 
@@ -42,7 +42,7 @@
     <form class="ui form" method="POST" action="/product">
       @csrf
       <div class="field">
-       <input class="input {{ $errors->has('serial_start_no') ? 'is-danger' : '' }}" type="text" name="serial_start_no" value="{{ 
+       <input class="input {{ $errors->has('serial_start_no') ? 'is-danger' : '' }}" type="text" name="serial_start_no" value="{{
        $final_serial_name }}" placeholder="시작번호">
      </div>
 
@@ -73,13 +73,13 @@
  @if($errors->any())
  <div class="ui pink inverted segment">
 
-  <ul>	
+  <ul>
    @foreach ($errors->all() as $error)
    <li>{{$error}}</li>
    @endforeach
  </ul>
-</div>	
-@endif	
+</div>
+@endif
 
 <div class="ui tablet stackable steps"">
   @for ($i = 1; $i < 13; $i++)
@@ -144,11 +144,19 @@
             <p class="ui center aligned">
              {{ $product->id }}
            </td>
-           <td class="ui center aligned"> 	
-            {{ $product->serial_name }}
+           <td class="ui center aligned">
+
+            <form action="/serialNameSearch" method="GET">
+                <input type="hidden" name="serial_name" value="{{ $product->serial_name }}" >
+                <button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $product->serial_name }}</button>
+            </form>
+
           </td>
           <td class="ui center aligned">
-           {{ $product->board_name }}
+          <form action="/pbas/" method="GET">
+            <input type="hidden" name="board_name" value="{{ $product->board_name }}" >
+            <button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $product->board_name }}</button>
+          </form>
          </td>
          <td class="ui center aligned">
           {{ $product->product_date }}
