@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="field">
-                        <button class="ui teal button" type="submit">검색</button>
+                        <button class="ui teal button" type="submit" value="date_choice">검색</button>
                         <input type="hidden" value="date_choice">
                     </div>
 
@@ -55,7 +55,7 @@
 <div class="ui divider">
 
 </div>
-
+{{$start_date}}{{$end_date}}
 @foreach($month_products_sum as $month_sum)
 
 

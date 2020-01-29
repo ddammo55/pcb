@@ -260,10 +260,12 @@ class SpcsController extends Controller
 
         //선택된 마지막날짜
         $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
-        dd(request()->all());
+        //dd(request()->all());
 
-        if(request('date_choice')){
+        if(isset(request($start_date))){
             dd("있다");
+        }else{
+            dd("없다");
         }
 
         $choice = (request('month'));
