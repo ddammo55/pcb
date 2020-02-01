@@ -34,7 +34,7 @@
  <!-- Include stylesheet -->
 <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="../quill-1.3.6/quill.js"></script> -->
-  
+
 </head>
 <style media="screen">
 /* unvisited link */
@@ -92,12 +92,12 @@ a:active {
 
     {{-- 회원이면 --}}
     @else
-    
+
     {{-- 회원이면 이름 출력 --}}
     <div class="item">
       <a  href="{{ url('/profile') }}">
-       {{auth()->user()->name}} 
-       
+       {{auth()->user()->name}}
+
      </a>
    </div>
 
@@ -152,7 +152,7 @@ a:active {
 
 <div class="menu">
   <a class="item" href="/pbas">
-    PBA & ASS'Y
+    PBA & ASSY
   </a>
 </div>
 
@@ -204,7 +204,7 @@ a:active {
 <!-- 시리얼번호 검색 -->
 <div class="item">
   <form method="get" action="/serialNameSearch">
-    @csrf 
+    @csrf
     <div class="ui mini icon input">
       <input type="text" name="serial_name" placeholder="시리얼번호 검색">
       <i class="search icon"></i>

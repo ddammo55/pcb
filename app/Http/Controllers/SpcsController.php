@@ -262,9 +262,6 @@ class SpcsController extends Controller
         $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
         //dd(request()->all());
 
-
-
-
         $choice = (request('month'));
         //현재년월일
         $val = \Carbon\Carbon::now();
@@ -284,8 +281,16 @@ class SpcsController extends Controller
         //dd($nowMonth);
         //$month_products = \App\Product::where('product_date', '>', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<' , $nowYear.'-'.$nowMonth.'-31')->get();
 
-        //선택 월의 마지막 날
-        $FINAL_DAY = date("t", mktime(0, 0, 0,  $choice, 1, $nowYear));
+        //선택월이 없으면 해당월의 마지막날을 구해서 입력되고, 선택월이 있으면 선택한 월의 마지막날이 입력된다.
+        if($choice == null){
+
+            $FINAL_DAY = date("t", mktime(0, 0, 0,  $nowMonth, 1, $nowYear));
+
+        }else{
+
+            //선택 월의 마지막 날
+            $FINAL_DAY = date("t", mktime(0, 0, 0,  $choice, 1, $nowYear));
+        }
 
         $date_choice = request('date_choice');
 

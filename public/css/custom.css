@@ -1,19 +1,32 @@
+/***********************************************************************************************/
+
+/* Button */
 
 /***********************************************************************************************/
-/* Button */
-/***********************************************************************************************/
+
 .go-top {
-	position: fixed;
-	bottom: 2em;
-	right: 2em;
-	text-decoration: none;
-	color: white;
-	background-color: rgba(0, 0, 0, 0.3);
-	font-size: 12px;
-	padding: 1em;
-display: none;
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
 }
 
 .go-top:hover {
-	background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* 메인 년 생산수량 input 부분 커스텀 디자인*/
+.inputnone {
+    outline: none;
+    color: black;
+    height: 42px;
+    font-weight: 700;
+    background-color: transparent;
+    border: 0px transparent;
+    cursor: pointer;
 }

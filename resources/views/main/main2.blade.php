@@ -2,10 +2,11 @@
 
 @section('content')
 
+
 <!-- <div class="txt-logo"><h3><span style="color:red;font-weight: bold;">품질</span>은 <span style="color:blue;font-weight: bold;">기본</span>이고, <span style="color:red;font-weight: bold;">납기</span>는 <span style="color:blue;font-weight: bold;">필수</span>이며, <span style="color:red;font-weight: bold;">원가</span>는 <span style="color:blue;font-weight: bold;">생존</span>이다!</h3></div> -->
 
 
-<h1>통계적 공정 관리</h1>
+<h1>통계적 공정 관리(SPC)</h1>
 
 
 <!-- 상단1 -->
@@ -36,7 +37,7 @@
         <ul class="list">
           <div class="ui small statistic">
             <div class="value">
-              {{ number_format($pbaCount) }}
+              <a href="./pbas?"><b data-tooltip="바로가기" data-position="top right">{{ number_format($pbaCount) }}</b></a>
             </div>
           </div>
         </ul>
@@ -46,12 +47,12 @@
     <div class="column">
       <div class="ui message">
         <div class="header">
-         ASS'Y 한도견본
+         ASSY 한도견본
         </div>
         <ul class="list">
           <div class="ui small statistic">
             <div class="value">
-              {{ number_format($assyCount) }}
+              <a href="./pbas?"><b data-tooltip="바로가기" data-position="top right">{{ number_format($assyCount) }}</b></a>
             </div>
           </div>
         </ul>
@@ -75,7 +76,12 @@
         <ul class="list">
           <div class="ui small statistic">
             <div class="value">
-              {{ number_format($year_count) }}
+                <form  action="./monthProductList" method="GET">
+                    <input type="hidden" name="start_date" value="{{ $nowYear }}-01-01">
+                    <input type="hidden" name="end_date" value="{{ $nowYear }}-12-31">
+                    <input type="hidden" name="date_choice" value="date_choice">
+                    <b data-tooltip="바로가기" data-position="top right"><input class="inputnone" type="submit" value="{{ number_format($year_count) }}"></b>
+                </form>
             </div>
           </div>
         </ul>
@@ -92,7 +98,7 @@
           <div class="ui small statistic">
             <div class="value">
              <!--  클릭을 했을때 ShipmentsController@monthProduct페이지로 가게 -->
-            <a href="/monthProductList">{{ number_format($month_count) }} </a>
+             <b data-tooltip="바로가기" data-position="top right"><a href="/monthProductList">{{ number_format($month_count) }} </a></b>
             </div>
           </div>
         </ul>
@@ -110,7 +116,7 @@
              @if($month_ppm)
              @foreach($month_ppm as $mon_ppm)
              {{ sprintf('%0.2f', $mon_ppm->ppm )}}
-             @endforeach 
+             @endforeach
              @else
              0
              @endif
@@ -228,11 +234,11 @@
 
 
 
-<?php 
-$join_arr1 = str_replace("|", ",", $join_arr1); 
+<?php
+$join_arr1 = str_replace("|", ",", $join_arr1);
 $join_arr2 = str_replace("|", ",", $join_arr2);
   //dd($join_arr1 );
-$join_arr_works = str_replace("|", ",", $join_arr_work); 
+$join_arr_works = str_replace("|", ",", $join_arr_work);
 
 
 ?>
@@ -256,13 +262,13 @@ $join_arr_works = str_replace("|", ",", $join_arr_work);
 
         // s1 : 그래프 y축.
         // ticks : 그래프 x축
-        
+
         for(var i=0; i<arr2.length;i++){
-           s1.push(arr2[i]); 
+           s1.push(arr2[i]);
         }
 
         for(var i=0; i<arr22.length;i++){
-           ticks.push(arr22[i]+'월'); 
+           ticks.push(arr22[i]+'월');
         }
 
 
@@ -330,7 +336,7 @@ var myChart = new Chart(ctx, {
 
         //현재월 공수 합계
         var month_work_sum = "{{ $month_work_sum->total }}";
-        
+
         var join_arr2 = "{{ $join_arr_works  }}";
         var join_arr22 = "{{ $join_arr2 }}";
 
@@ -344,13 +350,13 @@ var myChart = new Chart(ctx, {
 
         // s1 : 그래프 y축.
         // ticks : 그래프 x축
-        
+
         for(var i=0; i<arr2.length;i++){
-           s1.push(arr2[i]); 
+           s1.push(arr2[i]);
         }
 
         for(var i=0; i<arr22.length;i++){
-           ticks.push(arr22[i]+'월'); 
+           ticks.push(arr22[i]+'월');
         }
 
 
