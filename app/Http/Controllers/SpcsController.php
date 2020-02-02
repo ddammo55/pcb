@@ -9,6 +9,7 @@ use App\Product;
 use App\Project;
 use App\Works;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SpcsController extends Controller
 {
@@ -282,11 +283,10 @@ class SpcsController extends Controller
         //$month_products = \App\Product::where('product_date', '>', $nowYear.'-'.$nowMonth.'-01')->where('product_date', '<' , $nowYear.'-'.$nowMonth.'-31')->get();
 
         //선택월이 없으면 해당월의 마지막날을 구해서 입력되고, 선택월이 있으면 선택한 월의 마지막날이 입력된다.
-        if($choice == null){
+        if ($choice == null) {
 
             $FINAL_DAY = date("t", mktime(0, 0, 0,  $nowMonth, 1, $nowYear));
-
-        }else{
+        } else {
 
             //선택 월의 마지막 날
             $FINAL_DAY = date("t", mktime(0, 0, 0,  $choice, 1, $nowYear));
@@ -294,54 +294,53 @@ class SpcsController extends Controller
 
         $date_choice = request('date_choice');
 
-        if(request('date_choice')){
+        if (request('date_choice')) {
 
             $month_products = \DB::select("
 
             SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$start_date' and product_date<='$end_date' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
             ");
 
-               $month_products_sum = \DB::select("
+            $month_products_sum = \DB::select("
             SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$start_date' AND product_date<='$end_date'
             ");
 
             $month_count = count($month_products);
-        }else{
+        } else {
 
 
 
 
-        //월 선택이 있으면 해당월을 보여주고 월 선택이 없으면 현재월을 보여준다.
-        if (isset($choice)) {
+            //월 선택이 있으면 해당월을 보여주고 월 선택이 없으면 현재월을 보여준다.
+            if (isset($choice)) {
 
-            $month_products = \DB::select("
+                $month_products = \DB::select("
 
          SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$choice-01' and product_date<='$nowYear-$choice-$FINAL_DAY' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
          ");
 
-            $month_products_sum = \DB::select("
+                $month_products_sum = \DB::select("
          SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$choice-01' AND product_date<='$nowYear-$choice-$FINAL_DAY'
          ");
 
-            //보드 종류
-            $month_count = count($month_products);
-        } else {
+                //보드 종류
+                $month_count = count($month_products);
+            } else {
 
-            $month_products = \DB::select("
+                $month_products = \DB::select("
 
          SELECT board_name, SUM(quantity) as sum, product_date FROM products where product_date>='$nowYear-$nowMonth-01' and product_date<='$nowYear-$nowMonth-$FINAL_DAY' group by board_name,product_date having board_name is not null and board_name <>'' order by product_date DESC
          ");
 
-            $month_products_sum = \DB::select("
+                $month_products_sum = \DB::select("
          SELECT SUM(quantity) as products_sum FROM products WHERE product_date>='$nowYear-$nowMonth-01' AND product_date<='$nowYear-$nowMonth-$FINAL_DAY'
          ");
 
 
-            //보드 종류
-            $month_count = count($month_products);
+                //보드 종류
+                $month_count = count($month_products);
+            }
         }
-
-    }
 
         //dd($month_products_sum);
 
@@ -410,6 +409,21 @@ class SpcsController extends Controller
 
         $products_count = count($products);
 
+        $plucked = $products->pluck('serial_name');
+
+        $plucked->all();
+
+        if (request('search')) {
+
+            //검색한 시리얼번호가 없으면
+            if (!isset($plucked[0])) {
+                Alert::error('찾으려는 보드내역이 없습니다.', '다시 한번 확인해 주세요.');
+                // return back();
+                // echo "<script>alert(\"찾으려는 값이 없습니다.\");</script>";
+                // echo "<meta http-equiv='refresh' content='0; url=http://pcb.test'>";
+            }
+        }
+
         //dd($products_count);
         //export($board_names);
 
@@ -454,18 +468,37 @@ class SpcsController extends Controller
         //프로젝트 가져오기
         $projects = \App\Project::all();
 
+
         if ($shipment_name_choice == null) {
             $shipment_name_choice = "프로젝트명";
         }
         //조건으로 pba 가져오기
         // $products = \App\Product::latest()->paginate(30);
 
-        $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+        //편성
+        $set_set = request('set_set');
 
+
+        $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('set_set', $set_set)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
+
+        $plucked = $products->pluck('serial_name');
+
+        $plucked->all();
+
+        if (request('search')) {
+
+            //검색한 시리얼번호가 없으면
+            if (!isset($plucked[0])) {
+                Alert::error('찾으려는 출하내역이 없습니다.', '다시 한번 확인해 주세요.');
+                // return back();
+                // echo "<script>alert(\"찾으려는 값이 없습니다.\");</script>";
+                // echo "<meta http-equiv='refresh' content='0; url=http://pcb.test'>";
+            }
+        }
 
         $products_count = count($products);
 
-        return view('main.shipment_search_list', compact('projects', 'shipment_name_choice', 'start_date', 'end_date', 'products', 'products_count'));
+        return view('main.shipment_search_list', compact('projects', 'shipment_name_choice', 'start_date', 'end_date', 'products', 'products_count', 'set_set'));
     }
 
     //출하내역excel 추출
@@ -481,5 +514,4 @@ class SpcsController extends Controller
         // dd($board_name_search);
         //  return Excel::download(new BoardsearchExport(2020,'6jlxji'), 'qwer.xlsx');
     }
-
 }

@@ -75,6 +75,7 @@ Route::resource('/boardnames','BoardnamesController')->middleware('lv3');
 #| 출하내역 관리
 #|--------------------------------------------------------------------------
 Route::resource('/shipment','ShipmentsController')->middleware('lv2');
+Route::post('/shipment2',['as' => 'shipment2', 'uses' => 'ShipmentsController@serial'])->middleware('lv2');
 Route::post('product/con/{id}', 'ShipmentsController@con')->middleware('lv2');
 Route::post('shipmentss', 'ShipmentsController@update')->middleware('lv2');
 Route::get('/serialNameSearch','ShipmentsController@serialNameSearch');  // master에서 검색

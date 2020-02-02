@@ -47,6 +47,7 @@
 			</div>
 
 			<div class="field">
+                <input type="hidden" name="search" value="search">
 				<button class="ui teal button" type="submit">검색</button>
 			</div>
 

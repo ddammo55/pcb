@@ -15,38 +15,59 @@ class ShipmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function serial(Request $request){
+        $products = (request('serial_name_arr'));
+        $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
+        $projects = \App\Project::all(); // 프로젝트 명
+        //dd($protucts);
+        return view('shipment.s1', compact('products', 'projects', 'products_alls'));
+    }
+
     public function index(Request $request)
     {
 
-        if (request('serial_name')) {
-            $products = \App\Product::where('con', 0)->latest('updated_at')->get(); // 제품 시리얼번호 con=0인것만 가져오기
-            $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
-            $projects = \App\Project::all(); // 프로젝트 명
-            //$products = ["딸기","바나나","파인애플"];
-            return view('shipment.s1', compact('products', 'projects', 'products_alls'));
-        } else {
+        // if (request('serial_name_choice')) {
+        //    $serial_name = request('serial_name_choice');
+        //    dd($serial_name);
+
+        // } else {
 
 
-            $products = \App\Product::where('con', 0)->latest('updated_at')->get(); // 제품 시리얼번호 con=0인것만 가져오기
-            $productsStock = \App\Product::where('con', 0)->where('shipment_daily',"재고")->latest('updated_at')->get(); // 출하제품 재고인것만 가져오기
-            $productsStockFaulty = \App\Product::where('con', 0)->where('shipment_daily',"불량")->latest('updated_at')->get(); // 불량제품 재고인것만 가져오기
-            $productsStockAbro = \App\Product::where('con', 1)->where('shipment_daily',"폐기")->latest('updated_at')->get(); // 폐기제품 재고인것만 가져오기
-            $productsStockRental = \App\Product::where('con', 1)->where('shipment_daily',"대여")->latest('updated_at')->get(); // 대여제품 재고인것만 가져오기
-
-            $productsStockEa = count($productsStock);
-            $productsStockFaultyEa = count($productsStockFaulty);
-            $productsStockAbroEa = count($productsStockAbro);
-            $productsStockRentalEa = count($productsStockRental);
+            if (request('serial_name')) {
+                $products = \App\Product::where('con', 0)->latest('updated_at')->get(); // 제품 시리얼번호 con=0인것만 가져오기
+                $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
+                $projects = \App\Project::all(); // 프로젝트 명
+                //$products = ["딸기","바나나","파인애플"];
+                return view('shipment.s1', compact('products', 'projects', 'products_alls'));
+            } else {
 
 
-            $products_alls = \App\Product::where('con', 1)->latest('updated_at')->paginate(50); //여기서는 shipment순으로 가져온다.
-            $projects = \App\Project::all(); // 프로젝트 명
-            //$products = ["딸기","바나나","파인애플"];
-            return view('shipment.s1', compact('products', 'projects', 'products_alls',
-                                                'productsStockEa', 'productsStockFaultyEa',
-                                                'productsStockAbroEa', 'productsStockRentalEa'));
+                $products = \App\Product::where('con', 0)->latest('updated_at')->get(); // 제품 시리얼번호 con=0인것만 가져오기
+                $productsStock = \App\Product::where('con', 0)->where('shipment_daily', "재고")->latest('updated_at')->get(); // 출하제품 재고인것만 가져오기
+                $productsStockFaulty = \App\Product::where('con', 0)->where('shipment_daily', "불량")->latest('updated_at')->get(); // 불량제품 재고인것만 가져오기
+                $productsStockAbro = \App\Product::where('con', 1)->where('shipment_daily', "폐기")->latest('updated_at')->get(); // 폐기제품 재고인것만 가져오기
+                $productsStockRental = \App\Product::where('con', 1)->where('shipment_daily', "대여")->latest('updated_at')->get(); // 대여제품 재고인것만 가져오기
 
-        }
+                $productsStockEa = count($productsStock);
+                $productsStockFaultyEa = count($productsStockFaulty);
+                $productsStockAbroEa = count($productsStockAbro);
+                $productsStockRentalEa = count($productsStockRental);
+
+
+                $products_alls = \App\Product::where('con', 1)->latest('updated_at')->paginate(50); //여기서는 shipment순으로 가져온다.
+                $projects = \App\Project::all(); // 프로젝트 명
+                //$products = ["딸기","바나나","파인애플"];
+                return view('shipment.s1', compact(
+                    'products',
+                    'projects',
+                    'products_alls',
+                    'productsStockEa',
+                    'productsStockFaultyEa',
+                    'productsStockAbroEa',
+                    'productsStockRentalEa'
+                ));
+            }
+        // }
     }
 
     /**
@@ -82,7 +103,7 @@ class ShipmentsController extends Controller
         $skills_count = count($skills);
 
         //만약 재고이면
-        if(request('project') == "재고" && "불량"){
+        if (request('project') == "재고" && "불량") {
 
             for ($i = 0; $i < $skills_count; $i++) {
                 Product::where('serial_name', $skills[$i])->update([  //선택한 시리얼번호에 다음 값을 업데이트한다.
@@ -90,6 +111,8 @@ class ShipmentsController extends Controller
                     'note' => request('note'),
                     'receiver' => request('receiver'),
                     'shipment' => NOW(),
+                    'set_set' => request('set_set'),
+                    'type' => request('type'),
                     'ship_user' => auth()->user()->name, //인계자
                     'mod_user' => auth()->user()->name, //수정한 유저
                     'mark_ip' => $_SERVER['REMOTE_ADDR'],
@@ -98,13 +121,12 @@ class ShipmentsController extends Controller
                     'con' => 0, //출하내역 유뮤
                 ]);
             }
-
+            Alert::success('저장', '저장이 완료 되었습니다.');
             //flash('입력이 정상적으로 처리되었습니다.');
-            echo "<script>alert(\"입력이 정상적으로 처리되었습니다.\");</script>";
+            //echo "<script>alert(\"입력이 정상적으로 처리되었습니다.\");</script>";
             //만약에 결과보기를 클릭하면
             return back();
-
-        }else{
+        } else {
 
             for ($i = 0; $i < $skills_count; $i++) {
                 Product::where('serial_name', $skills[$i])->update([  //선택한 시리얼번호에 다음 값을 업데이트한다.
@@ -112,6 +134,8 @@ class ShipmentsController extends Controller
                     'note' => request('note'),
                     'receiver' => request('receiver'),
                     'shipment' => NOW(),
+                    'set_set' => request('set_set'),
+                    'type' => request('type'),
                     'ship_user' => auth()->user()->name, //인계자
                     'mod_user' => auth()->user()->name, //수정한 유저
                     'mark_ip' => $_SERVER['REMOTE_ADDR'],
@@ -121,14 +145,13 @@ class ShipmentsController extends Controller
                 ]);
             }
 
+            Alert::success('저장', '저장이 완료 되었습니다.');
             //flash('입력이 정상적으로 처리되었습니다.');
-            echo "<script>alert(\"입력이 정상적으로 처리되었습니다.\");</script>";
+            // echo "<script>alert(\"입력이 정상적으로 처리되었습니다.\");</script>";
             //만약에 결과보기를 클릭하면
             return back();
         }
-
-
-        }
+    }
 
 
 

@@ -7,7 +7,7 @@
       <th>생산일</th>
       <th>출하일</th>
       <th>출하내역</th>
-      <th>불량</th>
+      <th>편성</th>
       <th>불량내용</th>
       <th>타입</th>
       <th>인수자</th>
@@ -20,7 +20,7 @@
   	@foreach($products as $product)
     <tr>
       <td>{{ $product->id }}</td>
-      
+
       <td>
         <form action="/serialNameSearch" method="GET">
           <input type="hidden" name="serial_name" value="{{ $product->serial_name }}" >
@@ -34,11 +34,11 @@
           <button style=" background:none;border:none; margin:0px;cursor: pointer;">{{ $product->board_name }}</button>
         </form>
       </td>
-      
+
       <td>{{ $product->product_date }}</td>
       <td>{{ $product->shipment }}</td>
       <td>{{ $product->shipment_daily }}</td>
-      <td>{{ $product->faulty }}</td>
+      <td>{{ $product->set_set }}</td>
       <td>{{ $product->remarks }}</td>
       <td>{{ $product->type }}</td>
       <td>{{ $product->receiver }}</td>
