@@ -11,7 +11,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = \App\Product::latest()->paginate(15); 
+        $products = \App\Product::latest()->paginate(15);
 
        return view('product.index',compact('products'));
     }
@@ -35,7 +35,7 @@ class ProductController extends Controller
         echo '<br>';
         //수량
         $quantity = request()->quantity;
-        
+
         //19F
         $serial_year_month=substr($products_first->serial_name,0,3);
 
@@ -52,25 +52,25 @@ class ProductController extends Controller
         }else if(date('m') == 5){
             $month = 'E';
         }else if(date('m') == 6){
-            $month = 'F';        
+            $month = 'F';
         }else if(date('m') == 7){
-            $month = 'G';        
+            $month = 'G';
         }else if(date('m') == 8){
-            $month = 'H';        
+            $month = 'H';
         }else if(date('m') == 9){
-            $month = 'I';        
+            $month = 'I';
         }else if(date('m') == 10){
-            $month = 'J';        
+            $month = 'J';
         }else if(date('m') == 11){
-            $month = 'K';        
+            $month = 'K';
         }else if(date('m') == 12){
-            $month = 'L';        
+            $month = 'L';
         }
-        
+
         $year = date('y');
         $yearMonth = $year.$month;
         //dd($serial_year_month);
-        // 만약에 해당월이 없으면 19F 가 있으면 번호를 이으고 없으면 0000으로 시작 
+        // 만약에 해당월이 없으면 19F 가 있으면 번호를 이으고 없으면 0000으로 시작
         if($serial_year_month == $yearMonth){
             //숫자만 남긴다. 0005
              $serial_start_no_int=substr($products_first->serial_name,3,4);
@@ -78,9 +78,9 @@ class ProductController extends Controller
              $ttr = sprintf("%04d",$serial_start_no_int+1);
         }else{
              //$serial_start_no_int=substr($products_first->serial_name,3,4);
-             $serial_start_no_int=0000; 
+             $serial_start_no_int=0000;
 
-             //숫자 남긴거 +1  
+             //숫자 남긴거 +1
              $ttr = sprintf("%04d",$serial_start_no_int+1);
 
         }
@@ -140,20 +140,20 @@ class ProductController extends Controller
             'aoi_bot_part_num' => request('aoi_bot_part_num'),
             'user_id' => auth()->user()->name, //입력한 사용자
         ]);
-       
+
     }
-        return view('product.create_list',compact('serial_name_arr'));
+        return view('product.create_list',compact('serial_name_arr', 'board_name'));
 }
     }
 
     public function create()
-    {   
+    {
         //전체 시리얼번호 [최근시리얼번호 조회]
-        $products = \App\Product::latest('id')->paginate(30); 
+        $products = \App\Product::latest('id')->paginate(30);
 
         //시리얼 번호 최근 컬럼을 가지고 온다.
         $products_first = \App\Product::latest('id')->first('serial_name');
-        
+
         //dd($products_first);
         //만약 시리얼 번호가 없으면..
         if($products_first == null){
@@ -165,7 +165,7 @@ class ProductController extends Controller
         }else{
         //숫자만 남긴다. 0005
         $serial_start_no_int=substr($products_first->serial_name,3,4);
-        
+
         //앞에만 남긴다. 19A
         $serial_start_no_start=substr($products_first->serial_name,0,3);
 
@@ -204,7 +204,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         //[구형 시리얼번호]
-        //시리얼 번호 받기   
+        //시리얼 번호 받기
        $serial_start_no=$request['serial_start_no'];
        $serial_end_no=$request['serial_end_no'];
 
@@ -216,14 +216,14 @@ class ProductController extends Controller
        $y=0;
        $i=0;
 
-        //시리얼번호 영문만 담는 변수 19A0001 => 19A 
+        //시리얼번호 영문만 담는 변수 19A0001 => 19A
        $serial_english_name=substr($serial_start_no,0,3);
 
-        // 반복문 
+        // 반복문
        for($i=$serial_start_no_int;$i<=$serial_end_no_int;$i++)
        {
         // $i="0001";
-        
+
         $y+=1;
         $i=(int)$i;
         $serial_name=$serial_english_name.sprintf("%04d",$i);
@@ -234,12 +234,12 @@ class ProductController extends Controller
 
         //셀번호 배열에 담기
         $serial_name_arr[] = $serial_name;
-        }   
+        }
 
         $cc = count($serial_name_arr);
         if($cc > 200)
         {
-         
+
 
 
          echo "<script>alert(\"200장 초과제한입니다. 관리자에게 문의해 주세요.\");</script>";
@@ -297,7 +297,7 @@ public function show(Product $product)
     public function edit(Product $product)
     {
 
-        $projects_names = \App\Project::all(); // 프로젝트 명 
+        $projects_names = \App\Project::all(); // 프로젝트 명
        return view('shipment.edit', compact('product','projects_names'));
     }
 
@@ -347,7 +347,7 @@ public function show(Product $product)
         'aoi_bot_df_10' => request('aoi_bot_df_10'),
         'aoi_bot_df_11' => request('aoi_bot_df_11'),
         'aoi_bot_df_12' => request('aoi_bot_df_12'),
-     
+
        ]);
        flash('입력이 정상적으로 처리되었습니다.');
        //return back();

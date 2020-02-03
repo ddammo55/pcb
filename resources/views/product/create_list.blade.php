@@ -16,6 +16,7 @@
         <form method="get" action="./shipment">
             @csrf
             <input type="hidden" name="serial_name_arr" value="{{ json_encode($serial_name_arr)}}">
+            <input type="hidden" name="board_name" value="{{$board_name}}">
             <button class="ui button" type="submit">출하내역 바로하기</button>
         </form>
 

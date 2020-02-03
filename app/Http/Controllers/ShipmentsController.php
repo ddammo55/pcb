@@ -15,11 +15,11 @@ class ShipmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index(Request $request)
     {
 
-             
+
 
 
             if (request('serial_name')) {
@@ -49,12 +49,15 @@ class ShipmentsController extends Controller
 
                 if(request('serial_name_arr')){
 
+                  $board_name = request('board_name');
+
                   $serialNameArray = request('serial_name_arr');
 
                   $serialNameArray = json_decode($serialNameArray, true);
 
                   return view('shipment.s1', compact(
                     'serialNameArray',
+                    'board_name',
                     'products',
                     'projects',
                     'products_alls',

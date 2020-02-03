@@ -81,7 +81,7 @@
 </div>
 @endif
 
-<div class="ui tablet stackable steps"">
+<div class="ui tablet stackable steps">
   @for ($i = 1; $i < 13; $i++)
   <!-- 현재월이 과 같다면 색깔들어오게 -->
   @if (date('m') == $i)

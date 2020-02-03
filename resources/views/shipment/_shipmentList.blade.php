@@ -8,15 +8,17 @@
         <select multiple size="10" name="list1" style="width:100%; height:350px"
             onDblClick="move(document.combo_box.list1,document.combo_box.list2)">
 
+
+            {{-- 만약 시리얼번호 생성이 있다면 --}}
             @if(isset($serialNameArray)){
                @foreach($serialNameArray as $serialName)
-               <option>{{ $serialName }}</option>
+               <option>{{ $serialName.'_'.$board_name }}</option>
                @endforeach
             @else
 
-            <?php foreach($products as $product ){ ?>
-            <option><?=$product->serial_name.'_'.$product->board_name.'_'.$product->shipment_daily?></option>
-            <?php }?>
+            @foreach($products as $product )
+            <option>{{ $product->serial_name.'_'.$product->board_name.'_'.$product->shipment_daily }}</option>
+            @endforeach
 
             @endif
         </select>
