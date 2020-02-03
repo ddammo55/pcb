@@ -13,7 +13,7 @@
     </div>
 
     <div class="two wide column">
-        <form method="POST" action="./shipment2">
+        <form method="get" action="./shipment">
             @csrf
             <input type="hidden" name="serial_name_arr" value="{{ json_encode($serial_name_arr)}}">
             <button class="ui button" type="submit">출하내역 바로하기</button>

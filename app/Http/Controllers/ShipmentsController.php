@@ -15,22 +15,11 @@ class ShipmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function serial(Request $request){
-        $products = (request('serial_name_arr'));
-        $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
-        $projects = \App\Project::all(); // 프로젝트 명
-        //dd($protucts);
-        return view('shipment.s1', compact('products', 'projects', 'products_alls'));
-    }
-
+    
     public function index(Request $request)
     {
 
-        // if (request('serial_name_choice')) {
-        //    $serial_name = request('serial_name_choice');
-        //    dd($serial_name);
-
-        // } else {
+             
 
 
             if (request('serial_name')) {
@@ -57,6 +46,28 @@ class ShipmentsController extends Controller
                 $products_alls = \App\Product::where('con', 1)->latest('updated_at')->paginate(50); //여기서는 shipment순으로 가져온다.
                 $projects = \App\Project::all(); // 프로젝트 명
                 //$products = ["딸기","바나나","파인애플"];
+
+                if(request('serial_name_arr')){
+
+                  $serialNameArray = request('serial_name_arr');
+
+                  $serialNameArray = json_decode($serialNameArray, true);
+
+                  return view('shipment.s1', compact(
+                    'serialNameArray',
+                    'products',
+                    'projects',
+                    'products_alls',
+                    'productsStockEa',
+                    'productsStockFaultyEa',
+                    'productsStockAbroEa',
+                    'productsStockRentalEa',
+                ));
+
+                }
+
+
+
                 return view('shipment.s1', compact(
                     'products',
                     'projects',
@@ -64,7 +75,7 @@ class ShipmentsController extends Controller
                     'productsStockEa',
                     'productsStockFaultyEa',
                     'productsStockAbroEa',
-                    'productsStockRentalEa'
+                    'productsStockRentalEa',
                 ));
             }
         // }

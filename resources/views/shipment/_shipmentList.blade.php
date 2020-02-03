@@ -7,9 +7,18 @@
 
         <select multiple size="10" name="list1" style="width:100%; height:350px"
             onDblClick="move(document.combo_box.list1,document.combo_box.list2)">
+
+            @if(isset($serialNameArray)){
+               @foreach($serialNameArray as $serialName)
+               <option>{{ $serialName }}</option>
+               @endforeach
+            @else
+
             <?php foreach($products as $product ){ ?>
             <option><?=$product->serial_name.'_'.$product->board_name.'_'.$product->shipment_daily?></option>
             <?php }?>
+
+            @endif
         </select>
 
 </div>
