@@ -64,7 +64,7 @@ class ShipmentsController extends Controller
                     'productsStockEa',
                     'productsStockFaultyEa',
                     'productsStockAbroEa',
-                    'productsStockRentalEa',
+                    'productsStockRentalEa'
                 ));
 
                 }
@@ -78,7 +78,7 @@ class ShipmentsController extends Controller
                     'productsStockEa',
                     'productsStockFaultyEa',
                     'productsStockAbroEa',
-                    'productsStockRentalEa',
+                    'productsStockRentalEa'
                 ));
             }
         // }

@@ -11,18 +11,18 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = \App\Product::latest()->paginate(15);
+    //     $products = \App\Product::latest()->paginate(15);
 
-       return view('product.index',compact('products'));
+    //    return view('product.index',compact('products'));
     }
 
 
-    public function product_create()
+    public function product_create(Request $request)
     {
         //[NEW시리얼번호구현]
         //시리얼 번호 최근 컬럼을 가지고 온다.
         $products_first = \App\Product::latest('id')->first('serial_name');
-
+        //dd($request);
         //보드명이 널이거나 수량이 없으면 또는 200장이 초과하면
         if(request('board_name') == null || request('quantity') == 0 || request('quantity') == 201){
              echo "<script>alert(\"보드명과 수량을 확인하여주세요.\");</script>";
@@ -261,6 +261,7 @@ class ProductController extends Controller
 
         // dd($sese);
         // return false;
+        $board_name = request('board_name');
 
         if($serial_name == $old_serial_name){
             echo "<script>alert(\"$serial_name 시리얼번호가 중복입니다.\");</script>";
@@ -280,7 +281,7 @@ class ProductController extends Controller
         }
     }
 }
-       return view('product.create_list',compact('serial_name_arr'));
+       return view('product.create_list',compact('serial_name_arr','board_name'));
 }
 
 public function show(Product $product)

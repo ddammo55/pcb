@@ -58,8 +58,8 @@
         <div class="menu">
           @foreach ($pcb_lists as $pcb_list)
           <div class="item">{{$pcb_list->boardname }}</div>
-          <input type="hidden" name="aoi_top_part_num" value="{{$pcb_list->top_num   }}">
-          <input type="hidden" name="aoi_bot_part_num" value="{{$pcb_list->bot_num   }}">
+          <input type="hidden" name="aoi_top_part_num" value="{{$pcb_list->top_num}}">
+          <input type="hidden" name="aoi_bot_part_num" value="{{$pcb_list->bot_num}}">
           @endforeach
         </div>
       </div>

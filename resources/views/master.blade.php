@@ -122,7 +122,7 @@ a:active {
   <b>통계 보기</b>
 </a> -->
 
-<a class="item" href="/product">
+<a class="item" href="#">
   <b>추적 성 관리</b>
 </a>
 
