@@ -21,21 +21,21 @@
   <div><div class="ui message" style="padding: 0.2em 1em; margin-bottom: 15px;">
 
 		<div class="ui very relaxed items"  style="margin: 0.5em 0em;">
-			
+
 			<div class="item" style="margin: 0.5em 0em;">
-					
+
 
 				<div class="image">
 					@if($pba->division == "PBA")
 					<a href='/pbas/{{$pba->id}}/view'>
 					<a class="ui green ribbon label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
 					@else
-					 
+
 					<a class="ui blue ribbon label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-					@endif	
+					@endif
 						{{ $pba->division }}
 					 </font></font></a>
-					
+
 
 					<?php
 					$contents = $pba->content;
@@ -43,10 +43,10 @@
 					$searchName = "img";
 
 					//img태그가 있으면 아래꺼 실행 즉 이미지가 있으면 아래꺼 실행
-					if(strpos($contents, $searchName) !== false) {  
-					 
-					preg_match_all("/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/i", stripslashes($contents), $matches); 
-					
+					if(strpos($contents, $searchName) !== false) {
+
+					preg_match_all("/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/i", stripslashes($contents), $matches);
+
 					//이미지의 주소값을 /구분으로 배열에 담는다.
 					 $var_arr = explode('/', $matches[1][0]);
 					 //echo $var_arr[3];
@@ -65,7 +65,7 @@
 					?>
 					<a href="/pbas/{{$pba->id}}/view">
 						<!-- {{ $url }} -->
-						<img  class="image" src="{{ $url }}" width="100%">
+						<img  class="image" src="{{ $url }}" width="100%" height="130px">
 					</a>
 				<!-- </a> -->
 				<?php
@@ -78,8 +78,8 @@
 					</a>
 					<?php
 				}
-				?>  
-				
+				?>
+
 					@if($pba->division == 'PBA')
 					<div class="ui divider"></div>
 					<p><a href="/pbas/{{$pba->id}}/view"><b>{{ $pba->board_name }}</b></a></p>
@@ -87,12 +87,12 @@
 					<div class="ui divider"></div>
 					<p><p><a href="/pbas/{{$pba->id}}/view"><b>{{ $pba->assy_name }}</b></a></p>
 					@endif
-					
-					
+
+
 					<p style="font-size: 12px;">등록일 : {{ substr($pba->updated_at,0,-8) }}</p>
 					<p style="font-size: 12px;">등록자 : {{ $pba->wr_user }}</p>
 				</div>
-					
+
 
 			</div>
 		</div>
@@ -121,7 +121,7 @@
   </div>
 
  <div class="item">
-  <button class="ui teal button"  onclick="button_event();">작성하기</button> 
+  <button class="ui teal button"  onclick="button_event();">작성하기</button>
 </div>
 <!--   <div class="item">
    <form method="get" action="/pbas/create">
@@ -133,7 +133,7 @@
 
   <div class="item">
    <form method="get" action="/pbas/" id="frm2">
-  		@csrf      
+  		@csrf
   		<div class="ui action left icon input">
   			<i class="search icon"></i>
   			<input type="text" name="board_name" placeholder="검색">
@@ -181,12 +181,12 @@
 					</td>
 
 					<td>
-					
-							
-							
+
+
+
 							<button class="ui pink deny button"  onclick="location.href='/pbas/create'">PBA 작성</button>
 							<button class="ui blue deny button" onclick="location.href='/assys/create'">ASS'Y 작성</button>
-						
+
 					</td>
 				</tr>
 			</table>

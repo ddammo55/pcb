@@ -475,8 +475,12 @@ class SpcsController extends Controller
         //조건으로 pba 가져오기
         // $products = \App\Product::latest()->paginate(30);
 
-        //편성
-        $set_set = request('set_set');
+        if(request('set_set') == null){
+            $set_set = 0;
+        }else{
+            //편성
+            $set_set = request('set_set');
+        }
 
 
         $products = \App\Product::with('user')->where('shipment_daily', $shipment_name_choice)->where('set_set', $set_set)->where('product_date', '>=', $start_date)->where('product_date', '<=', $end_date)->latest()->get();
