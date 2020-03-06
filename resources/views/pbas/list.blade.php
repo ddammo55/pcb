@@ -12,7 +12,6 @@
 
 
 
-
 <div class="ui divider"></div>
 
 <div class="ui five column stackable padded grid">
@@ -50,6 +49,7 @@
 					//이미지의 주소값을 /구분으로 배열에 담는다.
 					 $var_arr = explode('/', $matches[1][0]);
 					 //echo $var_arr[3];
+					 //dd($var_arr[4]); //[3]=ASSY [4]신림선TCMS
 					//http://tiny.test/photos/shares/Desert.jpg
 					//http://tiny.test/photos/shares/thumbs/Desert.jpg
 					//http://pcb.test/photos/shares/ENCO-DECO(%EA%B5%AC)/7e1ab1fac974fa1d69199238bef15de1.jpg
@@ -57,7 +57,8 @@
 					<!-- <a href='/pbas/{{$pba->id}}/view'> -->
 					<?php
 					//이미지의 주소값을 담는다 [0][0]은 이미지를 뽑아온다.
-					 $url = str_replace('/shares/'.$var_arr[3].'/', '/shares/'.$var_arr[3].'/thumbs/', $matches[1][0]);
+					// $url = str_replace('/shares/'.$var_arr[3].'/', '/shares/'.$var_arr[3].'/thumbs/', $matches[1][0]);
+					 $url = str_replace('/shares/'.$var_arr[4].'/', '/shares/'.$var_arr[3].'/thumbs/', $matches[1][0]);
 					//echo $url = str_replace('/shares/', '/shares/[폴더명정규표현식]/thumbs/', $matches[0][0]);
 					//print_r($matches[0][0]);
 					//var_dump($matches[0][0]);
@@ -65,7 +66,7 @@
 					?>
 					<a href="/pbas/{{$pba->id}}/view">
 						<!-- {{ $url }} -->
-						<img  class="image" src="{{ $url }}" width="100%" height="130px">
+						<img  class="image" src="{{ $url }}" width="100%" height="120px">
 					</a>
 				<!-- </a> -->
 				<?php
