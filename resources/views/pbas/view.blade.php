@@ -10,13 +10,13 @@
 @if($view->board_name == null)
 	<h2>
 		{{ $view->division }}
-		<i class="">&nbsp;{!! $view->assy_name !!} </i><br>
+		<i class="sign in alternate icon"></i>&nbsp;{!! $view->assy_name !!} <br>
 	</h2>
     <q>작성자: {{$view->wr_user}} | 작성일: {{ $view->created_at }}</q>
 @else
 	<h2>
 		{{ $view->division }}
-		<i class="">&nbsp;{!! $view->board_name !!} </i><br>
+		<i class="sign in alternate icon"></i>&nbsp;{!! $view->board_name !!} </i><br>
 	</h2>
     <q>작성자: {{$view->wr_user}} | 작성일: {{ $view->created_at }}</q>
 @endif
