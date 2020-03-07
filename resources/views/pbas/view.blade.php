@@ -10,15 +10,15 @@
 @if($view->board_name == null)
 	<h2>
 		{{ $view->division }}
-		<i class="angle double right icon">&nbsp;{!! $view->assy_name !!} </i>
-		 <p>작성자:</p>
+		<i class="angle double right icon">&nbsp;{!! $view->assy_name !!} </i><br>
 	</h2>
+    <q>작성자: {{$view->wr_user}} | 작성일: {{ $view->created_at }}</q>
 @else
 	<h2>
 		{{ $view->division }}
-		<i class="angle double right icon">&nbsp;{!! $view->board_name !!} </i>
+		<i class="angle double right icon">&nbsp;{!! $view->board_name !!} </i><br>
 	</h2>
-	<q>작성자: {{$view->wr_user}} | 작성일: {{ $view->created_at }}</q>
+    <q>작성자: {{$view->wr_user}} | 작성일: {{ $view->created_at }}</q>
 @endif
 
 {{-- 페이지내용 불러오기--}}
@@ -41,14 +41,14 @@
 	<div class="comment">
 
 		<a class="avatar">
-			
+
 			@foreach($users as $user)
 
 			@if($user->name == $task->wr_user )
-				<img src="{{ $user->profile_image }}">	
-			@endif					
+				<img src="{{ $user->profile_image }}">
+			@endif
 			@endforeach
-			
+
 
 		</a>
 		<div class="content">
@@ -108,7 +108,7 @@
 	제조영상 수정
 </font></font></button></a>
 
-<button class="ui pink button"  onclick="button_event();">제조영상 삭제</button> 
+<button class="ui pink button"  onclick="button_event();">제조영상 삭제</button>
 
 <br>
 <br>
@@ -167,7 +167,7 @@ $('.ui.modal')
 <script>
 	var img = document.getElementsByTagName("img");
     for (var x = 0; x < img.length; x++) {
-      img.item(x).onclick=function() {window.open(this.src)}; 
+      img.item(x).onclick=function() {window.open(this.src)};
     }
 </script>
 
