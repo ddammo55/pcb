@@ -12,14 +12,14 @@
   <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
   <script src="{{ asset('/semantic/semantic.js')}}"></script>
 
-<!-- 에디터 -->
+{{-- <!-- 에디터 -->
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/decoupled-document/ckeditor.js"></script> -->
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/ckeditor.js"></script> -->
 <!-- <script src="../ckeditor5-build-classic/ckeditor.js"></script> -->
- <!-- 에디터 -->
+ <!-- 에디터 --> --}}
 
-<!--  ck에디터4 -->
-<!-- <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script> -->
+{{-- <!--  ck에디터4 -->
+<!-- <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script> --> --}}
 
 <!--  teny에디터4 -->
 <!-- <script src="{{ asset('../tinymce_4.3.8/js/tinymce/tinymce.min.js') }}"></script> -->
