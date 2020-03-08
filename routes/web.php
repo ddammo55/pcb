@@ -8,7 +8,8 @@
 #| 메인
 #|--------------------------------------------------------------------------
 Route::get('/', 'SpcsController@index');
-//Route::get('/', 'PostsController@index');
+//Route::get('/post', 'PostsController@index');
+
 
 
 
@@ -99,8 +100,8 @@ Route::resource('/pbas','PbasController')->middleware('lv2');
 Route::get('/pbas/{pba}/view', 'PbasController@view')->middleware('lv2');
 
 #|assy_create
-Route::get('/assys/create', 'PbasController@assycreate')->middleware('lv3');
-Route::post('/assys/assy_create', 'PbasController@storeassy')->middleware('lv3');
+Route::get('/assys/create', 'PbasController@assycreate')->middleware('lv2');
+Route::post('/assys/assy_create', 'PbasController@storeassy')->middleware('lv2');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -118,6 +119,12 @@ Route::resource('/works','WorksController')->middleware('lv2');
 Route::patch('/workComplate/{work}','WorksController@complate');
 
 Route::get('works2','WorksController@workform');
+
+#|--------------------------------------------------------------------------
+#| 공수 작업지시2 working time
+#|--------------------------------------------------------------------------
+Route::resource('/workplan', 'WorkplanController');
+Route::patch('/workplanComplate/{work}','WorkplanController@complate');
 
 //cookie
 Route::get('/cookie/cookie','CookieController@cookie');

@@ -19,8 +19,10 @@ class TeamMembersController extends Controller
 
     public function member_update(User $user)
     {
+        //dd($user);
+        //dd(request());
         $user->update(request(['name','email','level','Employee_number','position', 'date_of_entry', 'task']));
- 
+
         return redirect('/member');
     }
 }

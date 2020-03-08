@@ -164,6 +164,10 @@ a:active {
   <a class="item" href="/works">
     작업지시 & 공수입력
   </a>
+
+  <a class="item" href="/workplan">
+    작업지시2
+  </a>
 </div>
 
 @if(Auth::check())

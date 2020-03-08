@@ -7,9 +7,9 @@
   <div class="ui segment" >
 
 
- 
 
-   
+
+
 
 <div class="ui grid" style="padding: 10px; padding-top: 1px">
   <div class="three column row"  >
@@ -45,7 +45,7 @@
         </div>
 
         <div class="field">
-          <label class="ui center aligned header">ASS'Y명</label>
+          <label class="ui center aligned header">ASSY명</label>
           <input type="text" placeholder="Last Name">
         </div>
 

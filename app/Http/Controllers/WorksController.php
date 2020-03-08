@@ -24,13 +24,13 @@ class WorksController extends Controller
         //모든 공정 공수를 합한다.
     	$works = DB::table('works')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+coting+ass+packing+ready+ect1+ect2) as total'))->oldest('end_product_date')->paginate(10);
 
-    
+
 
     	//$works = Works::latest()->paginate(10);
     	//$works = Works::select(DB::raw("SUM(smt+dip) as part"))->paginate(10);
     	// $works = DB::table('works')->select(DB::raw("SUM(smt+dip) as part"))->get();
     	//$works = DB::table('works')->count();
-    	//컬럼합치기 
+    	//컬럼합치기
     	//$sum = Works::latest()->value(DB::raw("SUM(smt+dip)")as ss)->get();
     	 //dd($works);
     	return view('works.index', compact('works'));
@@ -59,7 +59,7 @@ class WorksController extends Controller
             'ready' => request('ready'),
             'ect1' => request('ect1'),
             'ect2' => request('ect2'),
-            'memo' => request('memo'), 
+            'memo' => request('memo'),
 
         ]);
         Alert::success('저장', '저장이 완료 되었습니다.');
@@ -75,7 +75,7 @@ class WorksController extends Controller
     	//프로젝트명 가져오기
     	$project_lists = \App\Project::get();
 
-    	//보드명 가져오기 
+    	//보드명 가져오기
     	$board_names = \App\Boardname::all();
 
 
@@ -103,9 +103,9 @@ class WorksController extends Controller
         }
 
         //작업지시는 현재년,월,일 번호로 2019090001
-        //dump(\Config::get('my_carbon.NOW_YMD'));  //"2019년 09월 01일" 
+        //dump(\Config::get('my_carbon.NOW_YMD'));  //"2019년 09월 01일"
         $Y = (\Config::get('my_carbon.NOW_Y')); //"2019"
-        $M = (\Config::get('my_carbon.NOW_M')); //"09" 
+        $M = (\Config::get('my_carbon.NOW_M')); //"09"
         $D = (\Config::get('my_carbon.NOW_D')); //"01"
 
         //날짜 201909
@@ -129,7 +129,7 @@ class WorksController extends Controller
 
                 //dd($finalWorkNumberNo);
 
-                //데이터베이스 현제 년월 201909 
+                //데이터베이스 현제 년월 201909
                 $DbYM = substr($finalWorkNumberNo,3,6);
 
                 //dd($DbYM);
@@ -157,7 +157,7 @@ class WorksController extends Controller
             $count = sprintf('%03d',1);
 
         }
-        
+
         // 접두
         $prefix = "PBA";
 
@@ -168,14 +168,14 @@ class WorksController extends Controller
         Works::create([
             'work_no' => $completeWorkNo,
             'title' => request('title'),
-            'project_name' => request('project_name'), 
-            'project_code' => request('project_code'), 
-            'board_name' => request('board_name'), 
-            'assy' => request('assy'), 
-            'ea' => request('ea'), 
-            'set_set' => request('set_set'), 
-            'end_product_date' => request('end_product_date'), 
-            
+            'project_name' => request('project_name'),
+            'project_code' => request('project_code'),
+            'board_name' => request('board_name'),
+            'assy' => request('assy'),
+            'ea' => request('ea'),
+            'set_set' => request('set_set'),
+            'end_product_date' => request('end_product_date'),
+
 
         ]);
         Alert::success('작업 지시 완료', '작업 지시가 완료 되었습니다.');
@@ -186,6 +186,7 @@ class WorksController extends Controller
     public function complate(Works $work, Request $request)
     {
         //dd(request()->all());
+        //dd($work);
         $work->update([
             'con' => request('con'),
         ]);

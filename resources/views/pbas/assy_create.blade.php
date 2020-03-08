@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>ASS'Y 제조영상 작성</h1>
+<h1>ASSY 제조영상 작성</h1>
 <form class="ui form" method="POST" action="/assys/assy_create" enctype="multipart/form-data">
 	@csrf
 
@@ -74,12 +74,12 @@
 @if($errors->any())
 <div class="ui pink inverted segment">
 
-	<ul>	
+	<ul>
 		@foreach ($errors->all() as $error)
 		<li>{{$error}}</li>
 		@endforeach
 	</ul>
-</div>	
-@endif	
+</div>
+@endif
 
 @endsection

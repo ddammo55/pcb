@@ -8,7 +8,7 @@
 <div class="ui four column grid">
   <div class="two column row">
     <div class="column">
-    	
+
     	<form class="ui form" method="POST" action="/member_modify/{{ $user->id }}">
     		        @csrf
        				@method('PATCH')
@@ -49,7 +49,7 @@
 
     		<div class="field">
     			<label>입사일</label>
-    			<input type="text" name="date_of_entry" value="{{ $user->date_of_entry }}">
+    			<input type="date" name="date_of_entry" value="{{ $user->date_of_entry }}">
     		</div>
 
     		<div class="field">
@@ -58,7 +58,7 @@
     		</div>
 
     		<br>
-    		
+
     		<button class="ui teal button" type="submit">작성완료</button>
 
     	</form>
