@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Workplan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,8 +18,12 @@ class WorkplanController extends Controller
     public function index()
     {
         $workplans = \App\Workplan::latest()->paginate(15);
-
-        return view('workplan.index', compact('workplans'));
+        //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->get();
+        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(20);
+        //dd($works);
+        //$workSum = ($workSum[0]->total);
+        //dd($workSum);
+        return view('workplan.index', compact('workplans','works'));
     }
 
     /**
@@ -207,7 +212,15 @@ class WorkplanController extends Controller
      */
     public function edit(Workplan $workplan)
     {
-       return view('workplan.edit', compact('workplan'));
+       $id = $workplan->id;
+
+       $workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
+
+       $workSum = ($workSum[0]->total);
+
+       //dd($workSum);
+
+       return view('workplan.edit', compact('workplan','workSum'));
     }
 
     /**
@@ -217,15 +230,32 @@ class WorkplanController extends Controller
      * @param  \App\Workplan  $workplan
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request, Workplan $workplan)
+    public function update(Request $request, Workplan $workplan)
     {
+        // dd(request()->all());
+        if(request('ect2') == null){
+            $ect2 = 0;
+        }else{
+            $ect2 = request('ect2');
+        }
 
-        dd(request()->all());
         $workplan->update([
             'smt' => request('smt'),
+            'dip' => request('dip'),
+            'aoi' => request('aoi'),
+            'wave' => request('wave'),
+            'touchup' => request('touchup'),
+            'coting' => request('coting'),
+            'ass' => request('ass'),
+            'item_inspection' => request('item_inspection'),
+            'packing' => request('packing'),
+            'ready' => request('ready'),
+            'ect1' => request('ect1'),
+            'ect2' => $ect2,
+
         ]);
 
-        return back();
+        return redirect('workplan');
     }
 
     /**

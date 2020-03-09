@@ -10,6 +10,12 @@
     @endif
 </h1>
 
+{{-- @foreach($works as $work)
+{{ $work->id}}
+@endforeach --}}
+
+
+
 <div class="ui relaxed divided list">
     <table class="ui selectable table">
         <thead>
@@ -37,10 +43,10 @@
 
 
 
-            @foreach($workplans as $workplan)
+            @foreach($works as $workplan)
             <form action="/workplan/{{$workplan->id}}/edit" method="get">
             @csrf
-
+            @method('PATCH')
 
             <tr>
                 <td style="height:50px;">
@@ -61,13 +67,13 @@
                 <td>{{ $workplan->end_product_date }}</td>
                 <td>{{ $workplan->status }}</td>
                 <td>{{ $workplan->wr_user }}</td>
-                <td>{{ $workplan->created_at->format('m-d') }}</td>
+                <td>{{ $workplan->created_at}}</td>
                 <td>
                     @if(auth()->user()->level == 2)
                     @if($workplan->con == 0)
                     <button class="ui primary button">공수입력</button>
                     @else
-                    <p>2150</p>
+                    {{ $workplan->total }}
                     @endif
                     @endif
 
@@ -118,3 +124,4 @@
 
 
 @endsection
+

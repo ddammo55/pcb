@@ -124,7 +124,7 @@ Route::get('works2','WorksController@workform');
 #| 공수 작업지시2 working time
 #|--------------------------------------------------------------------------
 Route::resource('/workplan', 'WorkplanController');
-Route::patch('/workplanComplate/{work}','WorkplanController@complate');
+Route::get('/workplanComplate/{workplan}','WorkplanController@complate');
 
 //cookie
 Route::get('/cookie/cookie','CookieController@cookie');
