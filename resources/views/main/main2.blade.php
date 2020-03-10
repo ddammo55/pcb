@@ -134,7 +134,7 @@
 
 <h3 class="ui horizontal divider header">
   <i class="bar chart icon"></i>
- {{ $nowYear }} AOI 전체 통계
+ {{ $nowYear }} 생산 통계
 </h3>
 
 {{--월별 생산 차트 --}}
@@ -337,6 +337,11 @@ var myChart = new Chart(ctx, {
         //현재월 공수 합계
         var month_work_sum = "{{ $month_work_sum->total }}";
 
+        // 현재공수 시간
+        var month_work_dd = Math.round(month_work_sum/60);
+
+        console.log(month_work_dd);
+
         var join_arr2 = "{{ $join_arr_works  }}";
         var join_arr22 = "{{ $join_arr2 }}";
 
@@ -364,9 +369,9 @@ var ctx = document.getElementById('worksChart').getContext('2d');
 var myChart = new Chart(ctx, {
    type: 'bar',
     data: {
-        labels: ["SMT","DIP","AOI","WAVE+커팅","터치업+세척","코팅","ASS'Y","포장","준비작업","무작업","기타"],
+        labels: ["SMT","DIP","AOI","WAVE+커팅","터치업+세척","코팅","ASS'Y","포장","준비작업","무작업"],
         datasets: [{
-            label: month+'월 공수집계  '+ month_work_sum + ' 분' ,
+            label: month+'월 공수집계  '+ month_work_sum + ' 분' + '    ' + month_work_dd + '시간' ,
             data:  s1,
             backgroundColor: [
             'rgba(153, 102, 255, 0.2)',

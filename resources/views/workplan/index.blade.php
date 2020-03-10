@@ -5,7 +5,7 @@
 <h1>실시간 작업 리스트 & 공수입력
     @if(Auth::check())
     @if(auth()->user()->level >= 3)
-    <a class="ui primary button" href="/workplan/create">작업플랜작성</a>
+    <a class="ui primary button" href="/workplan/create">작업지시작성</a>
     @endif
     @endif
 </h1>
@@ -32,6 +32,7 @@
                 <th>작업진행상황</th>
                 <th>작성자</th>
                 <th>작성일</th>
+                <th>공수합계</th>
                 @if(auth()->user()->level >= 3) {{-- 유저레벨이 3이면 --}}
                 <th>완료</th>
                 @else
@@ -67,21 +68,27 @@
                 <td>{{ $workplan->end_product_date }}</td>
                 <td>{{ $workplan->status }}</td>
                 <td>{{ $workplan->wr_user }}</td>
-                <td>{{ $workplan->created_at}}</td>
+                <td>{{Carbon\Carbon::parse($workplan->created_at)->format('m-d')}}</td>
+
+                <td>{{ $workplan->total }}/({{ round($workplan->total/60, 1)}}시간)</td>
                 <td>
+                    @if(Auth::check())
                     @if(auth()->user()->level == 2)
                     @if($workplan->con == 0)
                     <button class="ui primary button">공수입력</button>
                     @else
-                    {{ $workplan->total }}
+                    <button class="ui disabled button">입력완료</button>
+                    @endif
                     @endif
                     @endif
 
+                    @if(Auth::check())
                     @if($workplan->con != 1) {{-- con값이 1이 아니면 즉 0이면 보여줄것 --}}
                     @if(auth()->user()->level >= 3) {{-- 유저레벨이 3이면 --}}
                     {{--  <label class="ui center aligned header">완료</label>  --}}
                     <input class="ui button" type="submit" value="완료" formaction="/workplanComplate/{{$workplan->id}}">
                     <input type="hidden" name="con" value=1>
+                    @endif
                     @endif
                     @endif
 
@@ -98,7 +105,7 @@
             </tr>
             <tr>
                 @if($workplan->memo == null)
-                <td colspan="13"></td>
+                <td colspan="14"></td>
                 @else
                 <td style="padding-left:15px;" colspan="13" class="selectable warning"><i
                         class="clockwise rotated level up alternate icon"></i>{{$workplan->memo}}</td>

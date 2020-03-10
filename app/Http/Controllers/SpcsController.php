@@ -168,15 +168,16 @@ class SpcsController extends Controller
             SUM(dip) AS dip,
             SUM(aoi) AS aoi,
             SUM(wave) AS wave,
-            #SUM(cutting) AS cutting,
+
             SUM(touchup) AS touchup,
             SUM(coting) AS coting,
+
             SUM(ass) AS ass,
             SUM(packing) AS packing,
             SUM(ready) AS ready,
-            SUM(ect1) AS ect1,
-            SUM(ect2) AS ect2
-            FROM works where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+            SUM(ect1) AS ect1
+
+            FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
             ");
 
 
@@ -205,12 +206,13 @@ class SpcsController extends Controller
                 $month_work->wave,
                 #$month_work->cutting,
                 $month_work->touchup,
+                #$month_work->item_inspection,
                 $month_work->coting,
                 $month_work->ass,
                 $month_work->packing,
                 $month_work->ready,
                 $month_work->ect1,
-                $month_work->ect2
+                #$month_work->ect2
             );
         }
 
@@ -220,8 +222,8 @@ class SpcsController extends Controller
         // 월별 공수 합계-------------------
         $month_work_sum = \DB::select("
     SELECT
-    SUM(smt+dip+wave+aoi+cutting+touchup+coting+ass+packing+ready+ect1+ect2) AS total
-    FROM works where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+    SUM(smt+dip+wave+aoi+touchup+coting+ass+packing+ready+ect1) AS total
+    FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
     ");
         $month_work_sum = $month_work_sum;
         $month_work_sum = ($month_work_sum[0]);

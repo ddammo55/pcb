@@ -86,7 +86,7 @@
               </div>
 
               <div class="field">
-                <label>기타</label>
+                <label>무작업</label>
                 <input class="input {{ $errors->has('ect1') ? 'is-danger' : '' }}" type="number" name="ect1"
                   value="{{$workplan->ect1}}" placeholder="기타공수" required>
               </div>

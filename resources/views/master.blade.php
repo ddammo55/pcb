@@ -81,7 +81,7 @@ a:active {
       <a class="ui logo icon image" href="/">
         <img src="/images/logo.png" width="30px" hight="30px">
       </a>
-      <a href="/"><b data-tooltip="메인화면" data-position="bottom center">PCB 공정 관리2</b></a>
+      <a href="/"><b data-tooltip="Go" data-position="bottom center">PCB팀 공정관리 시스템</b></a>
     </div>
 
     {{-- 게스트면 --}}
@@ -96,7 +96,9 @@ a:active {
     {{-- 회원이면 이름 출력 --}}
     <div class="item">
       <a  href="{{ url('/profile') }}">
-       {{auth()->user()->name}}
+
+
+            <img class="ui avatar image" src="{{ asset(auth()->user()->image) }}">{{auth()->user()->name}}
 
      </a>
    </div>
@@ -123,7 +125,7 @@ a:active {
 </a> -->
 
 <a class="item" href="#">
-  <b>추적 성 관리</b>
+  <b><i class="database icon"></i>추적 성 관리</b>
 </a>
 
 <div class="menu">
@@ -147,7 +149,7 @@ a:active {
 
 
 <a class="item" href="#">
-  <b>제조영상</b>
+  <b><i class="image outline icon"></i>제조영상</b>
 </a>
 
 <div class="menu">
@@ -157,23 +159,23 @@ a:active {
 </div>
 
 <a class="item" href="#">
-  <b>작업 진행 현황</b>
+  <b><i class="file alternate outline icon"></i>작업 진행 현황</b>
 </a>
 
 <div class="menu">
-  <a class="item" href="/works">
+  {{-- <a class="item" href="/works">
     작업지시 & 공수입력
-  </a>
+  </a> --}}
 
   <a class="item" href="/workplan">
-    작업지시2
+    작업지시 & 공수입력
   </a>
 </div>
 
 @if(Auth::check())
 @if(auth()->user()->level >= 3)
 <a class="item" href="#">
-  <b>관리자 메뉴</b>
+  <b><i class="lock icon"></i>관리자 메뉴</b>
 </a>
 
 
@@ -206,6 +208,10 @@ a:active {
 @endif
 
 <!-- 시리얼번호 검색 -->
+<a class="item" href="#">
+    <b><i class="truck icon"></i>시리얼번호 검색</b>
+  </a>
+
 <div class="item">
   <form method="get" action="/serialNameSearch">
     @csrf

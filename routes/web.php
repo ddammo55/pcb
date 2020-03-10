@@ -123,8 +123,8 @@ Route::get('works2','WorksController@workform');
 #|--------------------------------------------------------------------------
 #| 공수 작업지시2 working time
 #|--------------------------------------------------------------------------
-Route::resource('/workplan', 'WorkplanController');
-Route::get('/workplanComplate/{workplan}','WorkplanController@complate');
+Route::resource('/workplan', 'WorkplanController')->middleware('lv2');
+Route::get('/workplanComplate/{workplan}','WorkplanController@complate')->middleware('lv2');
 
 //cookie
 Route::get('/cookie/cookie','CookieController@cookie');
