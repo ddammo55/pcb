@@ -22,7 +22,7 @@ class WorksController extends Controller
 
     	//$works =  DB::table('works')->select('*')->latest()->paginate(10);
         //모든 공정 공수를 합한다.
-    	$works = DB::table('works')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+coting+ass+packing+ready+ect1+ect2) as total'))->oldest('end_product_date')->paginate(10);
+    	$works = DB::table('works')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+coting+ass+packing+ready+ect1+ect2) as total'))->oldest('end_product_date')->paginate(15);
 
         //dd($works);
 

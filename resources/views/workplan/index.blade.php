@@ -57,7 +57,11 @@
                     @else
                     <i style="color:#56C295" class="big bell icon"></i>
                     @endif
-                    {{ $workplan->work_no }}</td>
+
+                    <a href="/workplanAdminEdit/{{$workplan->id}}">
+                    {{ $workplan->work_no }}
+                    </a>
+                </td>
                 <td>{{ $workplan->title }}</td>
                 <td><b style="color:teal">{{ $workplan->project_name }}</b></td>
                 <td>{{ $workplan->project_code }}</td>
@@ -107,7 +111,7 @@
                 @if($workplan->memo == null)
                 <td colspan="14"></td>
                 @else
-                <td style="padding-left:15px;" colspan="13" class="selectable warning"><i
+                <td style="padding-left:15px;" colspan="14" class="selectable warning"><i
                         class="clockwise rotated level up alternate icon"></i>{{$workplan->memo}}</td>
                 @endif
             </tr>
@@ -122,8 +126,8 @@
 
 
 {{-- 페이지네이션 --}}
-@if($workplans->count())
-{{ $workplans->links() }}
+@if($works->count())
+{{ $works->links() }}
 @endif
 
 <br>

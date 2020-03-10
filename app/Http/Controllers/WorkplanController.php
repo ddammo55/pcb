@@ -19,7 +19,7 @@ class WorkplanController extends Controller
     {
         $workplans = \App\Workplan::latest()->paginate(15);
         //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->get();
-        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(20);
+        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(10);
         //dd($works);
         //$workSum = ($workSum[0]->total);
         //dd($workSum);
@@ -221,6 +221,26 @@ class WorkplanController extends Controller
        //dd($workSum);
 
        return view('workplan.edit', compact('workplan','workSum'));
+    }
+
+
+
+    public function admin_edit(Workplan $workplan)
+    {
+        //dd($workplan);
+        $id = $workplan->id;
+
+       $workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
+
+       $workSum = ($workSum[0]->total);
+
+        //프로젝트명 가져오기
+        $project_lists = \App\Project::get();
+
+        //보드명 가져오기
+        $board_names = \App\Boardname::all();
+
+        return view('workplan.admin_edit', compact('workplan','workSum','project_lists','board_names'));
     }
 
     /**
