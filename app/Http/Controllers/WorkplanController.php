@@ -19,10 +19,29 @@ class WorkplanController extends Controller
     {
         $workplans = \App\Workplan::latest()->paginate(15);
         //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->get();
-        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(10);
+        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
         //dd($works);
         //$workSum = ($workSum[0]->total);
         //dd($workSum);
+
+        // $smt = $works[0]->smt;
+        // $dip = $works[0]->dip;
+        // $aoi = $works[0]->aoi;
+        // $touchup = $works[0]->touchup;
+        // $item_inspection = $works[0]->item_inspection;
+        // $coting = $works[0]->coting;
+        // $ass = $works[0]->ass;
+
+        // if($smt == !null){
+        //     $smt = 1;
+        // }else{
+        //     $smt = 0;
+        // }
+
+       // dd($smt);
+
+        //dd($smt.','.$dip.','.$aoi.','.$touchup.','.$item_inspection.','.$coting.','.$ass);
+
         return view('workplan.index', compact('workplans','works'));
     }
 
@@ -243,6 +262,25 @@ class WorkplanController extends Controller
         return view('workplan.admin_edit', compact('workplan','workSum','project_lists','board_names'));
     }
 
+    public function admin_update(Workplan $workplan)
+    {
+        //dd(request()->all());
+        $workplan->update([
+            'title' => request('title'),
+            'project_name' => request('project_name'),
+            'board_name' => request('board_name'),
+            'assy' => request('assy'),
+            'ea' => request('ea'),
+            'set_set' => request('set_set'),
+            'start_product_date' => request('start_product_date'),
+            'end_product_date' => request('end_product_date'),
+            'memo' => request('memo')
+
+        ]);
+
+        Alert::success('저장', '수정이 완료 되었습니다.');
+        return redirect('workplan');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -275,6 +313,7 @@ class WorkplanController extends Controller
 
         ]);
 
+        Alert::success('저장', '저장이 완료 되었습니다.');
         return redirect('workplan');
     }
 

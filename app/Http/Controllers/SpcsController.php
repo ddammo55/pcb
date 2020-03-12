@@ -211,8 +211,8 @@ class SpcsController extends Controller
                 $month_work->ass,
                 $month_work->packing,
                 $month_work->ready,
-                $month_work->ect1,
-                #$month_work->ect2
+                $month_work->ect1
+
             );
         }
 

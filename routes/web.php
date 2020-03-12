@@ -126,6 +126,7 @@ Route::get('works2','WorksController@workform');
 Route::resource('/workplan', 'WorkplanController')->middleware('lv2');
 Route::get('/workplanComplate/{workplan}','WorkplanController@complate')->middleware('lv2');
 Route::get('/workplanAdminEdit/{workplan}', 'WorkplanController@admin_edit')->middleware('lv3');
+Route::patch('/workplanAdminUpdate/{workplan}', 'WorkplanController@admin_update')->middleware('lv3');
 
 //cookie
 Route::get('/cookie/cookie','CookieController@cookie');
