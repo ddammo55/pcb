@@ -17,13 +17,19 @@ class WorkplanController extends Controller
      */
     public function index()
     {
-        $workplans = \App\Workplan::latest()->paginate(15);
+        if( $work_search = request('work_search')){
+            $work_search = request('work_search');
+            $works = DB::table('workplans')->where('project_name','like' , '%'.$work_search.'%' )->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
+        }else{
+        //$pbas = \App\Pba::where('board_name', 'like' , '%'.$board_name.'%')->paginate(50);
+
+       // $workplans = \App\Workplan::latest()->paginate(15);
         //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->get();
         $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
         //dd($works);
         //$workSum = ($workSum[0]->total);
         //dd($workSum);
-
+        }
         // $smt = $works[0]->smt;
         // $dip = $works[0]->dip;
         // $aoi = $works[0]->aoi;
@@ -42,7 +48,7 @@ class WorkplanController extends Controller
 
         //dd($smt.','.$dip.','.$aoi.','.$touchup.','.$item_inspection.','.$coting.','.$ass);
 
-        return view('workplan.index', compact('workplans','works'));
+        return view('workplan.index', compact('works'));
     }
 
     /**

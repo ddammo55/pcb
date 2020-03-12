@@ -206,15 +206,15 @@
         <div class="six wide column" >
 
             <div class="item">
-                <form method="get" action="/pbas/" id="frm2">
+                <form method="get" action="/workplan/" id="frm2">
                        @csrf
                        <div class="ui action left icon input">
                            <i class="search icon"></i>
-                           <input type="text" name="board_name" placeholder="검색">
+                           <input type="text" name="work_search" placeholder="검색">
                            <div class="ui teal button" onclick="document.getElementById('frm2').submit();"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">검색</font></font></div>
                        </div>
                    </form>
-               </div>
+            </div>
 
         </div>
 

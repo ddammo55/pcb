@@ -130,7 +130,29 @@
 
 
             <div class="column">
-                <h1>최근 시리얼번호</h1>
+
+                <div class="ui grid">
+
+                    <div class="six wide column">
+                        <h1>최근 시리얼번호</h1>
+                    </div>
+
+                    <div class="four wide column">
+
+                        <div class="item">
+                            <form method="get" action="/product/create/" id="frm2">
+                                   @csrf
+                                   <div class="ui action left icon input">
+                                       <i class="search icon"></i>
+                                       <input type="text" name="board_name_search" placeholder="보드명 검색">
+                                       <div class="ui teal button" onclick="document.getElementById('frm2').submit();"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">보드명검색</font></font></div>
+                                   </div>
+                               </form>
+                        </div>
+                    </div>
+
+
+                 </div>
 
                 <table class="ui celled table">
                     <thead>
@@ -194,7 +216,7 @@
         <div class="ui vertical divider">
             <font style="vertical-align: inherit;">
                 <font style="vertical-align: inherit;">
-
+                    and
                 </font>
             </font>
         </div>

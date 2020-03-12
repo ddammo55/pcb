@@ -16,10 +16,16 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = \App\Project::latest('id')->paginate(25); 
+        if($project_name_search = request('project_name_search')){
+
+            $projects  = \App\Project::latest('id')->where('project_name', 'like' , '%'.$project_name_search.'%')->paginate(30);
+        }else{
+
+            $projects = \App\Project::latest('id')->paginate(25);
+        }
         $projects_count = count(\App\Project::all());
 
-       return view('projects.create',compact('projects','projects_count')); 
+       return view('projects.create',compact('projects','projects_count'));
     }
 
     /**
@@ -105,7 +111,7 @@ class ProjectsController extends Controller
         //echo "dd";
        return redirect('/projects');
         }else{
-        return back();    
+        return back();
         }
     }
 }

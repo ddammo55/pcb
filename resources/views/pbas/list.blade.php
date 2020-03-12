@@ -165,7 +165,7 @@
 	</div>
 	<div class="image content">
 		<div class="image">
-			<h3>PBA작성 또는 ASS'Y작성을 선택하여주세요.</h3>
+			<h3>PBA작성 또는 ASSY작성을 선택하여주세요.</h3>
 		</div>
 		<div class="description">
 			<h3></h3>
@@ -186,7 +186,7 @@
 
 
 							<button class="ui pink deny button"  onclick="location.href='/pbas/create'">PBA 작성</button>
-							<button class="ui blue deny button" onclick="location.href='/assys/create'">ASS'Y 작성</button>
+							<button class="ui blue deny button" onclick="location.href='/assys/create'">ASSY 작성</button>
 
 					</td>
 				</tr>

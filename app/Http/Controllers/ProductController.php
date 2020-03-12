@@ -20,6 +20,7 @@ class ProductController extends Controller
 
     public function product_create(Request $request)
     {
+
         //[NEW시리얼번호구현]
         //시리얼 번호 최근 컬럼을 가지고 온다.
         $products_first = \App\Product::latest('id')->first('serial_name');
@@ -150,8 +151,18 @@ class ProductController extends Controller
 
     public function create()
     {
-        //전체 시리얼번호 [최근시리얼번호 조회]
-        $products = \App\Product::latest('id')->paginate(30);
+
+
+        if($board_name_search = request('board_name_search')){
+           // dd('있디');
+            $products = \App\Product::latest('id')->where('board_name', 'like' , '%'.$board_name_search.'%')->paginate(30);
+            //$pbas = \App\Pba::where('board_name', 'like' , '%'.$board_name.'%')->paginate(50);
+        }else{
+
+            //전체 시리얼번호 [최근시리얼번호 조회]
+            $products = \App\Product::latest('id')->paginate(30);
+        }
+
 
         //시리얼 번호 최근 컬럼을 가지고 온다.
         $products_first = \App\Product::latest('id')->first('serial_name');

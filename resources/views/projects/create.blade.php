@@ -10,11 +10,11 @@
     		@csrf
     		<div class="field">
     			<input class="input {{ $errors->has('project_name') ? 'is-danger' : '' }}" type="text" name="project_name" value="{{ old('project_name') }}" placeholder="프로젝트 명" required>
-    		</div>	
+    		</div>
 
     		<div class="field">
     			<input class="input {{ $errors->has('project_code') ? 'is-danger' : '' }}" type="text" name="project_code" value="{{ old('project_code') }}" placeholder="프로젝트 코드" required>
-    		</div>	
+    		</div>
 
     		<div class="field">
     			<input class="input {{ $errors->has('car') ? 'is-danger' : '' }}" type="number" name="car" value="{{ old('car') }}" placeholder="량" required>
@@ -38,12 +38,12 @@
     	@if($errors->any())
     	<div class="ui pink inverted segment">
 
-    		<ul>	
+    		<ul>
     			@foreach ($errors->all() as $error)
     			<li>{{$error}}</li>
     			@endforeach
     		</ul>
-    	</div>	
+    	</div>
 
     	@endif
     </div>
@@ -71,16 +71,45 @@
     					<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{!! $project->note!!}</font></font></td>
     				</tr>
     						@endforeach
-    	
-    	
-    
+
+
+
     	 </tbody>
     </table>
 
-    {{-- 페이지네이션 --}}
+
+
+    <div class="ui grid">
+        <div class="row">
+            <div class="six wide column" >
+
+                <div class="item">
+                    <form method="get" action="/projects/" id="frm2">
+                           @csrf
+                           <div class="ui action left icon input">
+                               <i class="search icon"></i>
+                               <input type="text" name="project_name_search" placeholder="프로젝트명 검색">
+                               <div class="ui teal button" onclick="document.getElementById('frm2').submit();"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">검색</font></font></div>
+                           </div>
+                       </form>
+                </div>
+
+            </div>
+
+            <div class="ten wide column" >
+                <div class="right column">
+
+                        {{-- 페이지네이션 --}}
 @if($projects->count())
-	{{ $projects->links() }}
+{{ $projects->links() }}
 @endif
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     </div>
   </div>
 
