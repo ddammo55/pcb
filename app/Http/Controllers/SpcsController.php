@@ -24,10 +24,127 @@ class SpcsController extends Controller
 
     }
 
+    //현재년도 -1 이전 년도
+    public function yearSpc()
+    {
+        //현재년월일
+        $val = \Carbon\Carbon::now();
+        //dd($val);
+        //현재 년월일
+        //$nowDate = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
+
+        //현재 월의 마지막 날
+        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
+
+        //현재 년월일
+        $hanNowDate = $val->format('Y년 m월 d일');
+
+        //현재 년
+        $nowYear = $val->format('Y');
+
+        //현재 월
+        $nowMonth = $val->format('m');
+
+        // 년 생산수량
+        $year_count = \App\Product::where('product_date', '>=', $nowYear . '-01-01')->where('product_date', '<=', $nowYear . '-12-31')->count();
+
+        // 월 생산수량
+        $month_count = \App\Product::where('product_date', '>=', $nowYear . '-' . $nowMonth . '-01')->where('product_date', '<=', $nowYear . '-' . $nowMonth . '-' . $myCarbonFinalDay)->count();
+
+
+        //현재까지 pba데이터 수량
+        $productCount = \App\Product::where('quantity', 1)->count();
+
+        //pba 한도견본 수량
+        $pbaCount = \App\Pba::where('division', 'PBA')->count();
+
+        //assy 한도견본 수량
+        $assyCount = \App\Pba::where('division', 'ASSY')->count();
+
+        //aoi 불량수량
+
+
+        //aoi 부품수량
+
+        //dd();
+        // 월별 통계적 관리 불러오기
+        $yearSelect = request('year_select');
+
+
+
+        $spc_month = \DB::select("
+
+               SELECT
+               ta.pro_month,
+               ta.production,
+               ta.aoi_part_num,
+               ta.d1+ta.d2+ta.d3+ta.d4+ta.d5+ta.d6+ta.d7+ta.d8+ta.d9+ta.d10+ta.d11+ta.d12 AS df,
+               (ta.ddd/ta.aoi_part_num)*1000000 AS ppm,
+               ta.d1,ta.d2,ta.d3,ta.d4,ta.d5,ta.d6,ta.d7,ta.d8,ta.d9,ta.d10,ta.d11,ta.d12
+               from (
+               select
+               MONTH(product_date)as pro_month,
+               SUM(quantity) as Production,
+               SUM(aoi_top_part_num+aoi_bot_part_num) AS aoi_part_num,
+
+               SUM(aoi_top_df_01+aoi_bot_df_01+aoi_top_df_02+aoi_bot_df_02+aoi_top_df_03+aoi_bot_df_03+aoi_top_df_04+aoi_bot_df_04+aoi_top_df_05+aoi_bot_df_05+
+               aoi_top_df_06+aoi_bot_df_06+aoi_top_df_07+aoi_bot_df_07+aoi_top_df_08+aoi_bot_df_08+aoi_top_df_09+aoi_bot_df_09+aoi_top_df_10+aoi_bot_df_10+aoi_top_df_11+aoi_bot_df_11+aoi_top_df_12+aoi_bot_df_12) AS ddd,
+
+               SUM(aoi_top_df_01+aoi_bot_df_01) as d1,
+               SUM(aoi_top_df_02+aoi_bot_df_02) as d2,
+               SUM(aoi_top_df_03+aoi_bot_df_03) as d3,
+               SUM(aoi_top_df_04+aoi_bot_df_04) as d4,
+               SUM(aoi_top_df_05+aoi_bot_df_05) as d5,
+               SUM(aoi_top_df_06+aoi_bot_df_06) as d6,
+               SUM(aoi_top_df_07+aoi_bot_df_07) as d7,
+               SUM(aoi_top_df_08+aoi_bot_df_08) as d8,
+               SUM(aoi_top_df_09+aoi_bot_df_09) as d9,
+               SUM(aoi_top_df_10+aoi_bot_df_10) as d10,
+               SUM(aoi_top_df_11+aoi_bot_df_11) as d11,
+               SUM(aoi_top_df_12+aoi_bot_df_12) as d12
+               FROM products WHERE product_date>= '$yearSelect-01-01' and product_date<= '$yearSelect-12-31'
+               group by MONTH(product_date)) ta
+               ");
+
+
+
+        // 생산수량 어레이-------------------
+
+        // 타입은 array $spc_month
+        //dd($month_works);
+        $result_array = array(); //$result_array = array배열();    배열공란을 만들어준다.
+
+        foreach ($spc_month as $mon) {
+            array_push($result_array, $mon->production);
+        }
+
+        $join_arr1 = join("|", $result_array);   // 2414|1250|2648|633|2085|1247|828
+
+
+                // 월 어레이------------------------
+                $result_array_month = array(); //$result_array = array배열();    배열공란을 만들어준다.
+
+                foreach ($spc_month as $mon) {
+                    array_push($result_array_month, $mon->pro_month);
+                }
+
+                $join_arr2 = join("|", $result_array_month);   // 1|2|3|4|5|6|7
+
+                //var_dump($join_arr2);
+
+                // ----------------------------
+
+                //dd($join_arr1.$join_arr2);
+
+        return view('main.mainYearSelect', compact('join_arr1','join_arr2','yearSelect'));
+    }
+
 
 
     public function index()
     {
+
+        // dd("index");
         //dd(\Config::get('my_carbon.NOW_S'));
         //(\Config::get('my_carbon.FINAL_DAY'));
         //dd($fff);
@@ -477,9 +594,9 @@ class SpcsController extends Controller
         //조건으로 pba 가져오기
         // $products = \App\Product::latest()->paginate(30);
 
-        if(request('set_set') == null){
+        if (request('set_set') == null) {
             $set_set = 0;
-        }else{
+        } else {
             //편성
             $set_set = request('set_set');
         }

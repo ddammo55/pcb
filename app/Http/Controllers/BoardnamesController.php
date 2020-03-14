@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Boardname;
 use Illuminate\Http\Request;
 use App\Http\Requests\BoardnameRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 class BoardnamesController extends Controller
 {
     /**
@@ -14,11 +15,19 @@ class BoardnamesController extends Controller
      */
     public function index()
     {
+
+        if($board_name_search = request('board_name_search')){
+
+            $boardnames  = \App\Boardname::latest('id')->where('boardname', 'like' , '%'.$board_name_search.'%')->paginate(30);
+        }else{
+
+            $boardnames = \App\Boardname::latest('id')->paginate(25);
+        }
         //[보드명 목록과 보드명 작성하기]
-        $boardnames = \App\Boardname::latest('id')->paginate(25); 
+
         $boardnames_count = count(\App\Boardname::all());
 
-        return view('boardnames.create',compact('boardnames','boardnames_count')); 
+        return view('boardnames.create',compact('boardnames','boardnames_count'));
     }
 
     /**
@@ -55,7 +64,7 @@ class BoardnamesController extends Controller
             'note' => request('note'),
         ]);
         // request(['boardname', 'top_num', 'bot_num',  $method , 'note']));
-       flash('입력이 정상적으로 처리되었습니다.');
+        Alert::success('입력완료', '보드명이 작성되었습니다.');
        return back();
     }
 
@@ -92,7 +101,7 @@ class BoardnamesController extends Controller
     {
 
         $method = strtoupper(request('method'));
-       $boardname->update([      
+       $boardname->update([
             'boardname' => request('boardname'),
             'top_num' => request('top_num'),
             'bot_num' => request('bot_num'),
@@ -105,7 +114,7 @@ class BoardnamesController extends Controller
             'note' => request('note'),
         ]);
 
-       flash('입력이 정상적으로 처리되었습니다.');
+        Alert::success('수정완료', '보드명이 수정되었습니다.');
        return redirect('/boardnames');
     }
 
@@ -120,11 +129,11 @@ class BoardnamesController extends Controller
         //dd(request());
         if(request('DELETE') == 'DELETE'){
         $boardname->delete();
-        flash('입력이 정상적으로 삭제되었습니다.');
+        Alert::success('삭제완료', '보드명이 삭제되었습니다.');
         //echo "dd";
        return redirect('/boardnames');
         }else{
-        return back();    
+        return back();
         }
     }
 }

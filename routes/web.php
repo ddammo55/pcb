@@ -9,6 +9,7 @@
 #|--------------------------------------------------------------------------
 Route::get('/', 'SpcsController@index');
 //Route::get('/post', 'PostsController@index');
+Route::get('/yearSpc', 'SpcsController@yearSpc');
 
 
 

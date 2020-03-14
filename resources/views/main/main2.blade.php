@@ -133,8 +133,23 @@
 
 
 <h3 class="ui horizontal divider header">
-  <i class="bar chart icon"></i>
+
+
+
+<form method="get" style="margin-top:20px;">
+    <button style="padding:5px;" class="ui left labeled icon button" type="submit" value="완료" formaction="/yearSpc">
+        <i class="left arrow icon"></i>
+      <strong style="font-size:16px">{{ $nowYear-1 }}년 이전</strong>
+    </button>
+    <input type="hidden" name="year_select" value="{{  $nowYear-1  }}">
+
+</form>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+ <i class="bar chart icon"></i>
  {{ $nowYear }} 생산 통계
+
 </h3>
 
 {{--월별 생산 차트 --}}

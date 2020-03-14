@@ -6,7 +6,7 @@ use DB;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjectsRequest;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class ProjectsController extends Controller
 {
     /**
@@ -55,7 +55,7 @@ class ProjectsController extends Controller
         //     'note' => request('note'),
 
         // ]);
-        flash('입력이 정상적으로 처리되었습니다.');
+        Alert::success('입력완료', '프로젝트명이 작성되었습니다.');
         return back();
     }
 
@@ -92,7 +92,7 @@ class ProjectsController extends Controller
     public function update(Project $project)
     {
        $project->update(request(['project_name', 'project_code', 'car', 'kinds', 'note']));
-       flash('입력이 정상적으로 처리되었습니다.');
+       Alert::success('수정완료', '프로젝트명이 수정되었습니다.');
         return redirect('/projects');
     }
 
@@ -107,7 +107,7 @@ class ProjectsController extends Controller
         //dd(request());
         if(request('DELETE') == 'DELETE'){
         $project->delete();
-        flash('입력이 정상적으로 삭제되었습니다.');
+        Alert::success('삭제완료', '프로젝트명이 삭제되었습니다.');
         //echo "dd";
        return redirect('/projects');
         }else{
