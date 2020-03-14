@@ -7,12 +7,25 @@
 {{--월별 생산 차트 --}}
 <div class="ui message">
     <canvas id="productsChart" height="250"></canvas>
-  </div>
+</div>
+
+<?php
+$join_arr1 = str_replace("|", ",", $join_arr1);
+$join_arr2 = str_replace("|", ",", $join_arr2);
+  //dd($join_arr1 );
 
 
-  <script>
+
+?>
+
+
+<script>
     var join_arr2 = "{{ $join_arr1  }}";
     var join_arr22 = "{{ $join_arr2 }}";
+
+    console.log(join_arr2);
+
+    console.log(join_arr22);
 
 
 
@@ -35,6 +48,7 @@
        ticks.push(arr22[i]+'월');
     }
 
+    console.log(ticks);
 
 var ctx = document.getElementById('productsChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -45,6 +59,7 @@ data: {
         label: '월 별 생산수량',
         data: s1,
         backgroundColor: [
+            'rgba(54, 162, 235, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -90,6 +105,39 @@ options: {
     }
 }
 });
+</script>
+
+</script>
+
+{{-- 차트 데이터값 표시 --}}
+<script type="text/javascript">
+    Chart.plugins.register({
+    afterDatasetsDraw: function(chart) {
+    var ctx = chart.ctx;
+    chart.data.datasets.forEach(function(dataset, i) {
+      var meta = chart.getDatasetMeta(i);
+      if (!meta.hidden) {
+      meta.data.forEach(function(element, index) {
+        // Draw the text in black, with the specified font
+        ctx.fillStyle = 'black';
+        var fontSize = 15;
+        var fontStyle = 'normal';
+        var fontFamily = 'Helvetica Neue';
+        ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+        // Just naively convert to string for now
+        var dataString = dataset.data[index].toString();
+        // Make sure alignment settings are correct
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        var padding = 5;
+        var position = element.tooltipPosition();
+        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+      });
+      }
+    });
+    }
+  });
+
 </script>
 
 

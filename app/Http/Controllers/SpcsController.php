@@ -130,7 +130,7 @@ class SpcsController extends Controller
 
                 $join_arr2 = join("|", $result_array_month);   // 1|2|3|4|5|6|7
 
-                //var_dump($join_arr2);
+                //dd($join_arr2);
 
                 // ----------------------------
 
