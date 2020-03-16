@@ -108,7 +108,8 @@ class SpcsController extends Controller
 
 
 
-        // 생산수량 어레이-------------------
+        // 년 생산수량
+        $year_count = \App\Product::where('product_date', '>=', $yearSelect . '-01-01')->where('product_date', '<=', $yearSelect . '-12-31')->count();
 
         // 타입은 array $spc_month
         //dd($month_works);
@@ -132,11 +133,13 @@ class SpcsController extends Controller
 
                 //dd($join_arr2);
 
+
+
                 // ----------------------------
 
                 //dd($join_arr1.$join_arr2);
 
-        return view('main.mainYearSelect', compact('join_arr1','join_arr2','yearSelect'));
+        return view('main.mainYearSelect', compact('join_arr1','join_arr2','yearSelect','year_count'));
     }
 
 

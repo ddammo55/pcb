@@ -2,7 +2,15 @@
 
 @section('content')
 
-<h1>{{$yearSelect}}년 생산수량</h1>
+<h1>{{$yearSelect}}년 생산수량 {{ number_format($year_count) }}EA</h1>
+<form method="get" style="margin-top:20px;">
+    <button style="padding:5px;" class="ui left labeled icon button" type="submit" value="완료" formaction="/yearSpc">
+        <i class="left arrow icon"></i>
+      <strong style="font-size:16px">{{ $yearSelect-1 }}년 이전</strong>
+    </button>
+    <input type="hidden" name="year_select" value="{{  $yearSelect-1  }}">
+
+</form>
 
 {{--월별 생산 차트 --}}
 <div class="ui message">
@@ -56,7 +64,7 @@ type: 'line',
 data: {
     labels: ticks,
     datasets: [{
-        label: '월 별 생산수량',
+        label: '{{$yearSelect}}년 총 생산수량 :{{ number_format($year_count) }}EA',
         data: s1,
         backgroundColor: [
             'rgba(54, 162, 235, 0.2)',
