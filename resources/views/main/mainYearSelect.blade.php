@@ -3,14 +3,37 @@
 @section('content')
 
 <h1>{{$yearSelect}}년 생산수량 {{ number_format($year_count) }}EA</h1>
-<form method="get" style="margin-top:20px;">
-    <button style="padding:5px;" class="ui left labeled icon button" type="submit" value="완료" formaction="/yearSpc">
-        <i class="left arrow icon"></i>
-      <strong style="font-size:16px">{{ $yearSelect-1 }}년 이전</strong>
-    </button>
-    <input type="hidden" name="year_select" value="{{  $yearSelect-1  }}">
 
-</form>
+<div class="ui seven column grid">
+
+    <div class="row">
+      <div class="column">
+        <form method="get" style="margin-top:20px;">
+            <button style="padding:5px;" class="ui left labeled icon button" type="submit" value="완료" formaction="/yearSpc">
+                <i class="left arrow icon"></i>
+              <strong style="font-size:16px">{{ $yearSelect-1 }}년 이전</strong>
+            </button>
+            <input type="hidden" name="year_select" value="{{  $yearSelect-1  }}">
+
+        </form>
+      </div>
+      <div class="column">
+        <form method="get" style="margin-top:20px;">
+            <button style="padding:5px;" class="ui right labeled icon button" type="submit" value="완료" formaction="/yearSpc">
+                <i class="right arrow icon"></i>
+              <strong style="font-size:16px">{{ $yearSelect+1 }}년 이후</strong>
+            </button>
+            <input type="hidden" name="year_select" value="{{  $yearSelect+1  }}">
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
 
 {{--월별 생산 차트 --}}
 <div class="ui message">
