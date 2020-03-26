@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Workplan;
+use App\Worktask;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,16 +20,38 @@ class WorkplanController extends Controller
     {
         if( $work_search = request('work_search')){
             $work_search = request('work_search');
-            $works = DB::table('workplans')->where('project_name','like' , '%'.$work_search.'%' )->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
+            //$works = DB::table('workplans')->where('project_name','like' , '%'.$work_search.'%' )->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
+            $works = DB::table('workplans')
+            ->leftJoin('worktasks', 'workplans.id', '=', 'worktasks.workplan_id')
+            ->where('project_name','like' , '%'.$work_search.'%' )
+            ->selectRaw('workplans.*, sum(worktasks.wt) as wtsum')
+            ->groupBy('workplans.id')
+            ->latest()
+            ->paginate(10);
         }else{
         //$pbas = \App\Pba::where('board_name', 'like' , '%'.$board_name.'%')->paginate(50);
 
        // $workplans = \App\Workplan::latest()->paginate(15);
         //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->get();
-        $works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
-        //dd($works);
-        //$workSum = ($workSum[0]->total);
-        //dd($workSum);
+
+
+        //$works = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->orderBy('created_at','DESC')->paginate(13);
+        //$works = Workplan::orderBy('created_at','DESC')->paginate(13);
+            //dd($works[0]->id);
+            $works = DB::table('workplans')
+            ->leftJoin('worktasks', 'workplans.id', '=', 'worktasks.workplan_id')
+            ->selectRaw('workplans.*, sum(worktasks.wt) as wtsum')
+            ->groupBy('workplans.id')
+            ->latest()
+            ->paginate(10);
+
+            //dd($works);
+        //dd($articles->first()->work_no);
+
+       //부모속성가져오기
+       //dd($comment->workplan->title);
+        //dd($str2);
+
         }
         // $smt = $works[0]->smt;
         // $dip = $works[0]->dip;
@@ -238,14 +261,22 @@ class WorkplanController extends Controller
     public function edit(Workplan $workplan)
     {
        $id = $workplan->id;
-
+       // dd($id);
        $workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
 
        $workSum = ($workSum[0]->total);
 
-       //dd($workSum);
+       //댓글공수를 sum한다.
+       //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
 
-       return view('workplan.edit', compact('workplan','workSum'));
+       //dd($workSum);
+       $worktasks = \App\Workplan::find($id)->worktasks()->get();
+       //dd($worktasks);
+       $worktasksSum = \App\Worktask::where('workplan_id' , $id)->sum('wt');
+       //$worktasks = \App\Workplan::find($id)->worktasks()->get();
+       //dd(count($worktasks->wt));
+
+       return view('workplan.edit', compact('workplan','workSum','worktasks','worktasksSum'));
     }
 
 
@@ -264,6 +295,11 @@ class WorkplanController extends Controller
 
         //보드명 가져오기
         $board_names = \App\Boardname::all();
+
+        //공수값합계
+        //$worktasks = \App\Workplan::find($id)->worktasks()->get();
+
+        //dd($worktasks);
 
         return view('workplan.admin_edit', compact('workplan','workSum','project_lists','board_names'));
     }

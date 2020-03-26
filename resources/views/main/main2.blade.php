@@ -177,7 +177,7 @@
         <th class="ui center aligned">역삽</th>
         <th class="ui center aligned">오삽</th>
         <th class="ui center aligned">리드뜸</th>
-        <th class="ui center aligned">리드부식</th>
+        <th class="ui center aligned">리드불량</th>
         <th class="ui center aligned">모로섬</th>
         <th class="ui center aligned">뒤집힘</th>
         <th class="ui center aligned">틀어짐</th>
@@ -350,7 +350,7 @@ var myChart = new Chart(ctx, {
         var month = "{{$nowMonth}}";
 
         //현재월 공수 합계
-        var month_work_sum = "{{ $month_work_sum->total }}";
+        var month_work_sum = "{{ $month_work_sum_total }}";
 
         // 현재공수 시간
         var month_work_dd = Math.round(month_work_sum/60);
@@ -384,7 +384,7 @@ var ctx = document.getElementById('worksChart').getContext('2d');
 var myChart = new Chart(ctx, {
    type: 'bar',
     data: {
-        labels: ["SMT","DIP","AOI","WAVE+커팅","터치업+세척","코팅","ASS'Y","포장","준비작업","무작업"],
+        labels: ["SMT프로그램","SMT준비교체","SMT운영","AOI검사","DIP솔더링","터치업+세척+컷팅","단품검사","코팅","ASSY조립","무작업(포,준,추)","무작업(설,불)"],
         datasets: [{
             label: month+'월 공수집계  '+ month_work_sum + ' 분' + '    ' + month_work_dd + '시간' ,
             data:  s1,
@@ -400,10 +400,8 @@ var myChart = new Chart(ctx, {
             'rgba(153, 102, 255, 0.2)',
             'rgba(153, 102, 255, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
             ],
             borderColor: [
-            'rgb(153, 102, 255)',
             'rgb(153, 102, 255)',
             'rgb(153, 102, 255)',
             'rgb(153, 102, 255)',

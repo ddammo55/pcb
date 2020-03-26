@@ -282,24 +282,28 @@ class SpcsController extends Controller
 
 
         //월별 공수 쿼리
-        $month_works = \DB::select("
-            SELECT
-            SUM(smt) AS smt,
-            SUM(dip) AS dip,
-            SUM(aoi) AS aoi,
-            SUM(wave) AS wave,
+        // $month_works = \DB::select("
+        //     SELECT
+        //     SUM(smt) AS smt,
+        //     SUM(dip) AS dip,
+        //     SUM(aoi) AS aoi,
+        //     SUM(wave) AS wave,
 
-            SUM(touchup) AS touchup,
-            SUM(coting) AS coting,
+        //     SUM(touchup) AS touchup,
+        //     SUM(coting) AS coting,
 
-            SUM(ass) AS ass,
-            SUM(packing) AS packing,
-            SUM(ready) AS ready,
-            SUM(ect1) AS ect1
+        //     SUM(ass) AS ass,
+        //     SUM(packing) AS packing,
+        //     SUM(ready) AS ready,
+        //     SUM(ect1) AS ect1
 
-            FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+        //     FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+        //     ");
+        //월별 공수 쿼리
+        $month_worktasks = \DB::select("
+        SELECT process, sum(wt) as wtsum from worktasks where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay' GROUP BY process
             ");
-
+        //dd($month_worktasks[0]->wtsum);
 
         // 생산수량 어레이-------------------
 
@@ -317,21 +321,11 @@ class SpcsController extends Controller
         // 공수 어레이-------------------
         $result_array_works = array(); //배열공란을 만들어준다.
 
-        foreach ($month_works as $month_work) {
+        foreach ($month_worktasks as $month_work) {
             array_push(
                 $result_array_works,
-                $month_work->smt,
-                $month_work->dip,
-                $month_work->aoi,
-                $month_work->wave,
-                #$month_work->cutting,
-                $month_work->touchup,
-                #$month_work->item_inspection,
-                $month_work->coting,
-                $month_work->ass,
-                $month_work->packing,
-                $month_work->ready,
-                $month_work->ect1
+                $month_work->wtsum,
+
 
             );
         }
@@ -340,13 +334,23 @@ class SpcsController extends Controller
         //dd($join_arr_work);
 
         // 월별 공수 합계-------------------
-        $month_work_sum = \DB::select("
-    SELECT
-    SUM(smt+dip+wave+aoi+touchup+coting+ass+packing+ready+ect1) AS total
-    FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+    //     $month_work_sum = \DB::select("
+    // SELECT
+    // SUM(smt+dip+wave+aoi+touchup+coting+ass+packing+ready+ect1) AS total
+    // FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
+    // ");
+
+    $month_work_sum = \DB::select("
+    select sum(wt) as wtsum from worktasks where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
     ");
-        $month_work_sum = $month_work_sum;
-        $month_work_sum = ($month_work_sum[0]);
+
+    //월별 공수집계
+    $month_work_sum_total = $month_work_sum[0]->wtsum;
+       // dd( $month_work_sum_total);
+    //dd($month_work_sum[0]->wtsum);
+
+        // $month_work_sum = $month_work_sum;
+        // $month_work_sum = ($month_work_sum[0]);
 
         // 월 어레이------------------------
         $result_array_month = array(); //$result_array = array배열();    배열공란을 만들어준다.
@@ -363,7 +367,7 @@ class SpcsController extends Controller
 
 
 
-        return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMonth', 'hanNowDate', 'spc_month', 'spc_year', 'productCount', 'pbaCount', 'assyCount', 'join_arr1', 'join_arr2', 'month_ppm', 'join_arr_work', 'month_work_sum'));
+        return view('main.main2', compact('year_count', 'month_count', 'nowYear', 'nowMonth', 'hanNowDate', 'spc_month', 'spc_year', 'productCount', 'pbaCount', 'assyCount', 'join_arr1', 'join_arr2', 'month_ppm', 'join_arr_work', 'month_work_sum_total'));
     }
 
     //월별생산수량

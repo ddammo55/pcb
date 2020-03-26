@@ -1,26 +1,32 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
 use App\User;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
+use App\Worktask;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
     use UploadTrait;
- 
+
     public function __construct()
     {
         $this->middleware('auth');
     }
- 
+
     public function index()
     {
-        return view('auth.profile');
+        $user = auth()->user()->name; //로그인자
+        $works = Worktask::latest()->where('wr_user' ,'=', $user)->get();
+
+        //dd($works);
+
+        return view('auth.profile',compact('works'));
     }
- 
+
     public function updateProfile(Request $request)
     {
         // Form validation
@@ -28,12 +34,12 @@ class ProfileController extends Controller
             'name'              =>  'required',
             'profile_image'     =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
- 
+
         // Get current user
         $user = User::findOrFail(auth()->user()->id);
         // Set user name
         $user->name = $request->input('name');
- 
+
         // Check if a profile image has been uploaded
         if ($request->has('profile_image')) {
             // Get image file
@@ -51,7 +57,7 @@ class ProfileController extends Controller
         }
         // Persist user record to database
         $user->save();
- 
+
         // Return user back and show a flash message
         Alert::success('저장', '저장이 완료 되었습니다.');
         return redirect()->back();

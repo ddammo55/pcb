@@ -16,8 +16,8 @@
         <img src="{{ (auth()->user()->profile_image) }}">
     </div>
     <div class="content">
-      <a class="header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{Auth()->user()->name}} 
-       @if(Auth()->user()->position) 
+      <a class="header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{Auth()->user()->name}}
+       @if(Auth()->user()->position)
        {{ Auth()->user()->position }}</font></font></a>
        @else
         {{ '' }} </font></font></a>
@@ -26,9 +26,9 @@
     <div class="extra content">
         <span style="margin-bottom: 5px;">
           <i class="users icon"></i>
-          
+
             {!! strtolower(auth()->user()->email) !!}
-        
+
         </span>
 
         <input id="name" type="hidden"  name="name" value="{{ old('name', auth()->user()->name) }}">
@@ -38,7 +38,7 @@
 
         <button type="submit" style="margin-top: 5px;">사진 업로드</button>
     </div>
-    </div>  
+    </div>
 </form> --}}
 {{-- 회원사진 --}}
 
@@ -65,9 +65,9 @@
     <div class="extra content">
         <span style="margin-bottom: 5px;">
           <i class="users icon"></i>
-          
+
             {!! strtolower(auth()->user()->email) !!}
-        
+
         </span>
 
         <input id="name" type="hidden"  name="name" value="{{ old('name', auth()->user()->name) }}">
@@ -77,7 +77,7 @@
 
         <button type="submit" style="margin-top: 5px;">사진 업로드</button>
     </div>
-    </div>  
+    </div>
 </form>
 {{-- 회원사진 --}}
 
@@ -117,14 +117,14 @@
     <div class="three wide column">
 
       <div style="display: table; margin-left: auto; margin-right: auto;">
-       
+
           <h2 class="ui inverted header" style="padding-top: 100px;">
             <h1>LV&nbsp;{{ Auth()->user()->level }}</h1>
             <div class="sub header"></div>
           </h2>
-        
+
       </div>
-      
+
     </div>
   </div>
 
@@ -132,5 +132,39 @@
 
 <div class="ui divider"></div>
 
+<h3>최근 공수입력현황</h3>
+
+<table class="ui celled table">
+    <thead>
+        <tr><th>NO</th>
+            <th>작업지시번호</th>
+            <th>제목</th>
+            <th>프로젝트명</th>
+            <th>프로젝트코드</th>
+            <th>보드명</th>
+            <th>assy</th>
+            <th>수량</th>
+            <th>작성일</th>
+            <th>공수</th>
+        </tr></thead>
+        <tbody>
+            <?php $i=1?>
+            @foreach($works as $work)
+      <tr>
+        <td data-label="Name">{{$i}}</td>
+        <td data-label="Age">{{$work->workplan->work_no}}</td>
+        <td data-label="Age">{{$work->workplan->title}}</td>
+        <td data-label="Age">{{$work->workplan->project_name}}</td>
+        <td data-label="Age">{{$work->workplan->project_code}}</td>
+        <td data-label="Age">{{$work->workplan->board_name}}</td>
+        <td data-label="Age">{{$work->workplan->assy}}</td>
+        <td data-label="Age">{{$work->workplan->ea}}</td>
+        <td data-label="Age">{{$work->created_at->format('m-d')}}</td>
+        <td data-label="Job">{{ $work->wt }}</td>
+      </tr>
+      <?php $i++ ?>
+    @endforeach
+    </tbody>
+  </table>
 
 @endsection

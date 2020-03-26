@@ -18,6 +18,81 @@
     <p>메모 : {{ $workplan->memo}} </p>
 </div>
 
+@foreach ($worktasks as $worktask)
+
+
+{{--  공수리스트  --}}
+<div class="ui segment">
+
+<img style="width:60px; height:60px;" class="ui avatar image" src="{{ asset(auth()->user()->image) }}">
+{{$worktask->process}}
+{{$worktask->wr_user}}
+{{$worktask->wt}}
+{{ $worktask->description }}
+{{$worktask->created_at}}
+
+</div>
+
+<div class="ui segment">
+<div class="ui ordered steps">
+    <div class="completed step">
+      <div class="content">
+        <div class="title">Shipping</div>
+        <div class="description">Choose your shipping options</div>
+      </div>
+    </div>
+    <div class="completed step">
+      <div class="content">
+        <div class="title">Billing</div>
+        <div class="description">Enter billing information</div>
+      </div>
+    </div>
+    <div class="active step">
+      <div class="content">
+        <div class="title">Confirm Order</div>
+        <div class="description">Verify order details</div>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+
+{{-- 댓글작성하기 구현 --}}
+<div class="ui segment">
+<form class="ui form" method="POST" action="/worktask/{{ $workplan->id }}/tasks">
+	@csrf
+  <div class="field">
+    <label>공수 입력</label>
+    <div class="field">
+        <div class="ui selection dropdown">
+            <input class="input {{ $errors->has('process') ? 'is-danger' : '' }}" type="hidden" name="process"
+                value="{{ old('process') }}" placeholder="방법" required>
+            <i class="dropdown icon"></i>
+            <div class="default text" style="color: black">공정명</div>
+            <div class="menu">
+                <div class="item">SMD프로그램</div>
+                <div class="item">SMT설비교체</div>
+                <div class="item">SMT작업공정</div>
+                <div class="item">AOI검사공정</div>
+                <div class="item">DIP공정</div>
+                <div class="item">웨이브솔더링및컷팅공정</div>
+                <div class="item">터치업및세척공정</div>
+                <div class="item">코팅공정</div>
+                <div class="item">ASSY공정</div>
+                <div class="item">포장작업</div>
+                <div class="item">무작업</div>
+            </div>
+        </div>
+    </div>
+    <input type="number" name="wt" placeholder="공수" required>
+    <br>
+    <br>
+    <input class="ui primary button" type="submit" value="작성하기">
+  </div>
+</form>
+</div>
+{{-- 댓글작성하기 구현 --}}
+
 
 <div class="ui segment">
     <div class="ui two column very relaxed grid">

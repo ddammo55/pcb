@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Workplan extends Model
+class Worktask extends Model
 {
     protected $guarded = [];
-
-    public function Worktasks()
+    public function workplan()
     {
-    	return $this->hasMany(Worktask::class);
+    	return $this->belongsTo(Workplan::class);
     }
 
 

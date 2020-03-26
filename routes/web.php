@@ -129,6 +129,15 @@ Route::get('/workplanComplate/{workplan}','WorkplanController@complate')->middle
 Route::get('/workplanAdminEdit/{workplan}', 'WorkplanController@admin_edit')->middleware('lv3');
 Route::patch('/workplanAdminUpdate/{workplan}', 'WorkplanController@admin_update')->middleware('lv3');
 
+#|--------------------------------------------------------------------------
+#| 작업공수댓글
+#|--------------------------------------------------------------------------
+Route::post('/worktask/{workplan}/tasks/', 'WorktaskController@store')->middleware('auth');
+Route::patch('/worktask/{worktask}', 'WorktaskController@update')->middleware('auth');
+
+
+
+
 //cookie
 Route::get('/cookie/cookie','CookieController@cookie');
 Route::get('/cookie/cookie_ok','CookieController@cookie_ok');

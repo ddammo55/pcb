@@ -11,12 +11,6 @@
     @endif
 </h1>
 
-{{-- @foreach($works as $work)
-{{ $work->id}}
-@endforeach --}}
-
-
-
 <div class="ui relaxed divided list">
     <table class="ui selectable table">
         <thead>
@@ -142,7 +136,9 @@
                 <td>{{ $workplan->wr_user }}</td>
                 <td>{{Carbon\Carbon::parse($workplan->created_at)->format('m-d')}}</td>
 
-                <td>{{ $workplan->total }}/({{ round($workplan->total/60, 1)}}시간)</td>
+                <td>
+                    {{ number_format($workplan->wtsum) }}분 /{{ round($workplan->wtsum/60,1) }}시간
+            </td>
                 <td>
                     @if(Auth::check())
                     @if(auth()->user()->level == 2)

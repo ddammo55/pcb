@@ -4,7 +4,7 @@
 
 <div class="ui segment">
   <h2 class="ui left floated header">{{$workplan->project_name. ' ' .$workplan->title. ' '.$workplan->board_name. ' ' .$workplan->assy. ' ' .$workplan->ea.'EA'}} &nbsp;작업공수입력
-   <strong style="color:#059DF5">Total: {{  number_format($workSum) }}분 ({{ round($workSum/60, 1)}}시간) </strong>
+   <strong style="color:#059DF5">Total: {{  number_format($worktasksSum) }}분 ({{ round($worktasksSum/60, 1)}}시간) </strong>
   </h2>
 
   <div class="ui clearing divider"></div>
@@ -12,93 +12,132 @@
   <p>메모 : {{ $workplan->memo}} </p>
 </div>
 
+{{--  @foreach($articles as $article)
+{{ $article->wt }}
 
-<div class="ui segment">
-  <form class="ui form" action="/workplan/{{ $workplan->id }}" method="POST">
-    @csrf
-    @method('PATCH')
-  <div class="ui two column very relaxed grid">
-        <div class="column">
+@endforeach  --}}
 
-          <div class="field">
-            <label>SMD 공수입력</label>
-            <input class="input {{ $errors->has('smt') ? 'is-danger' : '' }}" type="number" name="smt"
-              value="{{$workplan->smt}}" placeholder="SMT공수" required>
+{{-- 공수합계 --}}
+<?php $sum=0 ?>
+<table class="ui very padded table">
+    <thead>
+        <tr>
+            {{-- <th>이미지</th> --}}
+            <th>공정명</th>
+            <th>작업자</th>
+            <th>공수</th>
+            <th>메모</th>
+            <th>작성일</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($worktasks as $worktask)
+      <tr>
+        {{-- <td><img style="width:40px; height:40px;" class="ui avatar image" src="{{ asset(auth()->user()->image) }}"></td> --}}
+        {{-- <td><img class="ui tiny image" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></td> --}}
+        <td>{{$worktask->process}}</td>
+        <td>{{$worktask->wr_user}}</td>
+        <td><b>{{$group = $worktask->wt}}</b>
+        </td>
+        <td>{{ $worktask->description }}</td>
+        <td>{{$worktask->created_at}}</td>
+        <?php $sum+= $worktask->wt ?>
+    </tr>
+    @endforeach
+
+
+</tbody>
+<tfoot class="ui inverted teal table">
+    <tr>
+    <th></th>
+    <th>Total</th>
+    <th>{{  number_format($sum) }}분 </th>
+    <th>({{ round($sum/60, 1)}}시간)</th>
+    <th></th>
+  </tr></tfoot>
+  </table>
+
+
+{{--  공수리스트  --}}
+{{-- <div class="ui segment">
+
+<img style="width:60px; height:60px;" class="ui avatar image" src="{{ asset(auth()->user()->image) }}">
+{{$worktask->process}}
+{{$worktask->wr_user}}
+{{$worktask->wt}}
+{{ $worktask->description }}
+{{$worktask->created_at}}
+
+</div> --}}
+
+
+{{-- STEP --}}
+{{-- <div class="ui segment">
+
+    <div class="ui ordered steps">
+        <div class="completed step">
+          <div class="content">
+            <div class="title">Shipping</div>
+            <div class="description">Choose your shipping options</div>
           </div>
-
-          <div class="field">
-            <label>DIP 공수입력</label>
-            <input class="input {{ $errors->has('dip') ? 'is-danger' : '' }}" type="number" name="dip"
-              value="{{$workplan->dip}}" placeholder="DIP공수" required>
-          </div>
-
-          <div class="field">
-            <label>AOI 공수입력</label>
-            <input class="input {{ $errors->has('aoi') ? 'is-danger' : '' }}" type="number" name="aoi"
-              value="{{$workplan->aoi}}" placeholder="aoi공수" required>
-          </div>
-
-          <div class="field">
-            <label>웨이브솔더링 + 컷팅 공수입력</label>
-            <input class="input {{ $errors->has('wave') ? 'is-danger' : '' }}" type="number" name="wave"
-              value="{{$workplan->wave}}" placeholder="wave공수" required>
-          </div>
-
-          <div class="field">
-            <label>터치업 + 세척 공수입력</label>
-            <input class="input {{ $errors->has('touchup') ? 'is-danger' : '' }}" type="number" name="touchup"
-              value="{{$workplan->touchup}}" placeholder="touchup공수" required>
-          </div>
-
-
-
         </div>
-        <div class="column">
-
-            <div class="field">
-                <label>단품검사</label>
-                <input class="input {{ $errors->has('item_inspection') ? 'is-danger' : '' }}" type="number"
-                  name="item_inspection" value="{{$workplan->item_inspection}}" placeholder="item_inspection공수" required>
-              </div>
-
-            <div class="field">
-                <label>코팅</label>
-                <input class="input {{ $errors->has('coting') ? 'is-danger' : '' }}" type="number" name="coting"
-                  value="{{$workplan->coting}}" placeholder="coting공수" required>
-              </div>
-
-              <div class="field">
-                <label>ASSY</label>
-                <input class="input {{ $errors->has('ass') ? 'is-danger' : '' }}" type="number" name="ass"
-                  value="{{$workplan->ass}}" placeholder="ass공수" required>
-              </div>
-
-              <div class="field">
-                <label>포장작업</label>
-                <input class="input {{ $errors->has('packing') ? 'is-danger' : '' }}" type="number" name="packing"
-                  value="{{$workplan->packing}}" placeholder="packing공수" required>
-              </div>
-
-              <div class="field">
-                <label>준비작업</label>
-                <input class="input {{ $errors->has('ready') ? 'is-danger' : '' }}" type="number" name="ready"
-                  value="{{$workplan->ready}}" placeholder="ready공수" required>
-              </div>
-
-              <div class="field">
-                <label>무작업</label>
-                <input class="input {{ $errors->has('ect1') ? 'is-danger' : '' }}" type="number" name="ect1"
-                  value="{{$workplan->ect1}}" placeholder="기타공수" required>
-              </div>
-
+        <div class="completed step">
+          <div class="content">
+            <div class="title">Billing</div>
+            <div class="description">Enter billing information</div>
+          </div>
+        </div>
+        <div class="active step">
+          <div class="content">
+            <div class="title">Confirm Order</div>
+            <div class="description">Verify order details</div>
+          </div>
         </div>
       </div>
-      <br>
-      <button class="ui  primary  button" type="submit">공수입력</button>
-  </form>
-  <div class="ui vertical divider">
-    and
-  </div>
-</div>
 
+</div> --}}
+
+{{-- 공수입력 --}}
+{{-- 공수입력하기 구현 --}}
+<div class="ui segment" style="background-color:#EAEAEA">
+    <form class="ui form" method="POST" action="/worktask/{{ $workplan->id }}/tasks">
+        @csrf
+      <div class="field">
+        <label>공정명 선택</label>
+        <div class="field">
+            <div class="ui selection dropdown">
+                <input class="input {{ $errors->has('process') ? 'is-danger' : '' }}" type="hidden" name="process"
+                    value="{{ old('process') }}" placeholder="방법" required>
+                <i class="dropdown icon"></i>
+                <div class="default text" style="color: black">공정명을 선택하세요</div>
+                <div class="menu">
+                    <div class="item">SMD프로그램</div>
+                    <div class="item">SMT설비교체</div>
+                    <div class="item">SMT설비운영</div>
+                    <div class="item">AOI검사공정</div>
+                    <div class="item">DIP공정+웨이브솔더링</div>
+                    <div class="item">터치업+세척+컷팅</div>
+                    <div class="item">단품검사</div>
+                    <div class="item">코팅</div>
+                    <div class="item">ASSY조립</div>
+                    <div class="item">무작업1(포장,준비)</div>
+                    <div class="item">무작업2(설변,불량)</div>
+                </div>
+            </div>
+        </div>
+
+        <label>공수 입력</label>
+        <input type="number" name="wt" placeholder="공수" required>
+        <br>
+        <br>
+        <label>메모 입력</label>
+        <input type="text" name="description" placeholder="메모">
+        <br>
+        <br>
+        <input class="ui primary button" type="submit" value="작성하기">
+      </div>
+    </form>
+    </div>
+    {{-- 댓글작성하기 구현 --}}
+    <br>
 @endsection
