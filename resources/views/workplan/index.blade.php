@@ -24,7 +24,7 @@
                 <th>수량</th>
                 <th>작업시작일</th>
                 <th>작업완료일</th>
-                <th>작업수치</th>
+
                 <th>작성자</th>
                 <th>작성일</th>
                 <th>공수합계</th>
@@ -43,14 +43,14 @@
             <form action="/workplan/{{$workplan->id}}/edit" method="get">
             @csrf
             @method('PATCH')
-
             <tr>
                 <td style="height:50px;">
+                    {{--  <div class="ui red horizontal label">!</div>  --}}
                     {{-- con=0이면 종이 빈종이고 con=1이면 종이 빨강색으로 --}}
                     @if($workplan->con == 0)
-                    <i class="big bell outline icon"></i>
+                    <i style="font-size:20px" class="big play icon"></i>
                     @else
-                    <i style="color:#56C295" class="big bell icon"></i>
+                    <i style="font-size:20px;color:#56C295" class="big stop icon"></i>
                     @endif
 
 
@@ -72,67 +72,15 @@
                 <td>{{ $workplan->board_name }}</td>
                 <td>{{ $workplan->assy }}</td>
                 <td>{{ $workplan->ea }}</td>
-                <td>{{ $workplan->start_product_date }}</td>
-                <td>{{ $workplan->end_product_date }}</td>
                 <td>
-
-                    <?php
-                        //공수값이 들어가 있으면 1  없으면 0
-                        $smt = !empty($workplan->smt);
-                        $dip = !empty($workplan->dip);
-                        $aoi = !empty($workplan->aoi);
-                        $touchup = !empty($workplan->touchup);
-                        $item_inspection = !empty($workplan->item_inspection);
-                        $coting = !empty($workplan->coting);
-                        $ass = !empty($workplan->ass);
-
-                        //공정의 전체 합계 0~7
-                        $persum = $smt+$dip+$aoi+$touchup+$item_inspection+$coting+$ass;
-
-                        switch($persum){
-
-                            case 7:
-                                   $per = 100;
-                                   break;
-                            case 6:
-                                   $per = 80;
-                                   break;
-                            case 5:
-                                    $per = 60;
-                                   break;
-                            case 4:
-                                    $per = 50;
-                                   break;
-                            case 3:
-                                    $per = 40;
-                                   break;
-                            case 2:
-                                    $per = 30;
-                                   break;
-                            case 1:
-                                   $per = 20;
-                                   break;
-                            default:
-                                    $per = 0;
-
-                            }
-
-                            /*
-                            7개의 공정중에
-                            1공정완료 20%
-                            2공정완료 30%
-                            3공정완료 40%
-                            4공정완료 50%
-                            5공정완료 60%
-                            6공정완료 80%
-                            7공정완료 100%
-                            */
-                        ?>
-
-                    <div class="radialProgressBar progress-{{$per}}">
-                        <div class="overlay">{{ $per }}%</div>
-                      </div>
+                    {{Carbon\Carbon::parse($workplan->start_product_date)->format('m-d')}}
                 </td>
+                <td>
+                    {{Carbon\Carbon::parse($workplan->end_product_date)->format('m-d')}}
+                </td>
+
+
+
                 <td>{{ $workplan->wr_user }}</td>
                 <td>{{Carbon\Carbon::parse($workplan->created_at)->format('m-d')}}</td>
 
@@ -148,6 +96,18 @@
                     <button class="ui disabled button">입력완료</button>
                     @endif
                     @endif
+
+                    @if(auth()->user()->level == 3)
+                    <button class="ui primary button">공수</button>
+                    <form method="get" style="margin-top:20px;">
+                        <button class="ui orange button" type="submit" value="완료" formaction="/workplanAdminEdit/{{$workplan->id}}">
+
+                          수정
+                        </button>
+                    </form>
+
+                    @endif
+
                     @endif
 
                     @if(Auth::check())

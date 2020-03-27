@@ -47,7 +47,7 @@ class WorktaskController extends Controller
 			'process' => strtoupper(request('process')),
 			'description' => request('description'),
 			'wt' => request('wt'),
-			'wr_user' => auth()->user()->name, //입력한 사용자
+			'wr_user' => auth()->user()->name //입력한 사용자
 		]);
 
 		return back();

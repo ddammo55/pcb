@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="ui segment">
+{{--  <div class="ui segment">
   <h2 class="ui left floated header">{{$workplan->project_name. ' ' .$workplan->title. ' '.$workplan->board_name. ' ' .$workplan->assy. ' ' .$workplan->ea.'EA'}} &nbsp;작업공수입력
    <strong style="color:#059DF5">Total: {{  number_format($worktasksSum) }}분 ({{ round($worktasksSum/60, 1)}}시간) </strong>
   </h2>
@@ -10,12 +10,22 @@
   <div class="ui clearing divider"></div>
   <p>작업지시번호: {{ $workplan->work_no}} | 작업일:{{ $workplan->start_product_date}} ~ {{ $workplan->end_product_date}} | 작성자:{{ $workplan->wr_user }} | 작성일:{{ $workplan->created_at}}</p>
   <p>메모 : {{ $workplan->memo}} </p>
-</div>
+</div>  --}}
 
-{{--  @foreach($articles as $article)
-{{ $article->wt }}
 
-@endforeach  --}}
+  <div class="ui raised very padded text container segment">
+    <h2 class="ui header">초중물 및 결점률 체크시트 {{ $workplan->work_no}}</h2>
+    @include('workplan._sheet')
+  </div>
+
+
+{{--  @include('workplan._sheet')  --}}
+
+<h4 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    공수입력
+  </h4>
+
 
 {{-- 공수합계 --}}
 <?php $sum=0 ?>
