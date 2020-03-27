@@ -15,21 +15,21 @@
     <table class="ui selectable table">
         <thead>
             <tr>
-                <th>작업지시번호</th>
-                <th>제목</th>
-                <th>프로젝트명</th>
-                <th>프로젝트코드</th>
-                <th>보드명</th>
-                <th>assy</th>
-                <th>수량</th>
-                <th>작업시작일</th>
-                <th>작업완료일</th>
+                <th class="center aligned">작업지시번호</th>
+                <th class="center aligned">제목</th>
+                <th class="center aligned">프로젝트명</th>
+                <th class="center aligned">프로젝트코드</th>
+                <th class="center aligned">보드명</th>
+                <th class="center aligned">assy</th>
+                <th class="center aligned">수량</th>
+                <th class="center aligned">작업시작일</th>
+                <th class="center aligned">작업완료일</th>
 
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>공수합계</th>
+                <th class="center aligned">작성자</th>
+                <th class="center aligned">작성일</th>
+                <th class="center aligned">공수합계</th>
                 @if(auth()->user()->level >= 3) {{-- 유저레벨이 3이면 --}}
-                <th>완료</th>
+                <th class="center aligned">설정버튼</th>
                 @else
                 <th>공수입력</th>
                 @endif
@@ -99,12 +99,12 @@
 
                     @if(auth()->user()->level == 3)
                     <button class="ui primary button">공수</button>
-                    <form method="get" style="margin-top:20px;">
-                        <button class="ui orange button" type="submit" value="완료" formaction="/workplanAdminEdit/{{$workplan->id}}">
 
+                        <button class="ui orange button" type="submit" value="완료" formaction="/workplanAdminEdit/{{$workplan->id}}">
                           수정
                         </button>
-                    </form>
+
+
 
                     @endif
 
@@ -116,6 +116,13 @@
                     {{--  <label class="ui center aligned header">완료</label>  --}}
                     <input class="ui button" type="submit" value="완료" formaction="/workplanComplate/{{$workplan->id}}">
                     <input type="hidden" name="con" value=1>
+                    {{--  <form method="get" style="margin-top:20px;">
+                        <button class="ui orange button" type="submit" value="완료" fformaction="/workplanComplate/{{$workplan->id}}">
+
+                          수정
+                        </button>
+                        <input type="hidden" name="con" value=1>
+                    </form>  --}}
                     @endif
                     @endif
                     @endif
