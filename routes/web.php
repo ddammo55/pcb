@@ -128,6 +128,7 @@ Route::resource('/workplan', 'WorkplanController')->middleware('lv2');
 Route::get('/workplanComplate/{workplan}','WorkplanController@complate')->middleware('lv2');
 Route::get('/workplanAdminEdit/{workplan}', 'WorkplanController@admin_edit')->middleware('lv3');
 Route::patch('/workplanAdminUpdate/{workplan}', 'WorkplanController@admin_update')->middleware('lv3');
+Route::patch('/workplanSheetUpdate/{workplan}', 'WorkplanController@sheet_update')->middleware('lv2');
 
 #|--------------------------------------------------------------------------
 #| 작업공수댓글

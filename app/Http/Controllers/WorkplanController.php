@@ -193,7 +193,6 @@ class WorkplanController extends Controller
             'start_product_date' => request('start_product_date'),
             'end_product_date' => request('end_product_date'),
             'memo' => request('memo'),
-            'ass' => 0,
             'con' => request('con'),
             'wr_user' => auth()->user()->name, //입력한 사용자
 
@@ -262,9 +261,9 @@ class WorkplanController extends Controller
     {
        $id = $workplan->id;
        // dd($id);
-       $workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
+       //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
 
-       $workSum = ($workSum[0]->total);
+       //$workSum = ($workSum[0]->total);
 
        //댓글공수를 sum한다.
        //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
@@ -276,7 +275,7 @@ class WorkplanController extends Controller
        //$worktasks = \App\Workplan::find($id)->worktasks()->get();
        //dd(count($worktasks->wt));
 
-       return view('workplan.edit', compact('workplan','workSum','worktasks','worktasksSum'));
+       return view('workplan.edit', compact('workplan','worktasks','worktasksSum'));
     }
 
 
@@ -351,12 +350,27 @@ class WorkplanController extends Controller
             'packing' => request('packing'),
             'ready' => request('ready'),
             'ect1' => request('ect1'),
-            'ect2' => $ect2,
+            'ect2' => $ect2
 
         ]);
 
         Alert::success('저장', '저장이 완료 되었습니다.');
         return redirect('workplan');
+    }
+
+
+
+    public function sheet_update(Request $request, Workplan $workplan)
+    {
+       //dd(request('s1-1'));
+
+        $workplan->update(
+
+            $request->all()
+
+        );
+
+        return back();
     }
 
     /**

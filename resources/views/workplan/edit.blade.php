@@ -13,13 +13,13 @@
 </div>  --}}
 
 
-  <div class="ui raised very padded text container segment">
+  <div class="ui four column doubling stackable grid container">
     <h2 class="ui header">초중물 및 결점률 체크시트 {{ $workplan->work_no}}</h2>
     @include('workplan._sheet')
   </div>
 
 
-{{--  @include('workplan._sheet')  --}}
+
 
 <h4 class="ui horizontal divider header">
     <i class="tag icon"></i>
@@ -150,4 +150,7 @@
     </div>
     {{-- 댓글작성하기 구현 --}}
     <br>
+
+
+
 @endsection
