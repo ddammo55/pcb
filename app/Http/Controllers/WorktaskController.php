@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Workplan;
 use App\Worktask;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WorktaskController extends Controller
 {
@@ -49,7 +50,7 @@ class WorktaskController extends Controller
 			'wt' => request('wt'),
 			'wr_user' => auth()->user()->name //입력한 사용자
 		]);
-
+        Alert::success(request('wt'). '분 '.'공수입력 완료',strtoupper(request('process')).'공수입력이 완료 되었습니다.');
 		return back();
     }
 

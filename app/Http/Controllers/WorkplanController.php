@@ -301,6 +301,7 @@ class WorkplanController extends Controller
         //dd($worktasks);
 
         return view('workplan.admin_edit', compact('workplan','project_lists','board_names'));
+
     }
 
     public function admin_update(Workplan $workplan)
@@ -369,7 +370,7 @@ class WorkplanController extends Controller
             $request->all()
 
         );
-
+        Alert::success('저장완료', '초중물 체크시트 작성이 완료되었습니다.');
         return back();
     }
 
