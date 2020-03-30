@@ -9,7 +9,7 @@
     <h2 class="ui left floated header">
         {{$workplan->project_name. ' ' .$workplan->title. ' '.$workplan->board_name. ' ' .$workplan->assy. ' ' .$workplan->ea.'EA'}}
         &nbsp;작업공수
-        <strong style="color:#059DF5">Total: {{  number_format($workSum) }}분 ({{ round($workSum/60, 1)}}시간) </strong>
+        {{-- <strong style="color:#059DF5">Total: {{  number_format($workSum) }}분 ({{ round($workSum/60, 1)}}시간) </strong> --}}
     </h2>
 
     <div class="ui clearing divider"></div>

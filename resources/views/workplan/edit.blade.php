@@ -13,10 +13,10 @@
 </div>  --}}
 
 
-  <div class="ui four column doubling stackable grid container">
+  {{-- <div class="ui six column doubling stackable grid container"> --}}
     <h2 class="ui header">초중물 및 결점률 체크시트 {{ $workplan->work_no}}</h2>
     @include('workplan._sheet')
-  </div>
+  {{-- </div> --}}
 
 
 

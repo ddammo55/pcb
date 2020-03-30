@@ -26,7 +26,7 @@
 
     <div class="eight wide column">
         {{-- smt --}}
-        <div class="ui segment">
+        <div class="ui segment" style="border-color:blue; border-width:2px;">
             <a class="ui blue ribbon label">SMT</a>
         <h5 style="color:black">1.SMT:초물(8~12시)/중물(12시~17시)/종물(17~21시)</h5>
 
@@ -87,7 +87,7 @@
 
     <div class="eight wide column">
         {{-- dip --}}
-        <div class="ui segment">
+        <div class="ui segment" style="border-color:orange; border-width:2px;">
             <a class="ui orange ribbon label">DIP</a>
         <h5 style="color:black">2.DIP:초물(8~12시)/중물(12시~17시)/종물(17~21시)</h5>
 
@@ -168,7 +168,7 @@
 
 
 
-<div class="ui segment">
+<div class="ui segment" style="border-color:teal; border-width:2px;">
     <a class="ui teal ribbon label">터치업 세척코팅</a>
 <h5 style="color:black">3.터치업 세척코팅:초물(8~12시)/중물(12시~17시)/종물(17~21시)</h5>
 

@@ -285,9 +285,9 @@ class WorkplanController extends Controller
         //dd($workplan);
         $id = $workplan->id;
 
-       $workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
+       //$workSum = DB::table('workplans')->select(DB::raw('*,(smt+dip+aoi+wave+touchup+item_inspection+coting+ass+packing+ready+ect1+ect2) as total'))->whereId($id)->get();
 
-       $workSum = ($workSum[0]->total);
+       //$workSum = ($workSum[0]->total);
 
         //프로젝트명 가져오기
         $project_lists = \App\Project::get();
@@ -300,7 +300,7 @@ class WorkplanController extends Controller
 
         //dd($worktasks);
 
-        return view('workplan.admin_edit', compact('workplan','workSum','project_lists','board_names'));
+        return view('workplan.admin_edit', compact('workplan','project_lists','board_names'));
     }
 
     public function admin_update(Workplan $workplan)
