@@ -138,11 +138,11 @@ class ProductController extends Controller
 
                 Product::create([
                     'serial_name' => $serial_name,
-                    'board_name' => request('board_name'),
+                    'board_name' => strtoupper(request('board_name')),
                     'product_date' => NOW(),
                     'aoi_top_part_num' => $choice[0]['top_num'],
                     'aoi_bot_part_num' => $choice[0]['bot_num'],
-                    'user_id' => auth()->user()->name, //입력한 사용자
+                    'user_id' => auth()->user()->name //입력한 사용자
                 ]);
             }
             return view('product.create_list', compact('serial_name_arr', 'board_name'));

@@ -186,7 +186,7 @@ class WorkplanController extends Controller
             'title' => request('title'),
             'project_name' => request('project_name'),
             'project_code' => request('project_code'),
-            'board_name' => request('board_name'),
+            'board_name' => strtoupper(request('board_name')),
             'assy' => request('assy'),
             'ea' => request('ea'),
             'set_set' => request('set_set'),
@@ -194,7 +194,7 @@ class WorkplanController extends Controller
             'end_product_date' => request('end_product_date'),
             'memo' => request('memo'),
             'con' => request('con'),
-            'wr_user' => auth()->user()->name, //입력한 사용자
+            'wr_user' => auth()->user()->name //입력한 사용자
 
         ]);
         Alert::success('작업 지시 완료', '작업 지시가 완료 되었습니다.');

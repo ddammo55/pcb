@@ -143,11 +143,23 @@ class SpcsController extends Controller
         return view('main.mainYearSelect', compact('join_arr1','join_arr2','yearSelect','year_count'));
     }
 
-
+    public $my_carbon;
 
     public function index()
     {
 
+        $this->my_carbon = \Carbon\Carbon::now();
+       // $global =
+
+        //dd($my_carbon.'<br>'.$NOW_Y = $my_carbon->format('Y').'<br>'.$NOW_M = $my_carbon->format('m'));
+        //현재 년
+        //매월 마지막 날짜
+        $myCarbonFinalDay = date("t", mktime(0, 0, 0,  $this->my_carbon->format('m'), 1, $this->my_carbon->format('Y')));
+
+       //dd($FINAL_DAY);
+
+
+        //dd($FINAL_DAY);
         // dd("index");
         //dd(\Config::get('my_carbon.NOW_S'));
         //(\Config::get('my_carbon.FINAL_DAY'));
@@ -159,8 +171,8 @@ class SpcsController extends Controller
         //$nowDate = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
 
         //현재 월의 마지막 날
-        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
-
+        //$myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
+        //dd($myCarbonFinalDay);
         //현재 년월일
         $hanNowDate = $val->format('Y년 m월 d일');
 
@@ -226,6 +238,7 @@ class SpcsController extends Controller
         FROM products WHERE product_date>= '$nowYear-01-01' and product_date<= '$nowYear-12-31'
         group by MONTH(product_date)) ta
         ");
+
 
         // 년별 통계적 관리 불러오기
         $spc_year = \DB::select("
@@ -302,7 +315,7 @@ class SpcsController extends Controller
         //     ");
 
 
-
+            //dd('dd');
            //dd($ff);
         //월별 공수 쿼리
         $month_worktasks = \DB::select("

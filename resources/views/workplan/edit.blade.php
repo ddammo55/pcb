@@ -128,10 +128,10 @@
                     <div class="item">[E]DIP공정+웨이브솔더링</div>
                     <div class="item">[F]터치업+세척+컷팅</div>
                     <div class="item">[G]단품검사</div>
-                    <div class="item">[H]코팅</div>
+                    <div class="item">[H]코팅+실리콘</div>
                     <div class="item">[I]ASSY조립</div>
                     <div class="item">[J]무작업1(포장,준비)</div>
-                    <div class="item">[K]무작업2(설변,불량)</div>
+                    <div class="item">[K]설계변경,불량</div>
                 </div>
             </div>
         </div>
