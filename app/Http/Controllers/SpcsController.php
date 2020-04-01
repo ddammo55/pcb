@@ -18,6 +18,7 @@ class SpcsController extends Controller
 
     # $val = '2015-10-11 11:22:33';
     # $dt = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
+    public $my_carbon;
 
     public function __construct()
     {
@@ -28,6 +29,12 @@ class SpcsController extends Controller
     //현재년도 -1 이전 년도
     public function yearSpc()
     {
+
+        $this->my_carbon = \Carbon\Carbon::now();
+
+         //매월 마지막 날짜
+         $myCarbonFinalDay = date("t", mktime(0, 0, 0,  $this->my_carbon->format('m'), 1, $this->my_carbon->format('Y')));
+
         //현재년월일
         $val = \Carbon\Carbon::now();
         //dd($val);
@@ -35,7 +42,7 @@ class SpcsController extends Controller
         //$nowDate = \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $val);
 
         //현재 월의 마지막 날
-        $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
+       // $myCarbonFinalDay = \Config::get('my_carbon.FINAL_DAY');
 
         //현재 년월일
         $hanNowDate = $val->format('Y년 m월 d일');
@@ -143,7 +150,7 @@ class SpcsController extends Controller
         return view('main.mainYearSelect', compact('join_arr1','join_arr2','yearSelect','year_count'));
     }
 
-    public $my_carbon;
+
 
     public function index()
     {

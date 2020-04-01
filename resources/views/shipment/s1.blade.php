@@ -3,7 +3,7 @@
 @section('content')
 
 <h1 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">출하 내역 관리 &nbsp;<i class="circular inverted small comment alternate outline icon" onclick="button_event()"></i></font></font>
-    양산({{ $products->count() }}) | 재고({{ $productsStockEa }}) | 불량({{ $productsStockFaultyEa }}) | 폐기({{$productsStockAbroEa}}) | 대여({{ $productsStockRentalEa }})
+    양산({{ $products->count()  }}) | 재고({{ $productsStockEa  }}) | 불량({{ $productsStockFaultyEa }}) | 폐기({{$productsStockAbroEa }}) | 대여({{ $productsStockRentalEa  }})
 
 </h1>
 
@@ -34,6 +34,8 @@
           <div class="ui action left icon input">
             <i class="search icon"></i>
             <input type="text" name="serial_name" placeholder="시리얼 번호">
+            <input type="hidden" value="{{ $products->count()  }}">
+            <input type="hidden" value="{{ $productsStockEa  }}">
             <div class="ui teal button" onclick="document.getElementById('frm2').submit();"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">검색</font></font>
             </div>
           </div>

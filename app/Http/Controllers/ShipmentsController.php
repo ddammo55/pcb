@@ -24,10 +24,32 @@ class ShipmentsController extends Controller
 
             if (request('serial_name')) {
                 $products = \App\Product::where('con', 0)->latest('updated_at')->get(); // 제품 시리얼번호 con=0인것만 가져오기
+
+                $productsStock = \App\Product::where('con', 0)->where('shipment_daily', "재고")->latest('updated_at')->get(); // 출하제품 재고인것만 가져오기
+                $productsStockFaulty = \App\Product::where('con', 0)->where('shipment_daily', "불량")->latest('updated_at')->get(); // 불량제품 재고인것만 가져오기
+                $productsStockAbro = \App\Product::where('con', 1)->where('shipment_daily', "폐기")->latest('updated_at')->get(); // 폐기제품 재고인것만 가져오기
+                $productsStockRental = \App\Product::where('con', 1)->where('shipment_daily', "대여")->latest('updated_at')->get(); // 대여제품 재고인것만 가져오기
+
+                $productsStockEa = count($productsStock);
+                $productsStockFaultyEa = count($productsStockFaulty);
+                $productsStockAbroEa = count($productsStockAbro);
+                $productsStockRentalEa = count($productsStockRental);
+
                 $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
                 $projects = \App\Project::all(); // 프로젝트 명
                 //$products = ["딸기","바나나","파인애플"];
-                return view('shipment.s1', compact('products', 'projects', 'products_alls'));
+                return view('shipment.s1', compact(
+
+
+                    'products',
+                    'projects',
+                    'products_alls',
+                    'productsStockEa',
+                    'productsStockFaultyEa',
+                    'productsStockAbroEa',
+                    'productsStockRentalEa'
+                ));
+
             } else {
 
 
