@@ -334,7 +334,7 @@ class SpcsController extends Controller
         foreach ($month_worktasks as $month_work) {
             array_push(
                 $result_array_works,
-                $month_work->wtsum,
+                $month_work->wtsum
 
 
             );
