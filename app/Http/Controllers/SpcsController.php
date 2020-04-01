@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Project;
 use App\Works;
+use App\Worktask;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -299,10 +300,19 @@ class SpcsController extends Controller
 
         //     FROM workplans where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay'
         //     ");
+
+
+
+           //dd($ff);
         //월별 공수 쿼리
         $month_worktasks = \DB::select("
         SELECT process, sum(wt) as wtsum from worktasks where created_at>='$nowYear-$nowMonth-01' and created_at<='$nowYear-$nowMonth-$myCarbonFinalDay' GROUP BY process
             ");
+
+
+        //$www = Worktask::where('created_at', '>=', '2020-03-01')->where('created_at', '<=', '2020-03-31')->get();
+        //dd($www);
+        //dd($month_worktasks);
         //dd($month_worktasks[0]->wtsum);
 
         // 생산수량 어레이-------------------

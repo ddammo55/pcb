@@ -121,17 +121,17 @@
                 <i class="dropdown icon"></i>
                 <div class="default text" style="color: black">공정명을 선택하세요</div>
                 <div class="menu">
-                    <div class="item">SMD프로그램</div>
-                    <div class="item">SMT설비교체</div>
-                    <div class="item">SMT설비운영</div>
-                    <div class="item">AOI검사공정</div>
-                    <div class="item">DIP공정+웨이브솔더링</div>
-                    <div class="item">터치업+세척+컷팅</div>
-                    <div class="item">단품검사</div>
-                    <div class="item">코팅</div>
-                    <div class="item">ASSY조립</div>
-                    <div class="item">무작업1(포장,준비)</div>
-                    <div class="item">무작업2(설변,불량)</div>
+                    <div class="item">[A]SMD프로그램</div>
+                    <div class="item">[B]SMT설비교체</div>
+                    <div class="item">[C]SMT설비운영</div>
+                    <div class="item">[D]AOI검사공정</div>
+                    <div class="item">[E]DIP공정+웨이브솔더링</div>
+                    <div class="item">[F]터치업+세척+컷팅</div>
+                    <div class="item">[G]단품검사</div>
+                    <div class="item">[H]코팅</div>
+                    <div class="item">[I]ASSY조립</div>
+                    <div class="item">[J]무작업1(포장,준비)</div>
+                    <div class="item">[K]무작업2(설변,불량)</div>
                 </div>
             </div>
         </div>

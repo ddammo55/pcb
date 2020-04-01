@@ -176,7 +176,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Arcanedev\LogViewer\LogViewerServiceProvider::class,    
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
     ],
 
     /*
