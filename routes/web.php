@@ -51,7 +51,9 @@ Route::PATCH('/member_modify/{user}','TeamMembersController@member_update');
 // })->middleware('verified');
 Route::get('/profile', 'ProfileController@index')->name('profile')->middleware('auth');
 Route::post('/profile/update', 'ProfileController@updateProfile')->name('profile.update')->middleware('auth');
-
+Route::patch('/profile/edit/{worktask}', 'ProfileController@edit')->middleware('auth');
+Route::patch('/profile/{worktask}', 'ProfileController@editTo')->middleware('auth');
+Route::DELETE('/profile/{worktask}', 'ProfileController@destroy')->middleware('auth');
 #|--------------------------------------------------------------------------
 #| 작업지시 게시판
 #|--------------------------------------------------------------------------

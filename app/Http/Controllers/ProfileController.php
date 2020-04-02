@@ -63,4 +63,33 @@ class ProfileController extends Controller
         return redirect()->back();
         //return redirect()->back()->with(['status' => 'Profile updated successfully.']);
     }
+
+    public function edit(Worktask $worktask)
+    {
+        return view('auth.worktask_edit',compact('worktask'));
+    }
+
+    public function editTo(Worktask $worktask, Request $request)
+    {
+        //dd($worktask);
+        $worktask->update(
+            [
+                'process' => strtoupper(request('process')),
+                'wt' => request('wt')
+            ]
+        );
+
+
+        Alert::success('수정 완료', '수정이 완료 되었습니다.');
+        return redirect('/profile');
+    }
+
+    public function destroy(Worktask $worktask)
+    {
+        //dd('삭제');
+        $worktask->delete();
+
+       return redirect('/profile');
+    }
+
 }

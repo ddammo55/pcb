@@ -57,11 +57,11 @@
 
 
 </tbody>
-<tfoot class="ui inverted teal table">
+<tfoot class="ui table">
     <tr>
     <th></th>
     <th>Total</th>
-    <th>{{  number_format($sum) }}분 </th>
+    <th><b style="color:red">{{  number_format($sum) }}분 </b></th>
     <th>({{ round($sum/60, 1)}}시간)</th>
     <th></th>
   </tr></tfoot>

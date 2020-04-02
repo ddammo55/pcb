@@ -144,8 +144,10 @@
             <th>보드명</th>
             <th>assy</th>
             <th>수량</th>
+            <th>공정명</th>
             <th>작성일</th>
             <th>공수</th>
+            <th>버튼</th>
         </tr></thead>
         <tbody>
             <?php $i=1?>
@@ -159,12 +161,27 @@
         <td data-label="Age">{{$work->workplan->board_name}}</td>
         <td data-label="Age">{{$work->workplan->assy}}</td>
         <td data-label="Age">{{$work->workplan->ea}}</td>
+        <td data-label="Age">{{$work->process}}</td>
         <td data-label="Age">{{$work->created_at->format('m-d')}}</td>
-        <td data-label="Job">{{ $work->wt }}</td>
+        <td data-label="Job">{{$work->wt }}</td>
+        <td data-label="Job">
+
+            <form method="post">
+                @csrf
+                @method('PATCH')
+            <button class="ui orange button" type="submit" value="완료" formaction="/profile/edit/{{$work->id}}">
+                수정
+            </button>
+            </form>
+
+
+        </td>
       </tr>
       <?php $i++ ?>
     @endforeach
     </tbody>
   </table>
+
+
 
 @endsection

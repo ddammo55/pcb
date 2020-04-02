@@ -20,6 +20,13 @@
     </thead>
 </table>
 
+<div class="ui teal message">
+    <div class="header">
+      전달사항
+    </div>
+    <p>{{ $workplan->memo }}</p>
+</div>
+
 
 
 <div class="ui grid">
