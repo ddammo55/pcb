@@ -184,8 +184,8 @@ class WorkplanController extends Controller
         Workplan::create([
             'work_no' => $completeWorkNo,
             'title' => request('title'),
-            'project_name' => request('project_name'),
-            'project_code' => request('project_code'),
+            'project_name' => strtoupper(request('project_name')),
+            'project_code' => strtoupper(request('project_code')),
             'board_name' => strtoupper(request('board_name')),
             'assy' => request('assy'),
             'ea' => request('ea'),
