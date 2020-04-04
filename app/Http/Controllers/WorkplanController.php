@@ -309,9 +309,9 @@ class WorkplanController extends Controller
         //dd(request()->all());
         $workplan->update([
             'title' => request('title'),
-            'project_name' => request('project_name'),
-            'board_name' => request('board_name'),
-            'assy' => request('assy'),
+            'project_name' => strtoupper(request('project_name')),
+            'board_name' => strtoupper(request('board_name')),
+            'assy' => strtoupper(request('assy')),
             'ea' => request('ea'),
             'set_set' => request('set_set'),
             'start_product_date' => request('start_product_date'),
