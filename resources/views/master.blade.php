@@ -228,7 +228,7 @@ a:active {
     <b><i class="map marker alternate icon"></i>VR파노라마</b>
 </a>
 
-<a href="/vtour" alt="PCB팀 VR파노라마">
+<a href="/vtour" alt="PCB팀 VR파노라마" target="_blank">
     <img style="margin:20px 20px 20px 20px;" class="ui small rounded image" src="/images/vtour.jpg">
 </a>
 
