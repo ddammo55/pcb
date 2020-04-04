@@ -187,7 +187,7 @@ class WorkplanController extends Controller
             'project_name' => strtoupper(request('project_name')),
             'project_code' => strtoupper(request('project_code')),
             'board_name' => strtoupper(request('board_name')),
-            'assy' => request('assy'),
+            'assy' => strtoupper(request('assy')),
             'ea' => request('ea'),
             'set_set' => request('set_set'),
             'start_product_date' => request('start_product_date'),
