@@ -42,7 +42,7 @@ Route::get('/member', 'TeamMembersController@show')->middleware('lv3');
 //Route::get('/member_modify/{user}edit', 'TeamMembersController@member_modify')->middleware('lv3');
 Route::POST('/member_modify/{user}/edit','TeamMembersController@member_modify');
 Route::PATCH('/member_modify/{user}','TeamMembersController@member_update');
-
+Route::get('/usertask','TeamMembersController@usertask');
 #|--------------------------------------------------------------------------
 #| 프로파일
 #|--------------------------------------------------------------------------

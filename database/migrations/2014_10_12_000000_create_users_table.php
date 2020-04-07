@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();  #이메일
             $table->timestamp('email_verified_at')->nullable(); # 이메일인증
             $table->string('password');             # 패스워드
-            $table->integer('level')->default(1);  # 레벨
+            $table->integer('level')->default(2);  # 레벨
             $table->string('profile_image')->nullable(); //프로필 이미지 필드
             $table->integer('Employee_number')->nullable();  # 사원번호
             $table->string('position')->nullable();  # 직책

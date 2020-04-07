@@ -3,6 +3,7 @@
 /public/storage
 /public/photos
 /public/jquery.jqplot.1.0.8r1250
+/public/vtour/*
 /storage/*.key
 /vendor
 .env

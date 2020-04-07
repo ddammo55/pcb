@@ -124,6 +124,11 @@ a:active {
   <b>통계 보기</b>
 </a> -->
 
+<a class="item" href="/usertask">
+    <b><i class="user icon"></i>업무분장</b>
+</a>
+
+
 <a class="item" href="#">
   <b><i class="database icon"></i>추적 성 관리</b>
 </a>

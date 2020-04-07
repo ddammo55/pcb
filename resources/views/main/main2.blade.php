@@ -9,6 +9,8 @@
 <h1>통계적 공정 관리(SPC)</h1>
 
 
+
+
 <!-- 상단1 -->
 <div class="ui relaxed grid">
   <div class="three column row">
@@ -63,6 +65,13 @@
 </div>
 
 <!-- 상단1 -->
+
+<h4 class="ui horizontal divider header">
+    <i class="archive icon"></i>
+    생산수량
+</h4>
+
+
 
 <!-- 상단2 -->
 <div class="ui relaxed grid">
@@ -161,6 +170,12 @@
 <div class="ui message">
   <canvas id="worksChart" height="250"></canvas>
 </div>
+
+
+<h4 class="ui horizontal divider header">
+    <i class="bars icon"></i>
+    PPM 정보
+</h4>
 
 
 <div class="ui message" >
