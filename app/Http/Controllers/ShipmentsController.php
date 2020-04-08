@@ -36,7 +36,7 @@ class ShipmentsController extends Controller
                 $productsStockRentalEa = count($productsStockRental);
 
                 $products_alls = \App\Product::where('serial_name', request('serial_name'))->where('con', 1)->paginate(1); //여기서는 shipment순으로 가져온다.
-                $projects = \App\Project::all(); // 프로젝트 명
+                $projects = \App\Project::orderBy('project_name','ASC')->get(); // 프로젝트 명
                 //$products = ["딸기","바나나","파인애플"];
                 return view('shipment.s1', compact(
 
@@ -66,7 +66,7 @@ class ShipmentsController extends Controller
 
 
                 $products_alls = \App\Product::where('con', 1)->latest('updated_at')->paginate(50); //여기서는 shipment순으로 가져온다.
-                $projects = \App\Project::all(); // 프로젝트 명
+                $projects = \App\Project::orderBy('project_name','ASC')->get(); // 프로젝트 명
                 //$products = ["딸기","바나나","파인애플"];
 
                 if(request('serial_name_arr')){

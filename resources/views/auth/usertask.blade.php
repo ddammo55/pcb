@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <h4 class="ui horizontal divider header">
     <i class="address book icon"></i>
     PCB팀 업무분장
@@ -150,7 +152,7 @@
 </div>
 
 </div>
-<br>
+
 {{-- 가로줄 --}}
 <div class="ui divider"></div>
 

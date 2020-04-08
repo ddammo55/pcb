@@ -82,11 +82,10 @@ class WorkplanController extends Controller
     public function create()
     {
         //프로젝트명 가져오기
-        $project_lists = \App\Project::get();
+        $project_lists = \App\Project::orderBy('project_name','ASC')->get();
 
         //보드명 가져오기
-        $board_names = \App\Boardname::all();
-
+        $board_names = \App\Boardname::orderBy('boardname', 'ASC')->get();
 
         return view('workplan.create', compact('project_lists', 'board_names'));
     }
@@ -290,10 +289,11 @@ class WorkplanController extends Controller
        //$workSum = ($workSum[0]->total);
 
         //프로젝트명 가져오기
-        $project_lists = \App\Project::get();
+        $project_lists = \App\Project::orderBy('project_name','ASC')->get();
+
 
         //보드명 가져오기
-        $board_names = \App\Boardname::all();
+        $board_names = \App\Boardname::orderBy('boardname', 'ASC')->get();
 
         //공수값합계
         //$worktasks = \App\Workplan::find($id)->worktasks()->get();

@@ -195,7 +195,7 @@ class ProductController extends Controller
         #|--------------------------------------------------------------------------
         #| 보드명
         #|--------------------------------------------------------------------------
-        $pcbLists = \App\Boardname::all();
+        $pcbLists = \App\Boardname::orderBy('boardname','ASC')->get();
 
         //dd($board);
 

@@ -556,7 +556,7 @@ class SpcsController extends Controller
         $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
 
         //보드명 가져오기
-        $board_names = \App\Boardname::all();
+        $board_names = \App\Boardname::orderBy('boardname','ASC')->get();
 
         //조건으로 pba 가져오기
         // $products = \App\Product::latest()->paginate(30);
@@ -622,7 +622,7 @@ class SpcsController extends Controller
         $end_date = request('end_date', $NOW_Y . '-' . $NOW_M . '-' . $myCarbonFinalDay);
 
         //프로젝트 가져오기
-        $projects = \App\Project::all();
+        $projects = \App\Project::orderBy('project_name','ASC')->get();
 
 
         if ($shipment_name_choice == null) {
