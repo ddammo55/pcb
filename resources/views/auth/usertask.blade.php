@@ -7,6 +7,8 @@
     PCB팀 업무분장
 </h4>
 
+<div class="ui segment">
+
 <div class="ui six doubling cards">
 
     <div class="card">
@@ -147,9 +149,14 @@
 
 </div>
 
+</div>
 <br>
 {{-- 가로줄 --}}
 <div class="ui divider"></div>
+
+
+
+<div class="ui segment">
 
 <div class="ui six doubling cards">
 
@@ -243,7 +250,7 @@
 
     <div class="card">
         <div class="image">
-            <img src="{{ $user11 or '' }}" alt="">
+            <img src="{{ $user11 }}" alt="">
         </div>
         <div class="content">
             <div class="header">김진성(사원)</div>
@@ -286,7 +293,7 @@
     </div>
 
 </div>
-
+</div>
 <br>
 <br>
 
