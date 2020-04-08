@@ -9,9 +9,9 @@
     PCB팀 업무분장
 </h4>
 
-<div class="ui segment">
 
-<div class="ui six doubling cards">
+
+<div class="ui seven doubling cards">
 
     <div class="card">
         <div class="image">
@@ -151,16 +151,16 @@
 
 </div>
 
-</div>
+
 
 {{-- 가로줄 --}}
 <div class="ui divider"></div>
 
 
 
-<div class="ui segment">
 
-<div class="ui six doubling cards">
+
+<div class="ui seven doubling cards">
 
     <div class="card">
         <div class="image">
@@ -295,7 +295,7 @@
     </div>
 
 </div>
-</div>
+
 <br>
 <br>
 
