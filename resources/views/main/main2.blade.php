@@ -226,24 +226,24 @@
       @endforeach
 
       @foreach($spc_year as $spc_y)
-      <tr style="border-width: 2px;" class="positive">
+      <tr style="border-width: 2px;" class="ui inverted teal table">
         <td class="ui center aligned">합계</td>
-        <td class="ui right aligned">{{ number_format($spc_y->production) }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ number_format($spc_y->aoi_part_num) }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ number_format($spc_y->df) }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ sprintf('%0.2f',$spc_y->ppm) }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d1 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d2 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d3 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d4 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d5 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d6 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d7 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d8 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d9 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d10 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d11 }}&nbsp;&nbsp;&nbsp;</td>
-        <td class="ui right aligned">{{ $spc_y->d12 }}&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ number_format($spc_y->production) }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ number_format($spc_y->aoi_part_num) }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ number_format($spc_y->df) }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ sprintf('%0.2f',$spc_y->ppm) }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d1 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d2 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d3 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d4 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d5 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d6 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d7 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d8 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d9 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d10 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d11 }}</b>&nbsp;&nbsp;&nbsp;</td>
+        <td class="ui right aligned"><b>{{ $spc_y->d12 }}</b>&nbsp;&nbsp;&nbsp;</td>
 
       </tr>
 
