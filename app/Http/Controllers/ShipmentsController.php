@@ -146,7 +146,7 @@ class ShipmentsController extends Controller
                     'shipment_daily' => request('project'),
                     'note' => request('note'),
                     'receiver' => request('receiver'),
-                    'shipment' => NOW(),
+                    'shipment' => request('shipment_date'),
                     'set_set' => request('set_set'),
                     'type' => request('type'),
                     'ship_user' => auth()->user()->name, //인계자
@@ -169,7 +169,7 @@ class ShipmentsController extends Controller
                     'shipment_daily' => request('project'),
                     'note' => request('note'),
                     'receiver' => request('receiver'),
-                    'shipment' => NOW(),
+                    'shipment' => request('shipment_date'),
                     'set_set' => request('set_set'),
                     'type' => request('type'),
                     'ship_user' => auth()->user()->name, //인계자

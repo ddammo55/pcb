@@ -226,7 +226,7 @@
       @endforeach
 
       @foreach($spc_year as $spc_y)
-      <tr style="border-width: 2px;">
+      <tr style="border-width: 2px;" class="positive">
         <td class="ui center aligned">합계</td>
         <td class="ui right aligned">{{ number_format($spc_y->production) }}&nbsp;&nbsp;&nbsp;</td>
         <td class="ui right aligned">{{ number_format($spc_y->aoi_part_num) }}&nbsp;&nbsp;&nbsp;</td>
