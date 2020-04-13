@@ -15,12 +15,12 @@
 
                 <div class="field">
                     <input class="input {{ $errors->has('top_num') ? 'is-danger' : '' }}" type="number" name="top_num"
-                        value="{{ old('top_num') }}" placeholder="TOP 부품수량" required>
+                        value="{{ old('top_num') }}" placeholder="TOP 부품수량">
                 </div>
 
                 <div class="field">
                     <input class="input {{ $errors->has('bot_num') ? 'is-danger' : '' }}" type="number" name="bot_num"
-                        value="{{ old('bot_num') }}" placeholder="BOT 부품수량" required>
+                        value="{{ old('bot_num') }}" placeholder="BOT 부품수량">
                 </div>
 
                 <div class="field">
@@ -31,7 +31,7 @@
                 <div class="field">
                     <div class="ui selection dropdown">
                         <input class="input {{ $errors->has('method') ? 'is-danger' : '' }}" type="hidden" name="method"
-                            value="{{ old('method') }}" placeholder="방법" required>
+                            value="{{ old('method') }}" placeholder="방법">
                         <i class="dropdown icon"></i>
                         <div class="default text" style="color: black">작업방법</div>
                         <div class="menu">
@@ -48,7 +48,7 @@
                 <div class="field">
                     <div class="ui selection dropdown">
                         <input class="input {{ $errors->has('top_method') ? 'is-danger' : '' }}" type="hidden"
-                            name="top_method" value="{{ old('top_method') }}" placeholder="방법" required>
+                            name="top_method" value="{{ old('top_method') }}" placeholder="방법">
                         <i class="dropdown icon"></i>
                         <div class="default text" style="color: black">TOP소재</div>
                         <div class="menu">
@@ -61,7 +61,7 @@
                 <div class="field">
                     <div class="ui selection dropdown">
                         <input class="input {{ $errors->has('bot_method') ? 'is-danger' : '' }}" type="hidden"
-                            name="bot_method" value="{{ old('bot_method') }}" placeholder="방법" required>
+                            name="bot_method" value="{{ old('bot_method') }}" placeholder="방법">
                         <i class="dropdown icon"></i>
                         <div class="default text" style="color: black">BOT소재</div>
                         <div class="menu">
@@ -73,12 +73,12 @@
 
                 <div class="field">
                     <input class="input {{ $errors->has('metal_mask_no') ? 'is-danger' : '' }}" type="number"
-                        name="metal_mask_no" value="{{ old('metal_mask_no') }}" placeholder="메탈마스크 넘버" required>
+                        name="metal_mask_no" value="{{ old('metal_mask_no') }}" placeholder="메탈마스크 넘버">
                 </div>
 
                 <div class="field">
                     <input class="input {{ $errors->has('dwg_no') ? 'is-danger' : '' }}" type="text" name="dwg_no"
-                        value="{{ old('dwg_no') }}" placeholder="도면번호" required>
+                        value="{{ old('dwg_no') }}" placeholder="도면번호">
                 </div>
 
                 <div class="field">

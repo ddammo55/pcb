@@ -27,7 +27,7 @@ class WorkplanController extends Controller
             ->selectRaw('workplans.*, sum(worktasks.wt) as wtsum')
             ->groupBy('workplans.id')
             ->latest()
-            ->paginate(10);
+            ->paginate(15);
         }else{
         //$pbas = \App\Pba::where('board_name', 'like' , '%'.$board_name.'%')->paginate(50);
 
@@ -43,7 +43,7 @@ class WorkplanController extends Controller
             ->selectRaw('workplans.*, sum(worktasks.wt) as wtsum')
             ->groupBy('workplans.id')
             ->latest()
-            ->paginate(10);
+            ->paginate(15);
 
             //dd($works);
         //dd($articles->first()->work_no);

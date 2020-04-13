@@ -15,17 +15,17 @@
 
                 <div class="field">
                     <input class="input {{ $errors->has('project_code') ? 'is-danger' : '' }}" type="text"
-                        name="project_code" value="{{ old('project_code') }}" placeholder="프로젝트 코드" required>
+                        name="project_code" value="{{ old('project_code') }}" placeholder="프로젝트 코드">
                 </div>
 
                 <div class="field">
                     <input class="input {{ $errors->has('car') ? 'is-danger' : '' }}" type="number" name="car"
-                        value="{{ old('car') }}" placeholder="량" required>
+                        value="{{ old('car') }}" placeholder="량">
                 </div>
 
                 <div class="field">
                     <input class="input {{ $errors->has('kinds') ? 'is-danger' : '' }}" type="text" name="kinds"
-                        value="{{ old('kinds') }}" placeholder="종류" required>
+                        value="{{ old('kinds') }}" placeholder="종류">
                 </div>
 
                 <div class="field">

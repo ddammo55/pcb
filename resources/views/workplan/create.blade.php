@@ -77,7 +77,7 @@
 
             <div class="field">
                 <label>ASSY명</label>
-                <input class="input {{ $errors->has('ass') ? 'is-danger' : '' }}" type="text" name="assys"
+                <input class="input {{ $errors->has('ass') ? 'is-danger' : '' }}" type="text" name="assy"
                     value="{{ old('assy') }}" placeholder="ASSY명">
             </div>
 
