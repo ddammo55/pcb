@@ -149,6 +149,7 @@ class ShipmentsController extends Controller
                     'shipment' => request('shipment_date'),
                     'set_set' => request('set_set'),
                     'type' => request('type'),
+                    'receiver_team' => request('receiver_team'),
                     'ship_user' => auth()->user()->name, //인계자
                     'mod_user' => auth()->user()->name, //수정한 유저
                     'mark_ip' => $_SERVER['REMOTE_ADDR'],
@@ -172,6 +173,7 @@ class ShipmentsController extends Controller
                     'shipment' => request('shipment_date'),
                     'set_set' => request('set_set'),
                     'type' => request('type'),
+                    'receiver_team' => request('receiver_team'),
                     'ship_user' => auth()->user()->name, //인계자
                     'mod_user' => auth()->user()->name, //수정한 유저
                     'mark_ip' => $_SERVER['REMOTE_ADDR'],
